@@ -1,0 +1,717 @@
+<meta charset="utf-8">
+<title>Spindle Mount Section</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: drawing-sheet viewer with option tabs — 3D canvas as the sheet, title block beside it */
+:root{
+  --bg:#eef1f3; --sheet:#f8fafb; --ink:#1d2329; --muted:#5d6872; --rule:#cfd6dc;
+  --accent:#b8673a; --scene:#e7ecef; --pass:#2f7a4a; --fail:#b23a2e; --warn:#a46a12;
+  --f-display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a1f; --sheet:#1b2228; --ink:#e3e8ec; --muted:#93a0ab; --rule:#2e3842; --accent:#d9875a; --scene:#182027;
+  --pass:#6cc58f; --fail:#f07a6c; --warn:#e2ad55; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141a1f; --sheet:#1b2228; --ink:#e3e8ec; --muted:#93a0ab; --rule:#2e3842; --accent:#d9875a; --scene:#182027;
+  --pass:#6cc58f; --fail:#f07a6c; --warn:#e2ad55; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px}
+.wrap{max-width:1320px;margin:0 auto;padding-block:20px 32px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:grid;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+h1{font-family:var(--f-display);font-weight:700;font-size:28px;letter-spacing:.01em;margin:0;text-wrap:balance}
+.dwg{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+nav.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--rule)}
+nav.tabs a{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.03em;color:var(--muted);text-decoration:none;
+  padding:9px 14px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px}
+nav.tabs a[aria-current="page"]{color:var(--ink);background:var(--sheet);border-color:var(--rule)}
+nav.tabs a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+nav.tabs .tag{font-family:var(--f-mono);font-size:11px;font-weight:500;margin-left:6px}
+.tag.pass{color:var(--pass)} .tag.fail{color:var(--fail)} .tag.ref{color:var(--muted)}
+.summary{margin:0;max-width:75ch;color:var(--muted);line-height:1.45}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px}
+@media (max-width:900px){.main{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;background:var(--scene);border:1px solid var(--rule);min-height:420px;height:min(70vh,700px)}
+#c{display:block;width:100%;height:100%}
+.tools{position:absolute;left:10px;top:10px;right:10px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.tools>*{pointer-events:auto}
+button{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+  background:var(--sheet);color:var(--ink);border:1px solid var(--rule);padding:6px 10px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sliders{position:absolute;left:10px;right:10px;bottom:10px;display:grid;gap:6px}
+.slider2{display:flex;align-items:center;gap:10px;background:var(--sheet);border:1px solid var(--rule);padding:6px 10px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.slider2 label{width:72px}
+.slider2 span{width:96px;text-align:right}
+.slider2 input{flex:1;min-width:0;accent-color:var(--accent)}
+.hint{position:absolute;right:12px;bottom:92px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.loading[hidden]{display:none}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;color:var(--muted);pointer-events:none}
+aside{display:grid;gap:16px;align-content:start;min-width:0}
+.block{background:var(--sheet);border:1px solid var(--rule)}
+.block h2{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  margin:0;padding:8px 12px;border-bottom:1px solid var(--rule);color:var(--muted)}
+.parts{list-style:none;margin:0;padding:4px 0;max-height:360px;overflow:auto}
+.parts li.grp{display:block;padding:8px 12px 2px;font-family:var(--f-display);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.parts li{display:grid;grid-template-columns:auto 14px 1fr auto;align-items:center;gap:8px;padding:4px 12px}
+.parts label{cursor:pointer;min-width:0}
+.sw{width:14px;height:14px;border:1px solid var(--rule)}
+.kg{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:6px 12px;border-top:1px solid var(--rule);text-align:left;vertical-align:top}
+tr:first-child td{border-top:0}
+.kv td:last-child{text-align:right;font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.v-pass{color:var(--pass)} .v-fail{color:var(--fail)} .v-warn{color:var(--warn)}
+#compare{display:none}
+.cmp-wrap{overflow-x:auto;background:var(--sheet);border:1px solid var(--rule)}
+.cmp{min-width:1250px}
+.cmp th{font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.03em;border-top:0;border-bottom:2px solid var(--ink)}
+.cmp td:not(:first-child){font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.cmp td:first-child{color:var(--muted)}
+.cmp tr.sec td{font-family:var(--f-display);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:14px}
+.note{font-size:13px;color:var(--muted);max-width:90ch;line-height:1.45;margin:10px 0 0}
+[hidden]{display:none !important}
+.vb{display:contents}
+.vb[hidden]{display:none}
+.count{font-family:var(--f-mono);font-size:12px;color:var(--muted);background:var(--sheet);border:1px solid var(--rule);padding:6px 8px;font-variant-numeric:tabular-nums}
+#stepRange{flex:1;min-width:120px;accent-color:var(--accent)}
+.steptext{padding:10px 12px 12px}
+.steptext h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0 0 6px;text-wrap:balance}
+.steptext p{margin:0;line-height:1.5;font-size:14px}
+ol.steps{list-style:none;margin:0;padding:4px 0;max-height:420px;overflow:auto}
+ol.steps li.ph{font-family:var(--f-display);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 12px 2px}
+.stepbtn{display:flex;gap:8px;width:100%;text-align:left;text-transform:none;letter-spacing:0;font-family:var(--f-body);font-weight:400;font-size:13px;
+  border:0;background:transparent;padding:4px 12px;color:var(--ink)}
+.stepbtn .n{font-family:var(--f-mono);font-size:11px;color:var(--muted);width:20px;flex:none;padding-top:2px}
+.stepbtn[aria-current="step"]{background:var(--ink);color:var(--sheet)}
+.stepbtn[aria-current="step"] .n{color:var(--sheet)}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Cutterhead spindle mount options</h1>
+    <span class="dwg">UATXcavators · DN600 · mm · Oct 26, 2026 · rev H</span>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="Design options">
+    <a href="#revh" data-page="revh">Rev H<span class="tag pass">detailed + drive</span></a>
+    <a href="#assembly" data-page="assembly">Rev H assembly<span class="tag pass">52 steps</span></a>
+    <a href="#revg" data-page="revg">Rev G<span class="tag ref">all behind plate</span></a>
+    <a href="#revf" data-page="revf">Rev F<span class="tag pass">pyramid head</span></a>
+    <a href="#spherical" data-page="spherical">Spherical, dry<span class="tag pass">flat head</span></a>
+    <a href="#reve" data-page="reve">Rev E<span class="tag ref">in chamber</span></a>
+    <a href="#revd" data-page="revd">Rev D<span class="tag ref">two rings</span></a>
+    <a href="#revc" data-page="revc">Rev C<span class="tag ref">22318 rear</span></a>
+    <a href="#revb" data-page="revb">Rev B<span class="tag ref">two bearings</span></a>
+    <a href="#compare" data-page="compare">Compare</a>
+  </nav>
+  <p class="summary" id="summary"></p>
+
+  <div class="main" id="viewer">
+    <div class="stage">
+      <canvas id="c" aria-label="3D model of the selected spindle mount option"></canvas>
+      <div class="loading" id="loading">loading model</div>
+      <div class="tools">
+        <button id="secBtn" aria-pressed="true">Section</button>
+        <span id="viewBtns" class="vb">
+        <button data-view="iso">Iso</button>
+        <button data-view="side">Side</button>
+        <button data-view="front">Front</button>
+        <button data-view="rear">Rear</button>
+        </span>
+        <span id="asmbar" class="vb" hidden>
+          <button id="restartBtn" title="Back to the start">⏮</button>
+          <button id="prevBtn" title="Previous step">◀</button>
+          <button id="playBtn" aria-pressed="false">Play</button>
+          <button id="nextBtn" title="Next step">▶</button>
+          <span id="stepCount" class="count">Step 0 / 52</span>
+          <input id="stepRange" type="range" min="0" max="52" step="1" value="0" aria-label="Assembly step">
+        </span>
+      </div>
+      <div class="hint">drag to orbit · scroll to zoom · right-drag to pan</div>
+      <div class="sliders">
+        <div class="slider2" id="sliderRow">
+          <label for="cut">Cut plane</label>
+          <input id="cut" type="range" min="-320" max="320" step="1" value="0">
+          <span id="cutVal">z = 0</span>
+        </div>
+        <div class="slider2" id="exRow">
+          <label for="ex">Explode</label>
+          <input id="ex" type="range" min="0" max="1" step="0.01" value="0">
+          <span id="exVal">assembled</span>
+        </div>
+      </div>
+    </div>
+    <aside>
+      <div class="block" id="keysBlock"><h2>Key numbers</h2><table class="kv" id="keytbl"></table></div>
+      <div class="block" id="partsBlock"><h2>Parts</h2><ul class="parts" id="parts"></ul></div>
+      <div class="block" id="stepBlock" hidden><h2 id="stepPhase">Assembly sequence</h2>
+        <div class="steptext"><h3 id="stepTitle"></h3><p id="stepText"></p></div></div>
+      <div class="block" id="stepListBlock" hidden><h2>Sequence</h2><ol class="steps" id="stepList"></ol></div>
+    </aside>
+  </div>
+
+  <section id="compare" aria-label="Comparison">
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead><tr><th></th><th>Rev H</th><th>Rev G</th><th>Rev F</th><th>Spherical, dry</th><th>Rev E</th><th>Rev D</th><th>Rev C</th><th>Rev B</th></tr></thead>
+        <tbody id="cmpBody"></tbody>
+      </table>
+    </div>
+    <p class="note">Rev B–D are earlier revisions kept for comparison; their models use the HMB100 envelope (Ø502) where the newer options use the Ø400 drive envelope. Static safety s₀ = C₀ / P₀, target ≥ 2. Ratings: 23228 C₀ 1,250 kN, 29328 C₀ 2,850 kN (SKF catalogue values; Koyo to confirm). Jam = 590 kN + 62 kNm; envelope = 800 kN + 62 kNm; both + 26.8 kN chamber pressure. Rev F, spherical-dry and rev E carry the same 64 kNm through ring 1 and its weld. Rev F head mass is from the visual model; Daniel's flat head is 38.3 kg with bits. A dash means not checked for that revision.</p>
+  </section>
+</div>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const PAGES = {
+  revh: {
+    data: "H",
+    summary: "Rev H, detailed: bearings with rollers and cages, seals, nuts and fasteners, welds, the seal-purge line, anti-roll fins and the hydraulic drive. The motor bolts to a bell-housing adapter, the adapter bolts to the cartridge rear face, and a jaw coupling inside the adapter joins the spindle to the motor shaft.",
+    keys: [
+      ["Bearings", "23228 + 29328N + 23228, L = 400"],
+      ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
+      ["23228 s₀, jam", "6.20", "pass"],
+      ["Head to shaft", "B-LOC B400 140 × 190: 28.2 / 20 kNm = 1.41", "warn"],
+      ["Ring 1 web / pipe holes, 800 kN + weight †", "FoS 1.51 / 3.64"],
+      ["Hung off ring 1: module + head + drive", "758 kg"],
+      ["Weight moment at the seat / design moment", "3.3 / 64.3 kNm (FoS 19.7)", "pass"],
+      ["Same at 3 g (transport, handling)", "9.8 kNm (FoS 6.6)", "pass"],
+      ["M12 tension from weight / preload", "2.2 / 49 kN per bolt", "pass"],
+      ["Sag of the drive end from weight", "0.008 mm"],
+      ["Anti-roll fins", "4 × 20 × 70 × 990 at 1, 3, 9, 11 o'clock"],
+      ["Fin roll resistance, cu 50 kPa (Nc 6)", "21.7 kNm, FoS 2.17 on 10 kNm", "pass"],
+      ["Same in soft clay, cu 25 kPa", "10.9 kNm, FoS 1.09 (+ 2–6 skin)", "warn"],
+      ["Fin envelope / jacking drag", "Ø750 / +11.6 kN (1.9 %)"],
+      ["Motor", "Poclain MS18, 2,812 cc, 44.7 Nm/bar"],
+      ["Adapter to cartridge / motor to adapter, 20 kNm", "slip FoS 2.30 / 2.86 dry"],
+      ["Overall, bit tip to motor rear", "1,451: 111 over 1,340", "warn"],
+      ["Masses: shell + fins / module / head / drive", "446 / 330 / 143 / 281 kg"],
+    ],
+  },
+  assembly: {
+    data: "H",
+    mode: "asm",
+    summary: "Rev H assembly in the shop orientation: the shell is welded standing on its rear end, the bearing module is built on the bench and lowered in from the front, the head goes on from the front, and the drive goes on from the rear with the machine turned over. Grey grid = shop floor. The section cut stays on so the bearings are visible.",
+    keys: [],
+  },
+  revg: {
+    data: "G",
+    summary: "Rev G: everything that can be is behind the bulkhead. The cartridge flange sits flush in a counterbore in ring 1, the seals are in a carrier inside the cartridge bore, and the cutterhead's hub ring is splined straight onto the shaft 8 mm off the plate. The only thing ahead of ring 1 is the rotating cutterhead.",
+    keys: [
+      ["Stationary parts ahead of ring 1", "none (flush)", "pass"],
+      ["Bearings", "23228 + 29328N + 23228, L = 400"],
+      ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
+      ["23228 s₀, jam", "6.20", "pass"],
+      ["Ring 1", "110 thk, Ø400 × 40 counterbore"],
+      ["Ring 1 web / pipe holes, 800 kN †", "1.45 / 4.01 (was reported 1.73)", "warn"],
+      ["Seals", "carrier in cartridge bore, 3 lips + labyrinth"],
+      ["Head to shaft", "Ø130 spline, no adapter"],
+      ["Head moment into shaft", "40 mm hub, not checked in rev G", "fail"],
+      ["29328N shaft abutment", "Ø165 collar, SKF da min 185", "warn"],
+      ["Side-load factor at front bearing", "1.85 (1 + 340 / 400)"],
+      ["Chamber depth (arms to plate)", "133, swept by struts", "warn"],
+      ["Overall length, bit tip to drive", "1,319 of 1,340"],
+      ["Masses: shell / bearings / head", "397 / 317 / 140 kg"],
+    ],
+  },
+  revf: {
+    data: "F",
+    summary: "Rev F: spherical dry cartridge (L = 280) carrying Daniel's Ø630, 8-arm layout with 24 trapezoid carbide drag bits. The face is held by a pyramid frame: 8 struts and a centre tube converge rearward to a hub ring bolted to the spline adapter with 16 × M20.",
+    keys: [
+      ["Bearings", "23228 + 29328N + 23228, L = 280"],
+      ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
+      ["23228 s₀, jam", "4.34", "pass"],
+      ["Cutterhead", "Ø630, 8 arms, 24 trapezoid bits"],
+      ["Tracks", "21 × 12.7 + 3 on gauge (R 308.65)"],
+      ["Frame", "8 struts 60 × 60 + centre tube"],
+      ["Strut FoS, 800 kN + 62 kNm", "2.31", "pass"],
+      ["Hub ring / arm node FoS", "4.37 / 6.64", "pass"],
+      ["Head mass (frame, bits, bolts)", "135 kg"],
+      ["Overall length, bit tip to drive", "1,321 of 1,340"],
+      ["Ring 1 face from shield front", "345"],
+      ["Side-load factor at front bearing", "2.65 (1 + 462 / 280)", "warn"],
+    ],
+  },
+  spherical: {
+    data: "S",
+    summary: "Koyo 23228 + 29328N + 23228 (donated). The flange is at the front of the cartridge and bears on ring 1's front face; the bearing housing sits behind ring 1. Only the 40 mm flange and the seal cover face the slurry chamber.",
+    keys: [
+      ["Bearings", "23228 + 29328N + 23228"],
+      ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
+      ["23228 s₀ at L = 400", "6.20", "pass"],
+      ["Ahead of ring 1 face", "flange 40 + cover"],
+      ["Ring 1 face from shield front", "215"],
+      ["Cartridge length / mass", "560 / 137 kg"],
+      ["Thrust-path weld", "flange–tube CJP, FoS 2.69", "warn"],
+      ["End play set by", "cover shims"],
+      ["Drive rear face", "x = 1038"],
+      ["Ring 1 bending FoS", "1.62"],
+    ],
+  },
+  reve: {
+    data: "E",
+    summary: "Rev E for reference: same bearings as the spherical option, but the flange is in the middle of the cartridge, so the front half of the housing projects into the slurry chamber.",
+    keys: [
+      ["Bearings", "23228 + 29328N + 23228"],
+      ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
+      ["Ahead of ring 1 face", "sleeve 218 + cover", "warn"],
+      ["Ring 1 face from shield front", "393"],
+      ["Cartridge length / mass", "560 / 139 kg"],
+      ["Thrust-path weld", "none", "pass"],
+      ["End play set by", "cover shims"],
+      ["Drive rear face", "x = 1038"],
+    ],
+  },
+  revd: {
+    data: "D",
+    summary: "Rev D (Oct 25): front pair in a short cartridge bolted to ring 1, rear 23228 in a separate rear plate on a second welded ring; the rear plate bore also pilots the drive. Superseded by rev E to remove the second ring and the centring step.",
+    keys: [
+      ["Bearings", "23228 + 29328N + 23228"],
+      ["Rear bearing housing", "rear plate on ring 2"],
+      ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
+      ["Ahead of ring 1 face", "sleeve + disc 218 + cover", "warn"],
+      ["Welded rings", "2"],
+      ["Field alignment", "mandrel, rear plate to ring 1", "warn"],
+      ["Ring 1", "60 thk, FoS 1.63"],
+      ["Drive rear face", "x = 1038"],
+    ],
+  },
+  revc: {
+    data: "C",
+    summary: "Rev C (Oct 23): three bearings with the owned 22318 E at the rear, a bolted bulkhead plate on narrow ring 1 with a gasket in the thrust path, and the motor on a dowelled plate on ring 2. Superseded for the stepped shaft, gasket joint, single lip seal and service access.",
+    keys: [
+      ["Bearings", "23228 + 29328N + 22318 E"],
+      ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
+      ["Housing", "behind bulkhead (dry)", "pass"],
+      ["Thrust joint", "fibre gasket", "warn"],
+      ["Bulkhead plate bending", "FoS 1.86, holes ignored", "warn"],
+      ["Ring 1 weld (12 mm)", "FoS 1.80"],
+      ["Shaft", "Ø140 / Ø105 / Ø90 / Ø80", "warn"],
+      ["Pipes vs HMB100", "614 cm³ overlap", "fail"],
+      ["Drive rear face", "x = 1063"],
+    ],
+  },
+  revb: {
+    data: "B",
+    summary: "Rev B (Oct 22): two bearings, the 29328N carrying radial as well as thrust with disc-spring preload; 50 mm bulkhead and motor plate both welded solid into the shell. Superseded because the inner faces of the two welded plates cannot be reached for welding.",
+    keys: [
+      ["Bearings", "23228 + 29328N, disc springs"],
+      ["29328N s₀, jam / 800 kN", "2.67 / 2.18", "pass"],
+      ["Housing", "behind bulkhead (dry)", "pass"],
+      ["Bulkhead / motor plate", "welded solid, 50 / 25 thk"],
+      ["Weld access", "inner faces unreachable", "fail"],
+      ["Pipes vs HMB100", "319 cm³ overlap", "fail"],
+      ["Cartridge length", "469"],
+      ["Drive rear face", "x = 1103"],
+    ],
+  },
+};
+
+const CMP = [
+  ["sec", "Bearings"],
+  ["Bearings", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 22318 E", "23228 + 29328N"],
+  ["Spacing L", "400", "400", "280", "400", "400", "400", "300", "350"],
+  ["Thrust bearing s₀, jam", ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["2.67", "pass"]],
+  ["Thrust bearing s₀, 800 kN", ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["2.18", "pass"]],
+  ["Radial bearing s₀, jam", ["6.20", "pass"], ["6.20", "pass"], ["4.34", "pass"], ["6.20", "pass"], ["6.20", "pass"], ["6.20", "pass"], "—", ["7.06", "pass"]],
+  ["Preload / end play", "carrier shims", "carrier shims", "cover shims", "cover shims", "cover shims", "cover shims", "cover shims", ["disc springs", "warn"]],
+  ["Shaft", "Ø140 + collar, plain ends", "Ø140 + collar, splined ends", "Ø140 + collar", "Ø140 + collar", "Ø140 + collar", "Ø140 + collar", ["5 diameters", "warn"], "Ø140 + collar"],
+  ["sec", "Cutterhead"],
+  ["Head", "spider plate + 8 gussets", "pyramid frame, splined hub", "pyramid frame, adapter", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)"],
+  ["Side-load factor at front bearing", "1.85", "1.85", ["2.65", "warn"], "—", "—", "—", "—", "—"],
+  ["Chamber depth, head to plate", ["133, swept by gussets", "warn"], ["133", "warn"], "≈ 350", "≈ 460", "≈ 460", "≈ 460", "—", "—"],
+  ["sec", "Shell structure"],
+  ["Welded parts in shell", "ring 1 (110)", "ring 1 (110)", "ring 1", "ring 1", "ring 1", "ring 1 + ring 2", "ring 1 + ring 2", ["bulkhead + motor plate", "fail"]],
+  ["Stationary parts ahead of bulkhead face", ["none", "pass"], ["none", "pass"], ["40 + cover", "pass"], ["40 + cover", "pass"], ["218 + cover", "warn"], ["218 + cover", "warn"], ["30 + cover", "pass"], ["30 + cover", "pass"]],
+  ["Thrust joint", "tube land on split-flange lip", "metal + O-ring", "metal + O-ring", "metal + O-ring", "metal + O-ring", "metal + O-ring", ["fibre gasket", "warn"], "metal"],
+  ["Weld in thrust path", ["head gusset fillets 1.76", "pass"], ["flange CJP 2.69, struts 2.31", "warn"], ["flange CJP 2.69, struts 2.31", "warn"], ["CJP, FoS 2.69", "warn"], ["none", "pass"], ["none", "pass"], "ring weld only", "bulkhead weld"],
+  ["Field alignment step", ["none", "pass"], ["none", "pass"], ["none", "pass"], ["none", "pass"], ["none", "pass"], ["mandrel", "warn"], ["dial indicator", "warn"], ["dial indicator", "warn"]],
+  ["Bearing service from the front", ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes", "pass"], ["no", "fail"], ["no", "fail"]],
+  ["Bulkhead / ring 1 bending FoS", "1.51 † (with weight)", ["1.45 †", "warn"], "1.62", "1.62", "1.62", "1.63", "1.86*", "—"],
+  ["Anti-roll fins", ["4 × 20 × 70 × 990, FoS 2.17", "pass"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"]],
+  ["sec", "Manufacture"],
+  ["Splines", ["none", "pass"], ["3 (head hub, shaft ×2)", "warn"], ["2 + adapter", "warn"], "—", "—", "—", "—", "—"],
+  ["Cartridge build", ["seamless tube + split flange, no weld", "pass"], ["plate flange + tube, CJP, machine after weld", "warn"], "flange + tube, CJP", "—", "—", "—", "—", "—"],
+  ["Head build", ["waterjet spider, tab-and-slot gussets", "pass"], ["arms + 8 compound-angle struts", "warn"], ["arms + 8 compound-angle struts", "warn"], "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)"],
+  ["Drilled passages through ring 1", ["0", "pass"], "1 (seal purge)", "—", "—", "—", "—", "—", "—"],
+  ["sec", "Size"],
+  ["Cartridge length", "615", "615", "440", "560", "560", "233", "396", "469"],
+  ["Bulkhead face from shield front", "128", "128", "345", "215", "393", "393", "205", "290"],
+  ["Drive rear face", ["x = 1225 (MS18)", "warn"], "x = 1093", "x = 918", "x = 1038", "x = 1038", "x = 1038", "x = 1063", "x = 1103"],
+  ["Overall, head front to drive rear", ["1,451 (MS18 + adapter)", "warn"], "1,319", "1,321", "≈ 1,278", "≈ 1,278", "≈ 1,278", "≈ 1,303", "≈ 1,343"],
+  ["Drive model", "MS18 + adapter + jaw coupling", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "HMB100 Ø502", "HMB100 Ø502"],
+  ["Pipes vs drive", ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["614 cm³ overlap", "fail"], ["319 cm³ overlap", "fail"]],
+];
+
+// ---------- renderer ----------
+const canvas = document.getElementById("c");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.localClippingEnabled = true;
+const scene = new THREE.Scene();
+// tight near/far keeps depth precision high; this plus the back-face offset below removes the flicker
+const camera = new THREE.PerspectiveCamera(30, 1, 100, 14000);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+const center = new THREE.Vector3(300, 0, 0);
+controls.target.copy(center);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8899aa, 1.6));
+const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(-600, 900, 1200); scene.add(key);
+const fill = new THREE.DirectionalLight(0xffffff, 0.6); fill.position.set(900, -300, -800); scene.add(fill);
+const grid = new THREE.GridHelper(7000, 70, 0x8a96a0, 0xb9c3cb); grid.visible = false; scene.add(grid);
+
+const plane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);
+let sectionOn = true;
+const clips = () => (sectionOn ? [plane] : []);
+let root = new THREE.Group(); scene.add(root);
+let mats = [], groups = [], partInfo = [], modelData = null;
+const cache = {};
+let mode = "model";   // "model" | "asm"
+let camTween = null;
+
+async function loadData(tag) {
+  if (cache[tag]) return cache[tag];
+  const r = await fetch(`data/${tag}.json`);
+  if (!r.ok) throw new Error(`data/${tag}.json: ${r.status}`);
+  return (cache[tag] = await r.json());
+}
+
+async function buildModel(tag) {
+  let data;
+  try { data = await loadData(tag); }
+  catch (e) { document.getElementById("loading").textContent = "model failed to load"; return; }
+  if (current !== tag) return;
+  scene.remove(root);
+  root.traverse(o => { if (o.geometry) o.geometry.dispose(); });
+  mats.forEach(m => m.dispose());
+  root = new THREE.Group(); scene.add(root); mats = []; groups = []; partInfo = [];
+  modelData = data;
+  const list = document.getElementById("parts");
+  list.innerHTML = "";
+  let total = 0, lastGrp = null;
+  data.parts.forEach((p, i) => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(p.pos, 3));
+    g.setIndex(p.idx);
+    g.computeVertexNormals();
+    g.computeBoundingBox();
+    const col = new THREE.Color(p.color);
+    const front = new THREE.MeshStandardMaterial({ color: col, metalness: 0.25, roughness: 0.55, side: THREE.FrontSide, clippingPlanes: clips() });
+    // back faces draw the cut surface; pushing them back in depth stops them fighting with touching parts
+    const back = new THREE.MeshBasicMaterial({ color: col.clone().multiplyScalar(0.62), side: THREE.BackSide, clippingPlanes: clips(),
+      polygonOffset: true, polygonOffsetFactor: 2, polygonOffsetUnits: 8 });
+    if (p.name.startsWith("Shield")) {
+      [front, back].forEach(m => { m.transparent = true; m.depthWrite = false; });
+      front.opacity = 0.28; back.opacity = 0.2;
+    }
+    mats.push(front, back);
+    const grp = new THREE.Group();
+    grp.add(new THREE.Mesh(g, front), new THREE.Mesh(g, back));
+    grp.userData.dx = p.dx;
+    const on = p.group !== "Fixture";
+    grp.visible = on;
+    grp.userData.userOn = on;
+    root.add(grp); groups.push(grp);
+    partInfo.push({ key: p.key, grp, box: g.boundingBox, fixture: !on });
+    if (on) total += p.kg;
+    if (p.group !== lastGrp) { const h = document.createElement("li"); h.className = "grp"; h.textContent = p.group; list.appendChild(h); lastGrp = p.group; }
+    const li = document.createElement("li");
+    const id = `p${tag}${i}`;
+    li.innerHTML = `<input type="checkbox" id="${id}" ${on ? "checked" : ""}><span class="sw" style="background:${p.color}"></span><label for="${id}">${p.name}</label><span class="kg">${p.kg.toFixed(1)} kg</span>`;
+    li.querySelector("input").addEventListener("change", e => { grp.userData.userOn = e.target.checked; if (mode === "model") grp.visible = e.target.checked; });
+    list.appendChild(li);
+  });
+  const t = document.createElement("li");
+  t.innerHTML = `<span></span><span></span><label>Total (fixtures excluded)</label><span class="kg">${total.toFixed(0)} kg</span>`;
+  list.appendChild(t);
+  document.getElementById("loading").hidden = true;
+  applyMode();
+}
+
+function setKeys(keys) {
+  document.getElementById("keytbl").innerHTML = keys.map(([k, v, s]) =>
+    `<tr><td>${k}</td><td class="${s ? "v-" + s : ""}">${v}</td></tr>`).join("");
+}
+
+function renderCompare() {
+  document.getElementById("cmpBody").innerHTML = CMP.map(row => {
+    if (row[0] === "sec") return `<tr class="sec"><td colspan="9">${row[1]}</td></tr>`;
+    const cells = row.slice(1).map(c => Array.isArray(c) ? `<td class="${c[1] ? "v-" + c[1] : ""}">${c[0]}</td>` : `<td>${c}</td>`).join("");
+    return `<tr><td>${row[0]}</td>${cells}</tr>`;
+  }).join("");
+}
+renderCompare();
+
+const ex = document.getElementById("ex");
+function applyExplode() {
+  if (mode !== "model") return;
+  const k = +ex.value;
+  groups.forEach(g => { g.position.set(g.userData.dx * k, 0, 0); g.quaternion.identity(); });
+  document.getElementById("exVal").textContent = k === 0 ? "assembled" : `${Math.round(k * 100)} %`;
+}
+ex.addEventListener("input", applyExplode);
+
+function setSection(on) {
+  sectionOn = on;
+  mats.forEach(m => { m.clippingPlanes = clips(); m.needsUpdate = true; });
+  document.getElementById("secBtn").setAttribute("aria-pressed", on);
+  document.getElementById("sliderRow").hidden = !on;
+}
+document.getElementById("secBtn").addEventListener("click", () => setSection(!sectionOn));
+const cut = document.getElementById("cut");
+cut.addEventListener("input", () => { plane.constant = +cut.value; document.getElementById("cutVal").textContent = `z = ${cut.value}`; });
+
+const views = { iso: [-1200, 850, 2000], side: [0, 0, 2900], front: [-2600, 0, 0.01], rear: [2600, 0, 0.01] };
+function setView(k) {
+  camTween = null;
+  if (mode === "asm") { frameAsm(asm.cur, true, true); return; }
+  const v = views[k];
+  camera.position.set(center.x + v[0], center.y + v[1], center.z + v[2]);
+  controls.target.copy(center); controls.update();
+}
+document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+setView("iso");
+
+// ---------- assembly sequence ----------
+const asm = { states: null, cur: 0, playing: false, anim: null, hold: 0 };
+const Z = new THREE.Vector3(0, 0, 1);
+const ease = u => (u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2);
+const clone = o => JSON.parse(JSON.stringify(o));
+
+function asmPrepare() {
+  const A = modelData.asm;
+  const gp = {}; Object.entries(A.groups).forEach(([g, v]) => { gp[g] = v.init; });
+  const vis = {}; modelData.parts.forEach(p => { vis[p.key] = false; });
+  const states = [{ gp: clone(gp), vis: { ...vis } }];
+  A.steps.forEach(s => {
+    Object.entries(s.moves).forEach(([g, w]) => { gp[g] = w[w.length - 1]; });
+    s.add.forEach(([keys]) => keys.forEach(k => { vis[k] = true; }));
+    s.remove.forEach(([k]) => { vis[k] = false; });
+    states.push({ gp: clone(gp), vis: { ...vis } });
+  });
+  asm.states = states;
+  const ol = document.getElementById("stepList");
+  let phase = null, html = "";
+  A.steps.forEach((s, i) => {
+    if (s.phase !== phase) { html += `<li class="ph">${s.phase}</li>`; phase = s.phase; }
+    html += `<li><button class="stepbtn" data-k="${i + 1}"><span class="n">${i + 1}</span>${s.title}</button></li>`;
+  });
+  ol.innerHTML = html;
+  ol.querySelectorAll(".stepbtn").forEach(b => b.addEventListener("click", () => { asm.playing = false; updPlay(); playStep(+b.dataset.k); }));
+  document.getElementById("stepRange").max = A.steps.length;
+}
+
+function poseMatrix(p, pivot) {
+  return { q: new THREE.Quaternion().setFromAxisAngle(Z, THREE.MathUtils.degToRad(p.th)), t: new THREE.Vector3(...p.t) };
+}
+function lerpPose(a, b, u, pivot) {
+  const c = new THREE.Vector3(pivot, 0, 0);
+  const pa = c.clone().applyAxisAngle(Z, THREE.MathUtils.degToRad(a.th)).add(new THREE.Vector3(...a.t));
+  const pb = c.clone().applyAxisAngle(Z, THREE.MathUtils.degToRad(b.th)).add(new THREE.Vector3(...b.t));
+  const th = a.th + (b.th - a.th) * u;
+  const p = pa.lerp(pb, u);
+  const t = p.sub(c.clone().applyAxisAngle(Z, THREE.MathUtils.degToRad(th)));
+  return { th, t: [t.x, t.y, t.z] };
+}
+function setPart(pi, pose, off) {
+  const m = poseMatrix(pose);
+  pi.grp.quaternion.copy(m.q);
+  pi.grp.position.copy(m.t);
+  if (off) pi.grp.position.add(off);
+}
+function applyState(k) {
+  const st = asm.states[k], A = modelData.asm;
+  partInfo.forEach(pi => {
+    pi.grp.visible = !!st.vis[pi.key];
+    setPart(pi, st.gp[A.partGroup[pi.key]]);
+  });
+}
+function caption(k) {
+  const A = modelData.asm, N = A.steps.length;
+  document.getElementById("stepCount").textContent = `Step ${k} / ${N}`;
+  document.getElementById("stepRange").value = k;
+  const s = k > 0 ? A.steps[k - 1] : null;
+  document.getElementById("stepPhase").textContent = s ? s.phase : "Assembly sequence";
+  document.getElementById("stepTitle").textContent = s ? `${k}. ${s.title}` : "Rev H, built in the shop orientation";
+  document.getElementById("stepText").textContent = s ? s.text
+    : `${N} steps in 6 phases: shell weldment, cutterhead weldment, bearing module on the bench, module into the shell, cutterhead, drive. Press play or pick a step.`;
+  document.querySelectorAll("#stepList .stepbtn").forEach(b => b.setAttribute("aria-current", +b.dataset.k === k ? "step" : "false"));
+  const cur = document.querySelector(`#stepList .stepbtn[data-k="${k}"]`);
+  if (cur) cur.scrollIntoView({ block: "nearest" });
+}
+function boxOf(keys, k, extraPoses) {
+  const A = modelData.asm, st = asm.states[k], box = new THREE.Box3();
+  const add = (pi, pose) => {
+    const m = poseMatrix(pose), mat = new THREE.Matrix4().compose(m.t, m.q, new THREE.Vector3(1, 1, 1));
+    box.union(pi.box.clone().applyMatrix4(mat));
+  };
+  partInfo.forEach(pi => {
+    if (!st.vis[pi.key]) return;
+    const g = A.partGroup[pi.key];
+    if (keys.includes(pi.key) || keys.includes(g)) add(pi, st.gp[g]);
+    if (extraPoses && extraPoses[g]) extraPoses[g].forEach(p => add(pi, p));
+  });
+  return box;
+}
+function frameAsm(k, instant, endOnly) {
+  const A = modelData.asm;
+  let box;
+  if (k === 0) box = new THREE.Box3(new THREE.Vector3(-2300, 0, -400), new THREE.Vector3(2400, 1400, 400));
+  else {
+    const s = A.steps[k - 1];
+    box = boxOf(s.focus, k, endOnly ? null : s.moves);
+    if (!endOnly) Object.keys(s.moves).forEach(g => { box.union(boxOf([g], k - 1)); });
+    s.add.forEach(([keys]) => { box.union(boxOf(keys, k)); });
+    if (box.isEmpty()) box = boxOf(["shell"], k);
+  }
+  const c = box.getCenter(new THREE.Vector3()), r = Math.max(box.getSize(new THREE.Vector3()).length() / 2, 450);
+  const dist = r / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.3;
+  const dir = new THREE.Vector3(-0.55, 0.42, 1).normalize();
+  const to = { pos: c.clone().add(dir.multiplyScalar(dist)), tgt: c };
+  if (instant) { camera.position.copy(to.pos); controls.target.copy(to.tgt); controls.update(); camTween = null; return; }
+  camTween = { t0: performance.now(), dur: 900, from: { pos: camera.position.clone(), tgt: controls.target.clone() }, to };
+}
+function playStep(k) {
+  const A = modelData.asm;
+  if (k < 1 || k > A.steps.length) return;
+  applyState(k - 1);
+  asm.cur = k;
+  caption(k);
+  frameAsm(k, false);
+  asm.anim = { k, t0: performance.now(), dur: A.steps[k - 1].dur * 1000 };
+}
+function jumpTo(k) {
+  asm.anim = null;
+  asm.cur = k;
+  applyState(k);
+  caption(k);
+  frameAsm(k, false, true);
+}
+function tickAsm(now) {
+  if (camTween) {
+    const u = Math.min(1, Math.max(0, (now - camTween.t0) / camTween.dur)), e = ease(u);
+    camera.position.lerpVectors(camTween.from.pos, camTween.to.pos, e);
+    controls.target.lerpVectors(camTween.from.tgt, camTween.to.tgt, e);
+    if (u >= 1) camTween = null;
+  }
+  if (mode !== "asm" || !asm.states) return;
+  if (asm.anim) {
+    const { k, t0, dur } = asm.anim, A = modelData.asm, s = A.steps[k - 1];
+    const u = Math.min(1, Math.max(0, (now - t0) / dur));
+    const s0 = asm.states[k - 1], s1 = asm.states[k];
+    const gpose = {};
+    Object.entries(s0.gp).forEach(([g, p0]) => {
+      const w = s.moves[g];
+      if (!w) { gpose[g] = p0; return; }
+      const pts = [p0, ...w], m = pts.length - 1, x = u * m, seg = Math.min(Math.floor(x), m - 1);
+      gpose[g] = lerpPose(pts[seg], pts[seg + 1], ease(x - seg), A.groups[g].pivot);
+    });
+    const addOff = {}, remOff = {};
+    s.add.forEach(([keys, w]) => keys.forEach(kk => { addOff[kk] = new THREE.Vector3(...w).multiplyScalar(1 - ease(u)); }));
+    s.remove.forEach(([kk, w]) => { remOff[kk] = new THREE.Vector3(...w).multiplyScalar(ease(u)); });
+    partInfo.forEach(pi => {
+      const vis = s1.vis[pi.key] || (pi.key in remOff && u < 1);
+      pi.grp.visible = !!vis;
+      setPart(pi, gpose[A.partGroup[pi.key]], addOff[pi.key] || remOff[pi.key]);
+    });
+    if (u >= 1) { asm.anim = null; applyState(k); asm.hold = now; if (Object.keys(s.moves).length) frameAsm(k, false, true); }
+  } else if (asm.playing) {
+    if (now - asm.hold > 1300 && !camTween) {
+      if (asm.cur < modelData.asm.steps.length) playStep(asm.cur + 1);
+      else { asm.playing = false; updPlay(); }
+    }
+  }
+}
+function updPlay() {
+  const b = document.getElementById("playBtn");
+  b.textContent = asm.playing ? "Pause" : "Play";
+  b.setAttribute("aria-pressed", asm.playing);
+}
+document.getElementById("playBtn").addEventListener("click", () => {
+  asm.playing = !asm.playing; updPlay();
+  if (asm.playing && !asm.anim) {
+    if (asm.cur >= modelData.asm.steps.length) jumpTo(0);
+    playStep(asm.cur + 1);
+  }
+});
+document.getElementById("prevBtn").addEventListener("click", () => { asm.playing = false; updPlay(); jumpTo(Math.max(0, asm.cur - 1)); });
+document.getElementById("nextBtn").addEventListener("click", () => { asm.playing = false; updPlay(); playStep(Math.min(modelData.asm.steps.length, asm.cur + 1)); });
+document.getElementById("restartBtn").addEventListener("click", () => { asm.playing = false; updPlay(); jumpTo(0); });
+document.getElementById("stepRange").addEventListener("input", e => { asm.playing = false; updPlay(); jumpTo(+e.target.value); });
+
+function applyMode() {
+  if (!modelData) return;
+  const isAsm = mode === "asm" && !!modelData.asm;
+  document.getElementById("asmbar").hidden = !isAsm;
+  document.getElementById("exRow").hidden = isAsm;
+  document.getElementById("viewBtns").hidden = isAsm;
+  document.getElementById("keysBlock").hidden = isAsm;
+  document.getElementById("partsBlock").hidden = isAsm;
+  document.getElementById("stepBlock").hidden = !isAsm;
+  document.getElementById("stepListBlock").hidden = !isAsm;
+  grid.visible = isAsm;
+  if (isAsm) {
+    if (!asm.states) asmPrepare();
+    asm.playing = false; updPlay();
+    jumpTo(asm.cur);
+    frameAsm(asm.cur, true, true);
+  } else {
+    asm.anim = null; asm.playing = false;
+    groups.forEach(g => { g.visible = g.userData.userOn; });
+    applyExplode();
+    setView("iso");
+  }
+}
+
+function themeBg() {
+  const c = getComputedStyle(document.documentElement).getPropertyValue("--scene").trim() || "#e7ecef";
+  scene.background = new THREE.Color(c);
+}
+themeBg();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeBg);
+new MutationObserver(themeBg).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+function resize() {
+  const r = canvas.parentElement.getBoundingClientRect();
+  if (!r.width || !r.height) return;
+  renderer.setSize(r.width, r.height, false);
+  camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(canvas.parentElement);
+
+let current = null;
+function show(page) {
+  if (!PAGES[page] && page !== "compare") page = "revh";
+  document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.page === page ? "page" : "false"));
+  const isCmp = page === "compare";
+  document.getElementById("viewer").style.display = isCmp ? "none" : "";
+  document.getElementById("compare").style.display = isCmp ? "block" : "none";
+  document.getElementById("summary").textContent = isCmp
+    ? "Rev H, rev G, rev F, spherical-dry and rev E share the bearings; rev B–D are earlier revisions. * rev C bending value ignores the pipe holes. † rev H and rev G ring 1 values use the stepped-plate model with the load at the seat contact centroid; rev G was previously reported as 1.73 with the load at R200."
+    : PAGES[page].summary;
+  if (!isCmp) {
+    setKeys(PAGES[page].keys);
+    const newMode = PAGES[page].mode || "model";
+    const same = current === PAGES[page].data;
+    mode = newMode;
+    if (!same) { const l = document.getElementById("loading"); l.textContent = "loading model"; l.hidden = false; current = PAGES[page].data; asm.states = null; asm.cur = 0; buildModel(current); }
+    else applyMode();
+    requestAnimationFrame(resize);
+  }
+}
+document.querySelectorAll("#tabs a").forEach(a => a.addEventListener("click", e => {
+  e.preventDefault();
+  try { history.replaceState(null, "", "#" + a.dataset.page); } catch (_) {}
+  show(a.dataset.page);
+}));
+window.addEventListener("hashchange", () => show(location.hash.slice(1)));
+show(location.hash.slice(1) || "revh");
+resize();
+(function loop(now) { tickAsm(now || performance.now()); controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
+</script>

@@ -1,0 +1,219 @@
+<title>Spindle Mount Section</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: drawing-sheet viewer — 3D canvas as the sheet, parts list as the title block beside it */
+:root{
+  --bg:#eef1f3; --sheet:#f8fafb; --ink:#1d2329; --muted:#5d6872; --rule:#cfd6dc;
+  --accent:#b8673a; --scene:#e7ecef;
+  --f-display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a1f; --sheet:#1b2228; --ink:#e3e8ec; --muted:#93a0ab; --rule:#2e3842; --accent:#d9875a; --scene:#182027; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141a1f; --sheet:#1b2228; --ink:#e3e8ec; --muted:#93a0ab; --rule:#2e3842; --accent:#d9875a; --scene:#182027; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px}
+.wrap{max-width:1320px;margin:0 auto;padding-block:20px 32px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:grid;gap:16px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+h1{font-family:var(--f-display);font-weight:700;font-size:28px;letter-spacing:.01em;margin:0;text-wrap:balance}
+.dwg{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px}
+@media (max-width:900px){.main{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;background:var(--scene);border:1px solid var(--rule);min-height:420px;height:min(72vh,720px)}
+#c{display:block;width:100%;height:100%}
+.tools{position:absolute;left:10px;top:10px;right:10px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.tools>*{pointer-events:auto}
+button,.seg{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+  background:var(--sheet);color:var(--ink);border:1px solid var(--rule);padding:6px 10px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sliders{position:absolute;left:10px;right:10px;bottom:10px;display:grid;gap:6px}
+.slider2{display:flex;align-items:center;gap:10px;background:var(--sheet);border:1px solid var(--rule);padding:6px 10px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.slider2 label{width:72px}
+.slider2 span{width:96px;text-align:right}
+.slider2 input{flex:1;min-width:0;accent-color:var(--accent)}
+.hint{position:absolute;right:12px;bottom:92px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+aside{display:grid;gap:16px;align-content:start;min-width:0}
+.block{background:var(--sheet);border:1px solid var(--rule)}
+.block h2{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  margin:0;padding:8px 12px;border-bottom:1px solid var(--rule);color:var(--muted)}
+.parts{list-style:none;margin:0;padding:4px 0}
+.parts li.grp{display:block;padding:8px 12px 2px;font-family:var(--f-display);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.parts li{display:grid;grid-template-columns:auto 14px 1fr auto;align-items:center;gap:8px;padding:5px 12px}
+.parts label{cursor:pointer;min-width:0}
+.sw{width:14px;height:14px;border:1px solid var(--rule)}
+.kg{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:5px 12px;border-top:1px solid var(--rule)}
+tr:first-child td{border-top:0}
+td:last-child{text-align:right;font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tot td{font-weight:500}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Cutterhead spindle mount, rev D</h1>
+    <span class="dwg">UATXcavators · DN600 · 23228 + 29328N + 23228 · cartridge bolts to ring 1 · mm</span>
+  </header>
+  <div class="main">
+    <div class="stage">
+      <canvas id="c" aria-label="3D model of the spindle bearing cartridge and bulkhead"></canvas>
+      <div class="tools">
+        <button id="secBtn" aria-pressed="true">Section</button>
+        <button data-view="iso">Iso</button>
+        <button data-view="side">Side</button>
+        <button data-view="front">Front</button>
+        <button data-view="rear">Rear</button>
+      </div>
+      <div class="hint">drag to orbit · scroll to zoom · right-drag to pan</div>
+      <div class="sliders">
+        <div class="slider2" id="sliderRow">
+          <label for="cut">Cut plane</label>
+          <input id="cut" type="range" min="-320" max="320" step="1" value="0">
+          <span id="cutVal">z = 0</span>
+        </div>
+        <div class="slider2">
+          <label for="ex">Explode</label>
+          <input id="ex" type="range" min="0" max="1" step="0.01" value="0">
+          <span id="exVal">assembled</span>
+        </div>
+      </div>
+    </div>
+    <aside>
+      <div class="block">
+        <h2>Parts</h2>
+        <ul class="parts" id="parts"></ul>
+      </div>
+      <div class="block">
+        <h2>Key dimensions</h2>
+        <table>
+          <tr><td>Front pair</td><td>23228 + 29328N</td></tr>
+          <tr><td>Rear radial</td><td>23228 in rear plate</td></tr>
+          <tr><td>Bearing spacing L</td><td>400</td></tr>
+          <tr><td>Shaft</td><td>Ø140, one collar, Ø130 splines</td></tr>
+          <tr><td>Cartridge</td><td>Ø310 sleeve + Ø400 × 40 disc</td></tr>
+          <tr><td>Cartridge to ring 1</td><td>12 × M16, O-ring</td></tr>
+          <tr><td>Ring 1</td><td>60 thk · Ø260 ID · A572-50</td></tr>
+          <tr><td>Ring 1 weld</td><td>1 × 12 fillet, front</td></tr>
+          <tr><td>Ring 2</td><td>40 thk · Ø380 ID</td></tr>
+          <tr><td>Ring 2 weld</td><td>1 × 10 fillet, rear</td></tr>
+          <tr><td>Rear plate</td><td>40 thk + hub, one Ø250 bore</td></tr>
+          <tr><td>Rear plate to ring 2</td><td>12 × M20 + 2 dowels</td></tr>
+          <tr><td>Slurry pipes</td><td>R245 at 12 and 6</td></tr>
+          <tr><td>Drive envelope</td><td>Ø400 max · rear x = 1038</td></tr>
+        </table>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>window.DATA = __MESH__;</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const canvas = document.getElementById("c");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.localClippingEnabled = true;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(30, 1, 5, 40000);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+const center = new THREE.Vector3(430, 0, 0);
+controls.target.copy(center);
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8899aa, 1.6));
+const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(-600, 900, 1200); scene.add(key);
+const fill = new THREE.DirectionalLight(0xffffff, 0.6); fill.position.set(900, -300, -800); scene.add(fill);
+
+const plane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);
+let sectionOn = true;
+const clips = () => (sectionOn ? [plane] : []);
+
+const root = new THREE.Group();
+// model axis is +X rearward; show the head on the left
+scene.add(root);
+const mats = [];
+const list = document.getElementById("parts");
+const MESH = DATA.parts;
+const groups = [];
+let total = 0, lastGrp = null;
+MESH.forEach((p, i) => {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(p.pos, 3));
+  g.setIndex(p.idx);
+  g.computeVertexNormals();
+  const col = new THREE.Color(p.color);
+  const front = new THREE.MeshStandardMaterial({ color: col, metalness: 0.25, roughness: 0.55, side: THREE.FrontSide, clippingPlanes: clips() });
+  const back = new THREE.MeshBasicMaterial({ color: col.clone().multiplyScalar(0.62), side: THREE.BackSide, clippingPlanes: clips() });
+  if (p.name.startsWith("Shield")) { front.transparent = true; front.opacity = 0.28; front.depthWrite = false; back.transparent = true; back.opacity = 0.2; back.depthWrite = false; }
+  mats.push(front, back);
+  const grp = new THREE.Group();
+  grp.add(new THREE.Mesh(g, front), new THREE.Mesh(g, back));
+  grp.userData.dx = p.dx;
+  root.add(grp); groups.push(grp);
+  total += p.kg;
+  if (p.group !== lastGrp) { const h = document.createElement("li"); h.className = "grp"; h.textContent = p.group; list.appendChild(h); lastGrp = p.group; }
+  const li = document.createElement("li");
+  const id = "p" + i;
+  li.innerHTML = `<input type="checkbox" id="${id}" checked><span class="sw" style="background:${p.color}"></span><label for="${id}">${p.name}</label><span class="kg">${p.kg.toFixed(1)} kg</span>`;
+  li.querySelector("input").addEventListener("change", e => { grp.visible = e.target.checked; });
+  list.appendChild(li);
+});
+const totLi = document.createElement("li");
+totLi.innerHTML = `<span></span><span></span><label>Total, steel (drive excluded)</label><span class="kg">${total.toFixed(0)} kg</span>`;
+list.appendChild(totLi);
+const ex = document.getElementById("ex");
+ex.addEventListener("input", () => {
+  const k = +ex.value;
+  groups.forEach(g => { g.position.x = g.userData.dx * k; });
+  document.getElementById("exVal").textContent = k === 0 ? "assembled" : `${Math.round(k * 100)} %`;
+});
+
+function setSection(on) {
+  sectionOn = on;
+  mats.forEach(m => { m.clippingPlanes = clips(); m.needsUpdate = true; });
+  document.getElementById("secBtn").setAttribute("aria-pressed", on);
+  document.getElementById("sliderRow").hidden = !on;
+}
+document.getElementById("secBtn").addEventListener("click", () => setSection(!sectionOn));
+const cut = document.getElementById("cut");
+cut.addEventListener("input", () => { plane.constant = +cut.value; document.getElementById("cutVal").textContent = `z = ${cut.value}`; });
+
+const views = {
+  iso:   [-1200, 850, 2000],
+  side:  [0, 0, 2900],
+  front: [-2600, 0, 0.01],
+  rear:  [2600, 0, 0.01],
+};
+function setView(k) {
+  const v = views[k];
+  camera.position.set(center.x + v[0], center.y + v[1], center.z + v[2]);
+  controls.target.copy(center); controls.update();
+}
+document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+setView("iso");
+
+function themeBg() {
+  const c = getComputedStyle(document.documentElement).getPropertyValue("--scene").trim() || "#e7ecef";
+  scene.background = new THREE.Color(c);
+}
+themeBg();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeBg);
+new MutationObserver(themeBg).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+function resize() {
+  const r = canvas.parentElement.getBoundingClientRect();
+  renderer.setSize(r.width, r.height, false);
+  camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(canvas.parentElement);
+resize();
+(function loop() { controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
+</script>

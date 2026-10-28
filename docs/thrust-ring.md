@@ -35,7 +35,7 @@ Interface between 4 × Chief WT 5 × 24 cylinders and the rear end of the last c
 |---|---|
 | Ring | A572 Gr 50, 76.2 thk (3 in plate); OD Ø609.6 (= shield OD, rides the launch rails at casing height); ID Ø400 |
 | Cylinder positions | R260 at 2, 4, 8 and 10 o'clock (±30° from horizontal); 12 and 6 o'clock open |
-| Cylinder envelope | Barrel outer edge at x = ±298; 80 mm radial clearance from barrel to the launch-rail contact line (rails at 30° from bottom) |
+| Cylinder envelope | Barrel outer edge at x = ±298; 80 radial clearance from barrel to the launch-rail contact line (rails at 30° from bottom) |
 | Cylinder spacing | 260 chord between 2 and 4 o'clock; 114 between barrels |
 | Cross tube axis | Tangential (cylinder pivots radially in the saddle) |
 | Front face | Same register and face as a casing segment's front end, machined from the casing joint drawing; no bolts to the casing |
@@ -46,9 +46,9 @@ Interface between 4 × Chief WT 5 × 24 cylinders and the rear end of the last c
 | Item | Value |
 |---|---|
 | Block | A572-50, 144 (tangential) × 100 (radial) × 45.5 high, welded to ring rear face |
-| Seat | Ø65 half-bore (1.5 diametral clearance on Ø63.5 tube), floor 25 above ring face, tube centre z = 57.5 above ring face; seat edges 12 below tube centre; wrap 136° |
+| Seat | Ø65 half-bore (1.5 diametral clearance on Ø63.5 tube), floor 25 above ring face, tube centre z = 57.5; seat edges 12 below tube centre; wrap 136° |
 | Bearing width / projected area | 101.6 / 6,028 mm² |
-| Ears | 2 × 20 thk × 80 wide, R40 ends, 104 gap between ears |
+| Ears | 2 × 20 thk × 80 wide, R40 ends, 104 gap between ears, overall height 97.5 above ring face |
 | Ear holes | Ø39.5 slotted 3 long in z, toward the ring: tube seats on the saddle under thrust, pin bears only in retract |
 | Pin | Ø38.1 × 160, 4140 HT, 2 × retaining clips |
 | Saddle to ring weld | 8 mm fillet all round (488 perimeter); not in the thrust path |
@@ -82,7 +82,12 @@ Ring model: 720-element curved grid (out-of-plane bending + torsion), loads at R
 | Saddle seat bearing (MPa) / FoS on 310 | 25.4 / 12.2 | 33.2 / 9.3 | 43.5 / 7.1 |
 | Saddle block compression (MPa) | 10.6 | 13.9 | 18.2 |
 
-Pattern comparison at 800 kN (same ring): 45 / 135 / 225 / 315 → 114.2 MPa (FoS 1.81), 80 % of the barrel clears the rail line by 7 only; 2 / 4 / 8 / 10 o'clock → 112.7 MPa (1.84).
+Pattern comparison at 800 kN (same ring):
+
+| Pattern | VM (MPa) | FoS | Barrel to rail contact line |
+|---|---|---|---|
+| 45 / 135 / 225 / 315° | 114.2 | 1.81 | ≈ 7 |
+| 2 / 4 / 8 / 10 o'clock (Rev A) | 112.7 | 1.84 | 80 |
 
 Foundation sensitivity, 800 kN: k = 500 → 141.1 MPa (1.47); 3,800 → 112.7 (1.84); 40,000 → 98.8 (2.10).
 
@@ -122,7 +127,7 @@ Pin as a thrust path (rejected): 545 MPa at 613 kN, 712 MPa at 800 kN (1.5 in pi
 | Item | PDB | With 4 × WT 5 × 24 |
 |---|---|---|
 | Relief for 613 kN | 195 bar | 121 bar (195 bar = 988 kN) |
-| Jack-pressure interlock | > 200 bar (1,013 kN) | > 158 bar = 800 kN structural case |
+| Jack-pressure interlock | > 200 bar (1,013 kN) | 158 bar = 800 kN structural case |
 | Reaction wall at relief | FoS 2.3 on 613 kN | FoS 1.45 at 195 bar / 1.42 at 200 bar |
 | Extension interlock | > 740 | Stroke is 609.6 |
 | Insertion clearance (stroke − segment) | 150–250 required | 609.6 − 500 = 109.6 |
@@ -134,7 +139,7 @@ Pin as a thrust path (rejected): 545 MPa at 613 kN, 712 MPa at 800 kN (1.5 in pi
 |---|---|
 | Ring | Waterjet or plasma from 3 in A572-50 (OD + 2, ID − 2) → weld saddles → 32 in lathe: OD Ø609.6, ID Ø400, front face and register from the casing joint drawing; flat 0.1 |
 | Saddle blocks | Saw from 2 in bar or plate → mill Ø65 seat → weld to ring, 4 opposed |
-| Ears | Waterjet from 0.75 in plate → drill/mill Ø39.5 × 3 slot after welding (line-bored with the seat) |
+| Ears | Waterjet from 0.75 in plate → Ø39.5 × 3 slot after welding (line-bored with the seat) |
 | Bought | 4 × Chief WT 5 × 24 (SKU 216207, $958.63 ea), 4 × 4140 HT pins Ø38.1, clips |
 
 Saddle seat heights (z = 57.5 to tube centre) within 0.25 of each other across the four positions.

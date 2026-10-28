@@ -1,6 +1,6 @@
 # Cutterhead Spindle Mount (current: Rev H, Oct 26, 2026)
 
-Scripts, viewer and STEP files: Claude Code project folder `uatxcavators-tbm` (src/, viewer/, out/; see its CLAUDE.md).
+Scripts, viewer and STEP files: GitHub repo Sam-Indyk/uatxcavators-tbm (src/, viewer/, out/; see its CLAUDE.md). This doc is mirrored there as docs/spindle-mount.md.
 
 Rev H is at the end of this doc. The sections below it record rev E and the options that led to rev H.
 
@@ -398,7 +398,7 @@ Calc: `calc_fins.py`. Method: resisting torque = Σ q_ult × effective projected
 | Effective area beyond the overcut | 0.0527 m² per fin, 0.211 m² total; centroid R344 |
 | Torque to resist | 10 kNm interlock (11.2 kNm at 250 bar relief) |
 | Envelope over the fins | Ø750 (cut bore Ø630): launch portal or seal needs notches |
-| Added jacking force (cu 50) | 1.1 kN ploughing + 10.5 kN adhesion = 11.6 kN (1.9 % of 613 kN) |
+| Added jacking force | Thrust_Model, Anti_Roll_Fins tab (τ basis, c_u 75 for ploughing): 1.6 kN ploughing + fin-face friction on 0.485 m² = 5.5 kN lubricated, 12.3 kN dry, 19.8 kN dry + breakout. Governing design thrust 649.3 → 674.0 kN (thrust cap FoS 0.94 → 0.91); reach 16.6 → 16.2 m lubricated, 8.7 → 8.4 m dry. calc_fins.py basis (α 0.5 × c_u 50 adhesion): 11.6 kN |
 | Mass | 40.5 kg |
 
 | cu (kPa) | Nc | q_ult (kPa) | T_resist (kNm) | FoS on 10 kNm | FoS on 11.2 kNm |

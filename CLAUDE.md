@@ -6,7 +6,8 @@ UATXcavators (UATX) is building a DN600 slurry microTBM (micro tunnel boring mac
 
 - Design record: `docs/spindle-mount.md`. Add a dated section for each change and keep its "Open" list current. The thrust ring has its own record, `docs/thrust-ring.md`, kept the same way.
 - Team priorities: `docs/mechanical-priorities.md`.
-- Competition rules (NABC 2027 Full Rules Rev A2, PDF) and the team docs are in the claude.ai project "UATXcavators". The rules are not copied here.
+- Competition rules (NABC 2027 Full Rules Rev A2, PDF) are in the claude.ai project "UATXcavators" and are not copied here.
+- `docs/*.md` are mirrored with the claude.ai project docs `claude/*.md`. Follow "Docs sync" below at the start and end of every session.
 - Published viewer (claude.ai artifact): https://claude.ai/artifact/9CTeunW3jLoUrd8VnANaB9. It is republished from a claude.ai session as the page plus `data/<tag>.json`. From here, view it locally (see below).
 
 ## Current design: Rev H spindle mount + drive + anti-roll fins
@@ -56,6 +57,29 @@ Full numbers are in the docs.
 - Numbers-only deliverables, with no advice sections.
 - A professional, neutral tone.
 - Each piece of jargon explained in plain words the first time it appears.
+
+## Docs sync (claude.ai project ↔ this repo)
+
+Chats in the claude.ai project "UATXcavators" edit the project docs `claude/<name>.md`. This repo holds the same docs as `docs/<name>.md`. `docs/.sync.json` records each doc's content hash at the last sync, so `tools/docsync.py` can tell which side changed.
+
+Project memory is shared automatically between those chats and Claude Code sessions attached to the project. Design decisions made in chats appear there; read it before changing the design.
+
+**At the start of a session**, if the Projects tool is available:
+1. Run `project_info` and list the docs under `claude/`.
+2. For each doc, `project_read` it into a scratch file, then run `python tools/docsync.py compare <name> <scratch file>`. Act on the result:
+
+   | Result | Action |
+   |---|---|
+   | `pull` or `new-in-project` | Copy the project text into `docs/<name>.md`, then run `python tools/docsync.py mark <name>`. |
+   | `push` or `new-in-repo` | `project_write` `docs/<name>.md` to `claude/<name>.md`, then mark it. |
+   | `conflict` | Overwrite neither side. Show Sam the diff and ask which version to keep. |
+   | `in-sync` | Nothing to do. |
+
+3. Commit any pulled docs as `docs: sync from claude.ai project`.
+
+**After changing a doc in this repo**, `project_write` it to `claude/<name>.md` and mark it in the same session.
+
+Without the Projects tool, say that the docs may be behind the project. The nightly scheduled task "UATXcavators docs sync" reconciles them and opens a pull request.
 
 ## Setup
 
@@ -121,6 +145,7 @@ Rerun step 2 after any geometry change, and step 5 after any change to geometry 
   - Tabs are at the top. Page text and check tables live in the JS object `PAGES`; edit them in place.
   - Each revision's meshes are in `viewer/data/<tag>.json` (B–H, S).
   - three@0.160.0 loads from jsdelivr through an importmap.
+- `tools/docsync.py`: three-way hash check behind the docs sync.
 - `archive/`: rev B–G scripts, STEP files and old viewer templates. Kept for history only and not maintained; they still contain old absolute paths.
 
 ## Gotchas

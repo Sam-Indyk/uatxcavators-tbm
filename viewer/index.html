@@ -97,7 +97,7 @@ ol.steps li.ph{font-family:var(--f-display);font-weight:600;font-size:12px;lette
   </header>
   <nav class="tabs" id="tabs" aria-label="Design options">
     <a href="#revh" data-page="revh">Rev H<span class="tag pass">detailed + drive</span></a>
-    <a href="#assembly" data-page="assembly">Rev H assembly<span class="tag pass">52 steps</span></a>
+    <a href="#assembly" data-page="assembly">Rev H assembly<span class="tag pass">55 steps</span></a>
     <a href="#revg" data-page="revg">Rev G<span class="tag ref">all behind plate</span></a>
     <a href="#revf" data-page="revf">Rev F<span class="tag pass">pyramid head</span></a>
     <a href="#spherical" data-page="spherical">Spherical, dry<span class="tag pass">flat head</span></a>
@@ -172,7 +172,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 const PAGES = {
   revh: {
     data: "H",
-    summary: "Rev H, detailed: bearings with rollers and cages, seals, nuts and fasteners, welds, the seal-purge line, anti-roll fins and the hydraulic drive. The motor bolts to a bell-housing adapter, the adapter bolts to the cartridge rear face, and a jaw coupling inside the adapter joins the spindle to the motor shaft.",
+    summary: "Rev H, detailed: bearings with rollers and cages, seals, nuts and fasteners, welds, the seal-purge line, anti-roll fins and the hydraulic drive. The motor bolts to a bell-housing adapter, the adapter bolts to the cartridge rear face, and a jaw coupling inside the adapter joins the spindle to the motor shaft. Behind the shield: thrust ring Rev A with 4 jacking cylinders, as at launch before the first jacking pipe.",
     keys: [
       ["Bearings", "23228 + 29328N + 23228, L = 400"],
       ["29328N s₀, jam / 800 kN", "4.62 / 3.45", "pass"],
@@ -192,12 +192,18 @@ const PAGES = {
       ["Adapter to cartridge / motor to adapter, 20 kNm", "slip FoS 2.30 / 2.86 dry"],
       ["Overall, bit tip to motor rear", "1,451: 111 over 1,340", "warn"],
       ["Masses: shell + fins / module / head / drive", "446 / 330 / 143 / 281 kg"],
+      ["Thrust ring (Rev A)", "76.2 thk, Ø609.6 × Ø400; 4 × Chief WT 5 × 24 at R260"],
+      ["Thrust ring FoS, 800 kN (grid model)", "1.84", "pass"],
+      ["Seal-purge supply (R209) vs ring bore R200", "crosses the ring: 5.98 cm³", "fail"],
+      ["Slurry pipe bores R212.5–277.5 at the shield rear", "covered by the ring face", "fail"],
+      ["Saddle block outer face vs ring OD", "R310 vs R304.8 (+5.2)", "warn"],
+      ["Masses: thrust ring weldment + pins / cylinders", "126 / 210 kg"],
     ],
   },
   assembly: {
     data: "H",
     mode: "asm",
-    summary: "Rev H assembly in the shop orientation: the shell is welded standing on its rear end, the bearing module is built on the bench and lowered in from the front, the head goes on from the front, and the drive goes on from the rear with the machine turned over. Grey grid = shop floor. The section cut stays on so the bearings are visible.",
+    summary: "Rev H assembly in the shop orientation: the shell is welded standing on its rear end, the bearing module is built on the bench and lowered in from the front, the head goes on from the front, and the drive goes on from the rear with the machine turned over. Last, with the machine on the cradle, the thrust ring and jacking cylinders go on behind the shield (launch, no jacking pipes). Grey grid = shop floor. The section cut stays on so the bearings are visible.",
     keys: [],
   },
   revg: {

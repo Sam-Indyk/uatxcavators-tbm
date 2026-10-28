@@ -4,7 +4,7 @@ UATXcavators (UATX) is building a DN600 slurry microTBM (micro tunnel boring mac
 
 **Fusion 360 is the model of record.** This folder holds the supporting scripts: CadQuery models that are exported as STEP and imported into Fusion, hand calculations, a three.js viewer with an assembly animation, and a collision audit of that animation.
 
-- Design record: `docs/spindle-mount.md`. Add a dated section for each change and keep its "Open" list current.
+- Design record: `docs/spindle-mount.md`. Add a dated section for each change and keep its "Open" list current. The thrust ring has its own record, `docs/thrust-ring.md`, kept the same way.
 - Team priorities: `docs/mechanical-priorities.md`.
 - Competition rules (NABC 2027 Full Rules Rev A2, PDF) and the team docs are in the claude.ai project "UATXcavators". The rules are not copied here.
 - Published viewer (claude.ai artifact): https://claude.ai/artifact/9CTeunW3jLoUrd8VnANaB9. It is republished from a claude.ai session as the page plus `data/<tag>.json`. From here, view it locally (see below).
@@ -22,8 +22,9 @@ UATXcavators (UATX) is building a DN600 slurry microTBM (micro tunnel boring mac
   - Bolted-on adapter bell housing.
   - Jaw coupling. The spindle-side hub holds an internal 130 × 180 locking assembly; the motor-side hub has a W90 spline.
 - **Anti-roll fins:** 4 fins, each 20 × 70 × 990, at 1, 3, 9 and 11 o'clock.
+- **Thrust ring (Rev A, launch):** A572-50, 76.2 thick, Ø609.6 × Ø400. Modelled on the shield rear end (x = 1157 to 1233.2) as at launch, before the first jacking pipe. 4 × Chief WT 5 × 24 cylinders sit in welded saddles at R260, 2, 4, 8 and 10 o'clock; the cylinders are an envelope (outer shape only).
 
-Full numbers are in the doc.
+Full numbers are in the docs.
 
 ## Conventions
 
@@ -69,12 +70,14 @@ python -m playwright install chromium # only for tools/shoot_viewer.py
 
 If `pip install cadquery` fails on Windows, install CadQuery from conda-forge in a conda environment instead.
 
+If the system Python is newer than 3.13, `uv venv --python 3.13 --seed .venv` downloads a 3.13 interpreter for the venv (`--seed` adds pip).
+
 ## Pipeline (run from the repo root)
 
 | Step | Command | Output / time |
 |---|---|---|
 | 1. Build and check every part for interference | `python src/build_revH_detail.py --check` | Interference volumes in cm³, ~1 min. Expected non-zero values are listed below this table. |
-| 2. Meshes, assembly steps, detailed STEP | `python src/asm_revH.py` | `viewer/data/H.json`, `out/step/spindle_mount_revH_detail.step` |
+| 2. Meshes, assembly steps, detailed STEP | `python src/asm_revH.py` | `viewer/data/H.json`, `out/step/spindle_mount_revH_detail.step`, `out/step/thrust_ring_revA.step` |
 | 3. Simple rev H model | `python src/build_revH.py` | `out/step/spindle_mount_revH.step`, `out/mesh/mesh_revH.json` |
 | 4. Calcs | `python src/calc_revH.py` · `python src/calc_support.py` · `python src/calc_fins.py` | Printed tables; `out/calc/calc_support.json` |
 | 5. Collision audit of the animation | `python src/audit_asm.py 0.3 out/audit/audit.json` | ~20 min on 2 cores |
@@ -86,7 +89,9 @@ Expected non-zero interference values in step 1 (all others are 0):
 - `eye/shaft` 10.56: eye bolt thread in the M30 nose thread.
 - `pipewelds/ring1` 0.03.
 
-Collision audit (step 5): it replays every motion and flags any pair whose mid-motion overlap exceeds its finished-state overlap by more than 0.3 cm³. Latest result (Oct 27, 52 steps): 0 collisions, in `out/audit/audit_final.json` and `audit_final.log`.
+Known conflict, open (not a modelling artefact): `tring/gsupply` 5.98. The seal-purge supply line at R209 passes through the thrust ring annulus (bore R200).
+
+Collision audit (step 5): it replays every motion and flags any pair whose mid-motion overlap exceeds its finished-state overlap by more than 0.3 cm³. Latest result (Oct 27, 55 steps, thrust ring included; 4.5 min on this machine): 0 collisions, in `out/audit/audit_final.json` and `audit_final.log`.
 
 Rerun step 2 after any geometry change, and step 5 after any change to geometry or to the step list. Steps 1 and 5 are the checks.
 
@@ -100,12 +105,14 @@ Rerun step 2 after any geometry change, and step 5 after any change to geometry 
 - `src/build_opts.py`: helpers from the option studies (`revolve`, `ring`, `holes`, `drive_parts`, `vol`, `export`).
 - `src/build_revH_detail.py`: every rev H part.
   - Each part is a tuple `(key, name, workplane, colour, explode_dx, viewer_group, assembly_group)` in the list `P` and the dict `parts`.
-  - Design constants sit near their parts, for example `FIN_*` and `A_PURGE`.
+  - Design constants sit near their parts, for example `FIN_*`, `A_PURGE` and the thrust ring's `TR_*`, `SD_*`, `EAR_*`.
+  - Thrust ring parts are in the viewer groups "Thrust ring" and "Jacking cylinders". `calc_support.py` reads only the shell, module, head and drive groups, so the ring does not enter the machine weight.
   - `--check` runs the interference matrix.
 - `src/asm_revH.py`: assembly groups and the step list.
   - Steps are defined with `st(phase, title, text, add, remove, moves, focus, dur)`.
   - `add` and `remove` offsets are in world (viewer) coordinates. `moves` are waypoint lists of poses.
-  - Motor mass is overridden to 152 kg (catalogue); the modelled motor is an envelope.
+  - Motor mass is overridden to 152 kg (catalogue); the modelled motor is an envelope. The cylinders are overridden to 4 × 52.6 kg the same way.
+  - Phase 7 (steps 53–55) adds the thrust ring, cylinders and pins with the machine horizontal on the cradle.
 - `src/audit_asm.py`: the collision replay. It must use the same easing and pose interpolation as the viewer (`ease`, `lerp_pose`); change both together.
 - `src/calc_revD.py`: annular plate solver. `calc_revH.py` loads it and adds `stepped_plate`, a two-thickness plate model of ring 1.
 - `src/calc_support.py`: weight of the cantilevered module, head and drive. Masses and CGs come from the detailed model.

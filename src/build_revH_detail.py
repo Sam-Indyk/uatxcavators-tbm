@@ -311,6 +311,60 @@ mot_bolts_rear = dl.axial_screws(1120, 165, 16, 12, 10, phase=15, toward=+1)
 mot_bolts = dl.axial_screws(X_MOT + 22, 335, 20, 8, 45, phase=22.5, toward=-1)
 hoses = comp([cyl(pt(1247, 80, a), V3(1, 0, 0), 34, 260) for a in (60, 120)] + [cyl(pt(1241, 60, 270), V3(1, 0, 0), 20, 266)])
 
+# ======================= THRUST RING (Rev A, docs/thrust-ring.md) =======================
+# Launch with no jacking pipes yet: the ring's front face sits on the shield rear end. Front-face register not modelled
+# (casing joint drawing open). Saddles and cylinders are built at 12 o'clock (radial +Y, cross-tube axis +Z) and rotated.
+TR_X0, TR_T, TR_ID, TR_OD = SH_X1, 76.2, 400.0, 609.6
+TR_X1 = TR_X0 + TR_T                                      # rear face
+TR_R, TR_ANGS = 260.0, (60.0, 120.0, 240.0, 300.0)        # cylinders at 2, 4, 8, 10 o'clock
+SD_U, SD_V, SD_H, SD_SEAT = 144.0, 100.0, 45.5, 65.0      # saddle block tangential x radial x high, seat Ø
+X_CT = TR_X1 + 57.5                                       # cross-tube and pin axis
+EAR_T, EAR_W, EAR_R, EAR_GAP, EAR_HOLE, EAR_SLOT = 20.0, 80.0, 40.0, 104.0, 39.5, 3.0
+CYL_L = 889.0                                             # Chief WT 5 x 24, pin to pin, retracted
+t_ring = ring(TR_X0, TR_X1, r(TR_ID), r(TR_OD))
+
+
+def tr_block():
+    b = cq.Workplane("XY").box(SD_H, SD_V, SD_U).translate((TR_X1 + SD_H / 2, TR_R, 0))
+    return b.cut(W(cyl(V3(X_CT, TR_R, -SD_U / 2 - 1), V3(0, 0, 1), SD_SEAT, SD_U + 2)))
+
+
+def tr_ear(z0):
+    """lug on the block end: foot fills the seat groove, R40 end, Ø39.5 hole slotted 3 toward the ring"""
+    top = TR_X1 + SD_H
+    slab = lambda x0, x1, w: cq.Workplane("XY").box(x1 - x0, w, EAR_T).translate(((x0 + x1) / 2, TR_R, z0 + EAR_T / 2))
+    disc = lambda xc, dia, ext=0.0: W(cyl(V3(xc, TR_R, z0 - ext), V3(0, 0, 1), dia, EAR_T + 2 * ext))
+    e = slab(top, X_CT, EAR_W).union(disc(X_CT, 2 * EAR_R).intersect(slab(X_CT, X_CT + EAR_R, EAR_W)))
+    e = e.union(disc(X_CT, SD_SEAT).intersect(slab(top - SD_SEAT / 2, top, SD_SEAT)))
+    hole = disc(X_CT, EAR_HOLE, 1).union(disc(X_CT - EAR_SLOT, EAR_HOLE, 1)).union(
+        cq.Workplane("XY").box(EAR_SLOT, EAR_HOLE, EAR_T + 2).translate((X_CT - EAR_SLOT / 2, TR_R, z0 + EAR_T / 2)))
+    return e.cut(hole)
+
+
+def tr_welds():
+    """8 mm fillet round the block foot, trimmed where the block overhangs the ring OD"""
+    x, v0, v1, u = TR_X1, TR_R - SD_V / 2, TR_R + SD_V / 2, SD_U / 2
+    w = [dl.line_fillet((x, v0, -u), (x, v0, u), (1, 0, 0), (0, -1, 0), 8), dl.line_fillet((x, v1, -u), (x, v1, u), (1, 0, 0), (0, 1, 0), 8)]
+    w += [dl.line_fillet((x, v0, s * u), (x, v1, s * u), (1, 0, 0), (0, 0, s), 8) for s in (1, -1)]
+    return comp(w).intersect(ring(x - 1, x + 10, 0, r(TR_OD)))
+
+
+def jack():
+    """Chief WT 5 x 24 envelope: cross tubes Ø63.5 x 101.6 (Ø38.5 pin bore), rod Ø63.5, barrel Ø146.1; gland and barrel lengths approximate"""
+    ct = lambda xc: W(cyl(V3(xc, TR_R, -50.8), V3(0, 0, 1), 63.5, 101.6))
+    c = ct(X_CT).union(W(cyl(V3(X_CT + 20, TR_R, 0), V3(1, 0, 0), 63.5, 110)))
+    c = c.union(W(cyl(V3(X_CT + 110, TR_R, 0), V3(1, 0, 0), 146.1, CYL_L - 125))).union(ct(X_CT + CYL_L))
+    for xc in (X_CT, X_CT + CYL_L):
+        c = c.cut(W(cyl(V3(xc, TR_R, -51), V3(0, 0, 1), 38.5, 102)))
+    return c
+
+
+t_blocks = comp([rotx(tr_block(), a) for a in TR_ANGS])
+t_ears = comp([rotx(tr_ear(z0), a) for a in TR_ANGS for z0 in (EAR_GAP / 2, -EAR_GAP / 2 - EAR_T)])
+t_welds = comp([rotx(tr_welds(), a) for a in TR_ANGS])
+t_pins = {a: rotx(W(cyl(V3(X_CT, TR_R, -80), V3(0, 0, 1), 38.1, 160)), a) for a in TR_ANGS}
+jacks = comp([rotx(jack(), a) for a in TR_ANGS])
+
 # ======================= PARTS =======================
 SH, BM, CH, DR, FX = "Shell weldment", "Bearing module", "Cutterhead", "Drive", "Fixture"
 P = []   # (key, name, wp, colour, explode dx, viewer group, assembly group)
@@ -395,6 +449,14 @@ add("motor", "Hydraulic motor, Poclain MS18 2,812 cc (body approximate)", mot, "
 add("mbolts_r", "Motor housing bolts", mot_bolts_rear, "#3c3f44", 850, DR, "shell")
 add("mbolts", "Motor screws 8 × M20 10.9", mot_bolts, "#3c3f44", 850, DR, "shell")
 add("hoses", "Hoses A, B (3/4 in) + case drain", hoses, "#24272a", 950, DR, "shell")
+TR, JK = "Thrust ring", "Jacking cylinders"
+add("tring", "Thrust ring 76.2 thk A572-50, Ø609.6 × Ø400 (Rev A)", t_ring, "#5b8c6e", 1100, TR, "shell")
+add("tsaddles", "Saddle blocks ×4, 144 × 100 × 45.5, Ø65 seat", t_blocks, "#6f9f80", 1100, TR, "shell")
+add("tears", "Saddle ears ×8, 20 × 80, R40, Ø39.5 slotted 3", t_ears, "#82b191", 1100, TR, "shell")
+add("tsadwelds", "Saddle welds, 8 mm fillet (none past the ring OD)", t_welds, "#c99a3c", 1100, TR, "shell")
+for a_, clk in zip(TR_ANGS, (2, 4, 8, 10)):
+    add(f"tpin{int(a_)}", f"Saddle pin Ø38.1 × 160, 4140 HT, {clk} o'clock", t_pins[a_], "#e0a030", 1100, TR, "shell")
+add("jcyl", "Chief WT 5 × 24 ×4, retracted 889 (envelope)", jacks, "#a83232", 1400, JK, "shell")
 
 parts = {p[0]: p for p in P}
 
@@ -434,6 +496,11 @@ if __name__ == "__main__" and "--check" in sys.argv:
         "gsupply/saddles": ("gsupply", "saddles"), "gsupply/motor": ("gsupply", "motor"), "hub1scr/hub2": ("hub1scr", "hub2"),
         "legs/pipes": ("legs", "pipes"), "legs/saddles": ("legs", "saddles"), "legs/taps": ("legs", "taps"), "eye/shaft": ("eye", "shaft"),
         "mbolts/motor": ("mbolts", "motor"),
+        "tring/shell": ("tring", "shell"), "tring/pipes": ("tring", "pipes"), "tring/motor": ("tring", "motor"), "tring/hoses": ("tring", "hoses"),
+        "tring/gsupply": ("tring", "gsupply"), "tsaddles/tring": ("tsaddles", "tring"), "tears/tsaddles": ("tears", "tsaddles"),
+        "tsadwelds/tring": ("tsadwelds", "tring"), "tsadwelds/tsaddles": ("tsadwelds", "tsaddles"), "tpin60/tears": ("tpin60", "tears"),
+        "jcyl/tring": ("jcyl", "tring"), "jcyl/tsaddles": ("jcyl", "tsaddles"), "jcyl/tears": ("jcyl", "tears"), "jcyl/tpin60": ("jcyl", "tpin60"),
+        "jcyl/hoses": ("jcyl", "hoses"), "jcyl/gsupply": ("jcyl", "gsupply"), "tsaddles/gsupply": ("tsaddles", "gsupply"),
     }
     out = {k: vol(g(a), g(b)) for k, (a, b) in pairs.items()}
     print(json.dumps(out, indent=0))
@@ -443,3 +510,17 @@ if __name__ == "__main__" and "--check" in sys.argv:
     print({k: round(v, 1) for k, v in masses.items()})
     print("motor kg", round(g("motor").val().Volume() * 7.85e-6, 1), "23228 kg", round(sum(g(k).val().Volume() for k in ("f_ir", "f_or", "f_rol", "f_cage")) * 7.85e-6, 1))
     print("overall bit tip to motor rear", 1225 - (X_ARM_F - 42), "to hose end", 1247 + 260 - (X_ARM_F - 42), "motor past shield rear", 1225 - SH_X1)
+    kg = lambda *ks: round(sum(g(k).val().Volume() if len(g(k).vals()) == 1 else sum(v.Volume() for v in g(k).vals()) for k in ks) * 7.85e-6, 1)
+    print("thrust ring kg: ring", kg("tring"), "saddle blocks", kg("tsaddles"), "ears", kg("tears"), "welds", kg("tsadwelds"),
+          "pins", kg(*[f"tpin{int(a)}" for a in TR_ANGS]), "| cylinder envelope", kg("jcyl"), "(catalogue 4 × 52.6 = 210.4)")
+    # interface with the shield rear (no jacking pipes)
+    print(f"thrust ring x = {TR_X0:.1f} to {TR_X1:.1f}, cross-tube axis x = {X_CT:.1f}, cylinder cap-end pin x = {X_CT + CYL_L:.1f}")
+    print(f"slurry pipe bores R{R_PIPE - 32.5:.1f}–{R_PIPE + 32.5:.1f} at 12 and 6 end at x = {SH_X1:.0f}; ring annulus R{r(TR_ID):.1f}–{r(TR_OD):.1f} covers both")
+    print(f"seal-purge supply Ø10 at R209 (R204–214, {A_PURGE:.0f}°) runs to x = 1500 through the ring annulus (bore R{r(TR_ID):.0f})")
+    print(f"motor body R140 / port bosses R106 / hoses R97 max inside the ring bore R{r(TR_ID):.0f}: clearance {r(TR_ID) - 140:.0f} / {r(TR_ID) - 106:.0f} / {r(TR_ID) - 97:.0f}")
+    v_edge = math.sqrt(r(TR_OD) ** 2 - (SD_U / 2) ** 2) - TR_R
+    print(f"saddle block outer face R{TR_R + SD_V / 2:.1f} vs ring OD R{r(TR_OD):.1f}: overhang {TR_R + SD_V / 2 - r(TR_OD):.1f} at mid-width, "
+          f"{math.hypot(TR_R + SD_V / 2, SD_U / 2) - r(TR_OD):.1f} at the corners")
+    L_w = SD_U + 2 * (v_edge + SD_V / 2)
+    s_w = 47.5e3 / (L_w * 0.707 * 8)
+    print(f"saddle fillet on the ring face: {L_w:.1f} of {2 * (SD_U + SD_V):.0f} perimeter; retract 47.5 kN: {s_w:.1f} MPa vs 145, FoS {145 / s_w:.2f}")

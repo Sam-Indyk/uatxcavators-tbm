@@ -1,4 +1,4 @@
-step  1 done, hits so far 0
+﻿step  1 done, hits so far 0
 step  2 done, hits so far 0
 step  3 done, hits so far 0
 step  4 done, hits so far 0
@@ -50,9 +50,8 @@ step 49 done, hits so far 0
 step 50 done, hits so far 0
 step 51 done, hits so far 0
 step 52 done, hits so far 0
+step 53 done, hits so far 0
+step 54 done, hits so far 0
+step 55 done, hits so far 0
 
 COLLISIONS (step, title, parts, max cm3):
-
-real	18m17.628s
-user	28m15.027s
-sys	0m21.305s

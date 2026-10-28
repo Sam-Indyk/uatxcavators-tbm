@@ -3,7 +3,7 @@ World frame of the viewer: +Y up, floor at y = 0. Machine axis +X rearward.
 Group pose = rotation about world Z (th, degrees) + translation t of the machine origin.
   th = -90: front up (machine +X points down);  th = +90: rear up;  th = 0: horizontal.
 """
-import json
+import json, math
 import cadquery as cq
 import build_revH_detail as M
 from paths import STEP, VIEWER_DATA
@@ -34,8 +34,8 @@ def st(phase, title, text, add=None, remove=None, moves=None, focus=None, dur=1.
                   "moves": moves or {}, "focus": focus or [], "dur": dur})
 
 
-P1, P2, P3, P4, P5, P6 = ("1 · Shell weldment", "2 · Cutterhead weldment", "3 · Bearing module (bench)",
-                          "4 · Module into the shell", "5 · Cutterhead onto the spindle", "6 · Drive")
+P1, P2, P3, P4, P5, P6, P7 = ("1 · Shell weldment", "2 · Cutterhead weldment", "3 · Bearing module (bench)",
+                              "4 · Module into the shell", "5 · Cutterhead onto the spindle", "6 · Drive", "7 · Thrust ring (launch)")
 st(P1, "Shell on the table",
    "Shield shell Ø609.6 × 12.7 × 1,285. Both ends faced on the lathe first; the front end face is the depth datum. Stands on its rear end on a flat table.",
    add=[(["shell"], [0, 0, 0])], focus=["shell"])
@@ -211,6 +211,19 @@ st(P6, "Back to horizontal",
    "Machine laid horizontal on the launch cradle.",
    moves={g: [pose(RU, 0, 426 + 700), pose(H, -500, 310 + 700), pose(H, -500, 310)] for g in ALL}, focus=["shell"], dur=3.0)
 
+st(P7, "Thrust ring onto the shield rear",
+   "Thrust ring Rev A (A572-50, 76.2 thk, Ø609.6 × Ø400) with 4 saddles welded to its rear face at R260, 2, 4, 8 and 10 o'clock. "
+   "Slid on from the rear over the hoses until its front face bears on the shield rear end (x = 1,157). No jacking pipes yet; not bolted.",
+   add=[(["tring", "tsaddles", "tears", "tsadwelds"], [900, 0, 0])], focus=["tring"], dur=2.4)
+st(P7, "Jacking cylinders",
+   "4 × Chief WT 5 × 24 (bore 127, rod 63.5, stroke 609.6), retracted 889 pin to pin. Each rod-end cross tube (Ø63.5 × 101.6) goes between the ears "
+   "into its Ø65 seat. Thrust path: rod → cross tube → seat → block → ring → shield. Barrel and gland lengths are approximate.",
+   add=[(["jcyl"], [700, 0, 0])], focus=["tring"], dur=2.4)
+st(P7, "Saddle pins",
+   "Ø38.1 × 160 4140 pins through the ears and cross tubes, 2 clips each. The ear holes are slotted 3 toward the ring, "
+   "so the pins carry load only in retract (50 bar, 47.5 kN per cylinder).",
+   add=[([f"tpin{int(a)}"], [0, -250 * math.sin(math.radians(a)), 250 * math.cos(math.radians(a))]) for a in M.TR_ANGS], focus=["tring"])
+
 ag = {k: p[6] for k, p in M.parts.items()}
 for s in steps:
     for keys, _ in s["add"]:
@@ -225,7 +238,8 @@ asm = {"groups": groups, "partGroup": ag, "steps": steps}
 
 if __name__ == "__main__":
     out, assy, masses = [], cq.Assembly(name="spindle_mount_revH_detail"), {}
-    KG = {"motor": 152.0}
+    tassy = cq.Assembly(name="thrust_ring_revA")            # thrust ring + cylinders alone, same machine coordinates
+    KG = {"motor": 152.0, "jcyl": 4 * 52.6}
     for key, name, wp, col, dx, grp, a in M.P:
         pos, idx = [], []
         for v in wp.vals():
@@ -244,9 +258,13 @@ if __name__ == "__main__":
         if grp != "Fixture":
             masses[grp] = masses.get(grp, 0) + kg
         out.append({"key": key, "name": name, "color": col, "dx": dx, "group": grp, "pos": pos, "idx": idx, "kg": kg})
-        safe = "".join(ch if ch.isalnum() else "_" for ch in name)
+        # ASCII only: Fusion shows other characters in STEP product names garbled (Ø came through as Ã)
+        safe = "".join(ch if ch.isascii() and ch.isalnum() else "_" for ch in name.replace("Ø", "D").replace("×", "x"))
         if grp != "Fixture":
             assy.add(wp, name=safe, color=cq.Color(*[int(col[i:i + 2], 16) / 255 for i in (1, 3, 5)]))
+        if grp in (M.TR, M.JK):
+            tassy.add(wp, name=safe, color=cq.Color(*[int(col[i:i + 2], 16) / 255 for i in (1, 3, 5)]))
     assy.export(str(STEP / "spindle_mount_revH_detail.step"))
+    tassy.export(str(STEP / "thrust_ring_revA.step"))
     json.dump({"parts": out, "asm": asm, "masses": masses}, open(VIEWER_DATA / "H.json", "w"), separators=(",", ":"))
     print({k: round(v, 1) for k, v in masses.items()}, "steps", len(steps), "tris", sum(len(o["idx"]) // 3 for o in out))

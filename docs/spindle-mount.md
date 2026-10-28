@@ -413,6 +413,16 @@ Not counted: lubricated shield skin shear 3–8 kPa = 2.3–6.0 kNm of roll resi
 
 Grease (Oct 27): bearings grease-packed at assembly; relube drillings removed. The seal-purge line (Ø8) lies in a 14 × 9 groove along the tube OD from the port at x = 125 to x = 600, so nothing stands above Ø318 while the module passes through ring 1; the supply line is connected at x = 600 after installation.
 
+### Thrust ring at the shield rear (Oct 27, 2026)
+
+Thrust ring Rev A (`docs/thrust-ring.md`) added to the detailed model at launch, before the first jacking pipe: front face on the shield rear end, x = 1,157.0 to 1,233.2; 4 × Chief WT 5 × 24 at R260, 2, 4, 8 and 10 o'clock; assembly phase 7, steps 53–55 (55 steps in total). Collision replay of all 55 steps (threshold 0.3 cm³): 0 collisions. STEP of the ring alone: `out/step/thrust_ring_revA.step`. STEP part names are now ASCII (Ø → D, × → x).
+
+| Interface | Value |
+|---|---|
+| Seal-purge supply line, Ø10 at R209, 30° | Passes through the ring annulus (bore R200): 5.98 cm³ overlap (`tring/gsupply`) |
+| Slurry pipe bores at the shield rear, R212.5–277.5 at 12 and 6 | Covered by the ring front face (annulus R200–304.8) |
+| Motor body / port bosses / hoses in the Ø400 bore | Radial clearance 60 / 94 / 103 |
+
 ## Open
 
 - Drive: Poclain MS18 modelled (Oct 27). Need the certified drawing (flange pattern, body), coupling size selection, and a decision on the +111 mm over 1,340 (accept, direct-mount hollow-spline motor, or offset motor).
@@ -427,3 +437,5 @@ Grease (Oct 27): bearings grease-packed at assembly; relube drillings removed. T
 - Shell pipe grade (A53 Gr B assumed).
 - Ring 1 pipe holes leave 8.6 mm between pipe and shell bore at 12 and 6; ring fillet runs into the pipe weld there.
 - Chamber depth 133 with 8 gussets sweeping it (rev H): confirm slurry feed/discharge flow with Jack.
+- Seal-purge supply line route behind x = 1,157: at R209 it crosses the thrust ring annulus (bore R200).
+- Slurry pipe ends at the shield rear (R245): covered by the thrust ring front face when there is no jacking pipe.

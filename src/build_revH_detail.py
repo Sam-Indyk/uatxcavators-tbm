@@ -45,6 +45,9 @@ X_MOT = X_AD1                          # motor mounting face
 A_PURGE, X_PURGE0, X_PURGE1 = 30.0, 125.0, 600.0   # seal-purge port angle and line ends (line lies in an OD groove)
 FIN_ANGS = (30.0, 90.0, 270.0, 330.0)              # anti-roll fins: 1, 3, 9, 11 o'clock
 FIN_X0, FIN_X1, FIN_H, FIN_T = 150.0, 1140.0, 70.0, 20.0
+# casing joint placeholders until the casing joint drawing: 24 in x 0.375 casing bore; the shield rear end gets the same seat
+CAS_ID, CAS_CB = 590.6, 12.0                       # casing bore Ø; counterbore depth in the shield rear end
+PIPE_BACK = 5.0                                    # slurry pipes end this far inside the shield rear face
 
 
 def sector(x0, x1, r0, r1, a_mid, half):
@@ -55,7 +58,7 @@ def sector(x0, x1, r0, r1, a_mid, half):
 
 
 # ======================= SHELL WELDMENT =======================
-shell = ring(SH_X0, SH_X1, r(SH_ID), r(SH_OD))
+shell = ring(SH_X0, SH_X1, r(SH_ID), r(SH_OD)).cut(ring(SH_X1 - CAS_CB, SH_X1 + 1, r(SH_ID) - 1, r(CAS_ID)))
 r1 = revolve([(0, 202), (0, r(SH_ID) - 0.5), (T_R1, r(SH_ID) - 0.5), (T_R1, 161.25), (T_R1 - 2, 159.25), (CB + 2, 159.25),
               (CB, 161.25), (CB, 197), (CB - 3, 200), (2, 200)])
 r1 = holes(r1, CB - 1, 26, 370, 10.2, 16, phase=11.25)
@@ -68,7 +71,7 @@ weld = revolve([(0, r(SH_ID)), (-14, r(SH_ID)), (0, r(SH_ID) - 14)])
 pipes = None
 pipe_welds = []
 for a in (0, 180):
-    p = cyl_x(0, SH_X1, R_PIPE, a, 76.1).cut(cyl_x(-1, SH_X1 + 2, R_PIPE, a, 65))
+    p = cyl_x(0, SH_X1 - PIPE_BACK, R_PIPE, a, 76.1).cut(cyl_x(-1, SH_X1 + 2, R_PIPE, a, 65))
     pipes = p if pipes is None else pipes.union(p)
     r1 = r1.cut(W(cq.Solid.makeCone(44.5, 38.5, 6.0, pt(-0.01, R_PIPE, a), V3(1, 0, 0))))     # 45 deg bevel at the front for the seal weld
     cone = cq.Solid.makeCone(44.5, 38.5, 6.0, pt(0, R_PIPE, a), V3(1, 0, 0))
@@ -321,7 +324,18 @@ SD_U, SD_V, SD_H, SD_SEAT = 144.0, 100.0, 45.5, 65.0      # saddle block tangent
 X_CT = TR_X1 + 57.5                                       # cross-tube and pin axis
 EAR_T, EAR_W, EAR_R, EAR_GAP, EAR_HOLE, EAR_SLOT = 20.0, 80.0, 40.0, 104.0, 39.5, 3.0
 CYL_L = 889.0                                             # Chief WT 5 x 24, pin to pin, retracted
-t_ring = ring(TR_X0, TR_X1, r(TR_ID), r(TR_OD))
+SP_D, SP_H, SP_W = 589.5, 10.0, 9.0                       # register spigot into the casing bore: Ø, height ahead of the bearing face, radial width
+REL_W, REL_D = 1.5, 0.5                                   # relief groove at the spigot root: into the spigot, below the bearing face
+NOTCH_W, SL_HOSE = 86.0, 80.0                             # slurry notches at 12 and 6, open to the bore; hose OD (placeholder)
+ro_s, ri_s = SP_D / 2, SP_D / 2 - SP_W
+t_ring = revolve([(TR_X1, r(TR_ID)), (TR_X0, r(TR_ID)), (TR_X0, ri_s), (TR_X0 - SP_H, ri_s), (TR_X0 - SP_H, ro_s - 1), (TR_X0 - SP_H + 1, ro_s),
+                  (TR_X0 - 2, ro_s), (TR_X0 - 2, ro_s - REL_W), (TR_X0 + REL_D, ro_s - REL_W), (TR_X0 + REL_D, ro_s), (TR_X0, ro_s),
+                  (TR_X0, r(TR_OD)), (TR_X1, r(TR_OD))])
+for a in (0, 180):
+    xl = TR_X0 - SP_H - 1
+    nb = cq.Workplane("XY").box(TR_X1 + 1 - xl, R_PIPE - r(TR_ID) + 10, NOTCH_W).translate(((xl + TR_X1 + 1) / 2, (R_PIPE + r(TR_ID) - 10) / 2, 0))
+    t_ring = t_ring.cut(rotx(nb.union(cyl_x(xl, TR_X1 + 1 - xl, R_PIPE, 0, NOTCH_W)), a))
+sl_hoses = comp([ring(SH_X1 - PIPE_BACK, 1500, 32.0, SL_HOSE / 2).translate(pt(0, R_PIPE, a)) for a in (0, 180)])
 
 
 def tr_block():
@@ -374,10 +388,10 @@ def add(key, name, wp, col, dx, grp, ag):
     P.append((key, name, wp, col, dx, grp, ag))
 
 
-add("shell", "Shield shell Ø609.6 × 12.7 × 1285", shell, "#8a8f94", 0, SH, "shell")
+add("shell", "Shield shell Ø609.6 × 12.7 × 1285, rear Ø590.6 × 12 counterbore", shell, "#8a8f94", 0, SH, "shell")
 add("ring1", "Ring 1, 110 thk A572-50, Ø400 × 35 counterbore", r1, "#5f86a8", 0, SH, "shell")
 add("weld", "Ring 1 weld, 14 mm fillet from the front", weld, "#c99a3c", 0, SH, "shell")
-add("pipes", "Slurry pipes Ø76.1, flush at the plate, 12 + 6", pipes, "#e0e4e8", 0, SH, "shell")
+add("pipes", "Slurry pipes Ø76.1, flush at the plate, end 5 inside the rear, 12 + 6", pipes, "#e0e4e8", 0, SH, "shell")
 add("pipewelds", "Pipe seal welds, flush at the plate face", pipe_welds, "#c99a3c", 0, SH, "shell")
 add("saddles", "Pipe saddles", sad, "#5f86a8", 0, SH, "shell")
 add("taps", "Pressure-tap tubes, flush", taps, "#e0e4e8", 0, SH, "shell")
@@ -449,8 +463,9 @@ add("motor", "Hydraulic motor, Poclain MS18 2,812 cc (body approximate)", mot, "
 add("mbolts_r", "Motor housing bolts", mot_bolts_rear, "#3c3f44", 850, DR, "shell")
 add("mbolts", "Motor screws 8 × M20 10.9", mot_bolts, "#3c3f44", 850, DR, "shell")
 add("hoses", "Hoses A, B (3/4 in) + case drain", hoses, "#24272a", 950, DR, "shell")
-TR, JK = "Thrust ring", "Jacking cylinders"
-add("tring", "Thrust ring 76.2 thk A572-50, Ø609.6 × Ø400 (Rev A)", t_ring, "#5b8c6e", 1100, TR, "shell")
+TR, JK, SL = "Thrust ring", "Jacking cylinders", "Slurry hoses"
+add("shoses", "Slurry hoses Ø80 (placeholder), feed 12 + discharge 6", sl_hoses, "#3a3d40", 950, SL, "shell")
+add("tring", "Thrust ring 76.2 thk A572-50, Ø609.6 × Ø400, Ø589.5 spigot, 2 slurry notches", t_ring, "#5b8c6e", 1100, TR, "shell")
 add("tsaddles", "Saddle blocks ×4, 144 × 100 × 45.5, Ø65 seat", t_blocks, "#6f9f80", 1100, TR, "shell")
 add("tears", "Saddle ears ×8, 20 × 80, R40, Ø39.5 slotted 3", t_ears, "#82b191", 1100, TR, "shell")
 add("tsadwelds", "Saddle welds, 8 mm fillet (none past the ring OD)", t_welds, "#c99a3c", 1100, TR, "shell")
@@ -501,6 +516,8 @@ if __name__ == "__main__" and "--check" in sys.argv:
         "tsadwelds/tring": ("tsadwelds", "tring"), "tsadwelds/tsaddles": ("tsadwelds", "tsaddles"), "tpin60/tears": ("tpin60", "tears"),
         "jcyl/tring": ("jcyl", "tring"), "jcyl/tsaddles": ("jcyl", "tsaddles"), "jcyl/tears": ("jcyl", "tears"), "jcyl/tpin60": ("jcyl", "tpin60"),
         "jcyl/hoses": ("jcyl", "hoses"), "jcyl/gsupply": ("jcyl", "gsupply"), "tsaddles/gsupply": ("tsaddles", "gsupply"),
+        "shoses/tring": ("shoses", "tring"), "shoses/pipes": ("shoses", "pipes"), "shoses/shell": ("shoses", "shell"),
+        "shoses/jcyl": ("shoses", "jcyl"), "shoses/motor": ("shoses", "motor"), "shoses/saddles": ("shoses", "saddles"),
     }
     out = {k: vol(g(a), g(b)) for k, (a, b) in pairs.items()}
     print(json.dumps(out, indent=0))
@@ -515,7 +532,16 @@ if __name__ == "__main__" and "--check" in sys.argv:
           "pins", kg(*[f"tpin{int(a)}" for a in TR_ANGS]), "| cylinder envelope", kg("jcyl"), "(catalogue 4 × 52.6 = 210.4)")
     # interface with the shield rear (no jacking pipes)
     print(f"thrust ring x = {TR_X0:.1f} to {TR_X1:.1f}, cross-tube axis x = {X_CT:.1f}, cylinder cap-end pin x = {X_CT + CYL_L:.1f}")
-    print(f"slurry pipe bores R{R_PIPE - 32.5:.1f}–{R_PIPE + 32.5:.1f} at 12 and 6 end at x = {SH_X1:.0f}; ring annulus R{r(TR_ID):.1f}–{r(TR_OD):.1f} covers both")
+    print(f"register: spigot Ø{SP_D} × {SP_H:.0f} (R{ri_s:.2f}–{ro_s:.2f}) in the shield counterbore Ø{CAS_ID} × {CAS_CB:.0f}: radial gap {r(CAS_ID) - ro_s:.2f}, "
+          f"tip to counterbore floor {CAS_CB - SP_H:.1f}; relief {REL_W} × {REL_D} below the face")
+    A_end = math.pi / 4 * (SH_OD ** 2 - CAS_ID ** 2)
+    print(f"shield rear bearing annulus R{r(CAS_ID):.2f}–{r(SH_OD):.1f}: {A_end:.0f} mm²; average at 613 / 800 / 1048 kN: "
+          + " / ".join(f"{P * 1e3 / A_end:.1f}" for P in (613, 800, 1048)) + " MPa")
+    print(f"slurry pipes end at x = {SH_X1 - PIPE_BACK:.0f} ({PIPE_BACK:.0f} inside the shield rear face); notches {NOTCH_W:.0f} wide, open to the bore, "
+          f"to R{R_PIPE + NOTCH_W / 2:.0f}; hose Ø{SL_HOSE:.0f}: clearance {(NOTCH_W - SL_HOSE) / 2:.1f} all round")
+    b_n = r(TR_OD) - (R_PIPE + NOTCH_W / 2)
+    print(f"ring section at the notch centre line (12, 6): {b_n:.1f} of {r(TR_OD) - r(TR_ID):.1f} radial × {TR_T} thick "
+          f"({b_n / (r(TR_OD) - r(TR_ID)) * 100:.0f} % of the out-of-plane section modulus); 12 and 6 are mid-span of the 120° spans")
     print(f"seal-purge supply Ø10 at R209 (R204–214, {A_PURGE:.0f}°) runs to x = 1500 through the ring annulus (bore R{r(TR_ID):.0f})")
     print(f"motor body R140 / port bosses R106 / hoses R97 max inside the ring bore R{r(TR_ID):.0f}: clearance {r(TR_ID) - 140:.0f} / {r(TR_ID) - 106:.0f} / {r(TR_ID) - 97:.0f}")
     v_edge = math.sqrt(r(TR_OD) ** 2 - (SD_U / 2) ** 2) - TR_R

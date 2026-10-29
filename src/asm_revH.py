@@ -37,7 +37,8 @@ def st(phase, title, text, add=None, remove=None, moves=None, focus=None, dur=1.
 P1, P2, P3, P4, P5, P6, P7 = ("1 · Shell weldment", "2 · Cutterhead weldment", "3 · Bearing module (bench)",
                               "4 · Module into the shell", "5 · Cutterhead onto the spindle", "6 · Drive", "7 · Thrust ring (launch)")
 st(P1, "Shell on the table",
-   "Shield shell Ø609.6 × 12.7 × 1,285. Both ends faced on the lathe first; the front end face is the depth datum. Stands on its rear end on a flat table.",
+   "Shield shell Ø609.6 × 12.7 × 1,285. Both ends faced on the lathe first and the rear end counterbored Ø590.6 × 12 (casing seat); the front end face is the depth datum. "
+   "Stands on its rear end on a flat table.",
    add=[(["shell"], [0, 0, 0])], focus=["shell"])
 st(P1, "Gauge legs",
    "Three legs, 1,047 long (tube with ground ends), stand on the table inside the shell at R255, 120° apart. Their tops set ring 1's seat 128.0 from the front end.",
@@ -211,9 +212,14 @@ st(P6, "Back to horizontal",
    "Machine laid horizontal on the launch cradle.",
    moves={g: [pose(RU, 0, 426 + 700), pose(H, -500, 310 + 700), pose(H, -500, 310)] for g in ALL}, focus=["shell"], dur=3.0)
 
+st(P7, "Slurry hoses",
+   "Feed (12 o'clock) and discharge (6 o'clock) hoses, Ø80 placeholder, coupled to the slurry pipe ends 5 mm inside the shield rear face. "
+   "The pipes stop short of the face so the thrust ring never bears on them.",
+   add=[(["shoses"], [600, 0, 0])], focus=["shell"])
 st(P7, "Thrust ring onto the shield rear",
    "Thrust ring Rev A (A572-50, 76.2 thk, Ø609.6 × Ø400) with 4 saddles welded to its rear face at R260, 2, 4, 8 and 10 o'clock. "
-   "Slid on from the rear over the hoses until its front face bears on the shield rear end (x = 1,157). No jacking pipes yet; not bolted.",
+   "Slid on from the rear, the slurry hoses passing through its notches at 12 and 6, until its Ø589.5 spigot enters the shield's Ø590.6 counterbore "
+   "and its front face bears on the 9.5 wide shield end (x = 1,157). No jacking pipes yet; not bolted.",
    add=[(["tring", "tsaddles", "tears", "tsadwelds"], [900, 0, 0])], focus=["tring"], dur=2.4)
 st(P7, "Jacking cylinders",
    "4 × Chief WT 5 × 24 (bore 127, rod 63.5, stroke 609.6), retracted 889 pin to pin. Each rod-end cross tube (Ø63.5 × 101.6) goes between the ears "
@@ -251,7 +257,7 @@ if __name__ == "__main__":
                 for t in tris:
                     idx += [t[0] + base, t[1] + base, t[2] + base]
         kg = KG.get(key, round(sum(v.Volume() for v in wp.vals()) * 7.85e-6, 1))
-        if key in ("seallip",):
+        if key in ("seallip", "shoses"):
             kg = round(kg * 0.16, 2)
         if key == "elast":
             kg = round(kg * 0.15, 2)

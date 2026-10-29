@@ -141,26 +141,45 @@ Saddle seat heights (z = 57.5 to tube centre) within 0.25 of each other across t
 
 ## Model (Oct 27, 2026): at the shield rear, no jacking pipes
 
-Model: `src/build_revH_detail.py`, parts `tring`, `tsaddles`, `tears`, `tsadwelds`, `tpin60` / `tpin120` / `tpin240` / `tpin300` and `jcyl`; constants `TR_*`, `SD_*`, `EAR_*`, `X_CT`, `CYL_L`. Assembly steps 53–55 (phase 7) in `src/asm_revH.py`. STEP: `out/step/thrust_ring_revA.step` (ring, saddles, pins, cylinders) and inside `out/step/spindle_mount_revH_detail.step`; both in machine coordinates (x = 0 at the ring 1 front face, +x rearward). Viewer: Rev H tab, groups "Thrust ring" and "Jacking cylinders"; Rev H assembly tab, steps 53–55.
+Model: `src/build_revH_detail.py`, parts `tring`, `tsaddles`, `tears`, `tsadwelds`, `tpin60` / `tpin120` / `tpin240` / `tpin300` and `jcyl`; constants `TR_*`, `SD_*`, `EAR_*`, `X_CT`, `CYL_L`. Assembly steps 53–56 (phase 7) in `src/asm_revH.py`; slurry hoses `shoses`. STEP: `out/step/thrust_ring_revA.step` (ring, saddles, pins, cylinders) and inside `out/step/spindle_mount_revH_detail.step`; both in machine coordinates (x = 0 at the ring 1 front face, +x rearward). Viewer: Rev H tab, groups "Thrust ring" and "Jacking cylinders"; Rev H assembly tab, steps 53–56.
 
 | Item | Value |
 |---|---|
 | Position | Launch before the first jacking pipe: ring front face on the shield rear end; x = 1,157.0 to 1,233.2 (z = 0 at x = 1,157) |
-| Front face | Flat. The register (the machined step that locates the ring on the casing end) is not modelled: casing joint drawing open |
+| Front face | Flat bearing face; register below (added the same day) |
 | Cross-tube and pin axis | x = 1,290.7 (z = 133.7: rear face + 57.5); tube concentric with the Ø65 seat |
 | Cap-end pin, retracted | x = 2,179.7 |
 | Ears, as modelled | Lug (plate with a pin hole) on each block end: R40 end rearward; foot shaped to the Ø65 seat so the eye is closed; Ø39.5 hole slotted 3 toward the ring |
 | Cylinders | Envelope (outer shape only): cross tubes, rod and barrel diameters from the catalogue; gland and barrel lengths approximate; 52.6 kg each (catalogue) |
-| Modelled masses | Ring 99.4; saddle blocks 16.5; ears 3.8; welds 0.3; pins 5.7 (no clips); weldment + pins 125.6 kg |
+| Modelled masses | Ring 92.4 (with spigot and notches; 99.4 plain); saddle blocks 16.5; ears 3.8; welds 0.3; pins 5.7 (no clips); weldment + pins 118.6 kg |
 
-Interference (`build_revH_detail.py --check`, cm³): every thrust-ring pair is 0 except `tring/gsupply` 5.98. Collision replay of the 55-step assembly (`audit_asm.py`, threshold 0.3 cm³): 0 collisions; ring slid on axially over the hoses, cylinders slid into the seats, pins inserted along their axes.
+### Register and slurry notches (Oct 27, 2026)
+
+Placeholders until the casing joint drawing. Casing taken as 24 in × 0.375 in wall (Ø609.6 × 9.5, bore Ø590.6).
+
+| Item | Value |
+|---|---|
+| Register | A register is the machined step that locates one part on another. Here: a spigot (raised ring) on the front face, Ø589.5 × 10 high × 9 wide (R285.75–294.75), entering the casing bore; radial gap 0.55 |
+| Relief groove | 1.5 into the spigot × 0.5 below the bearing face at the spigot root, so the pipe wall bears on flat face up to its bore edge (R295.3) |
+| Shield rear end | Counterbored Ø590.6 × 12 to take the same spigot as a casing segment; end wall 9.5; spigot tip 2.0 short of the counterbore floor |
+| Ring stock | Bearing face to rear face stays 76.2; spigot adds 10: 86.2 overall, from 3.5 in plate (88.9) |
+| Slurry pipes | End at x = 1,152, 5 inside the shield rear face; the ring does not touch them |
+| Slurry notches | 2 × 86 wide at 12 and 6, open to the bore, semicircular end at R288 (centred on the pipe axis R245) |
+| Slurry hoses | Ø80 × Ø64 (placeholder), from the pipe ends to x = 1,500; 3.0 clearance all round in the notches |
+| Ring section at the notch centre line | 16.8 of 104.8 radial width × 76.2 thick: 16 % of the out-of-plane bending section modulus. 12 and 6 are mid-span of the two 120° spans between cylinders. The grid-model results above are for the ring without notches |
+
+| Check: shield rear end bearing, annulus R295.3–304.8 (17,910 mm²) | 613 kN | 800 kN | 1,048 kN |
+|---|---|---|---|
+| Average bearing (MPa) | 34.2 | 44.7 | 58.5 |
+
+Interference (`build_revH_detail.py --check`, cm³): every thrust-ring and slurry-hose pair is 0 except `tring/gsupply` 5.98. Collision replay of the 56-step assembly (`audit_asm.py`, threshold 0.3 cm³): 0 collisions; slurry hoses slid on from the rear, ring slid on axially over the motor hoses and through the notches over the slurry hoses, cylinders slid into the seats, pins inserted along their axes.
 
 ### Interface with the shield rear
 
 | Item | Value |
 |---|---|
 | Seal-purge supply line | Ø10 at R209 (R204–214), 30°, x = 600 to 1,500: passes through the ring annulus (bore R200), 5.98 cm³ overlap |
-| Slurry pipes | Ø76.1 at R245, 12 and 6 o'clock, end at x = 1,157; bores R212.5–277.5 lie inside the ring annulus R200–304.8: both fully covered by the ring front face |
+| Slurry pipes | Ø76.1 at R245, 12 and 6 o'clock. As first modelled they ended at x = 1,157 and the ring front face covered both bores (R212.5–277.5); now they end at x = 1,152 and pass the ring through the notches |
 | Motor and hoses in the Ø400 bore | Motor body R140 (radial clearance 60), port bosses R106 (94), hoses R97 (103) |
 | Saddle block vs ring OD | Block outer face R310 vs ring OD R304.8: 5.2 overhang at mid-width, 13.5 at the corners |
 | Saddle fillet on the ring face | 316.3 of the 488 perimeter: inner side 144, ends 2 × 86.2, outer side none |
@@ -175,8 +194,10 @@ Interference (`build_revH_detail.py --check`, cm³): every thrust-ring pair is 0
 - Spacer column geometry (length set, saddle at each end).
 - Reaction-wall spreader saddles (barrel-end cross tubes).
 - Hydraulic circuit: common supply vs per-cylinder control; relief 121 bar; retract relief 50 bar.
-- Ring FEA (grid-model FoS 1.84 at 800 kN).
+- Ring FEA (grid-model FoS 1.84 at 800 kN, ring without notches).
+- Ring check with the slurry notches: section at 12 and 6 is 16 % of the full out-of-plane section modulus, at mid-span of the 120° spans.
+- Register, counterbore, notch and hose sizes are placeholders: casing joint drawing and slurry hose OD.
+- Slurry lines inside the casing string: at R245 they are outside the Ø400 through opening.
 - Seal-purge supply line route at the shield rear: R209 crosses the ring annulus (bore R200).
-- Slurry pipe connection at the shield rear: the ring front face covers both pipe bores at R245 when there is no jacking pipe.
 - Saddle block radial position or size: outer face 5.2 past the ring OD; fillet on 316 of the 488 perimeter.
 - Cylinder certified drawing: gland and barrel lengths (modelled as an envelope).

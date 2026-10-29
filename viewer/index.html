@@ -97,7 +97,7 @@ ol.steps li.ph{font-family:var(--f-display);font-weight:600;font-size:12px;lette
   </header>
   <nav class="tabs" id="tabs" aria-label="Design options">
     <a href="#revh" data-page="revh">Rev H<span class="tag pass">detailed + drive</span></a>
-    <a href="#assembly" data-page="assembly">Rev H assembly<span class="tag pass">55 steps</span></a>
+    <a href="#assembly" data-page="assembly">Rev H assembly<span class="tag pass">56 steps</span></a>
     <a href="#revg" data-page="revg">Rev G<span class="tag ref">all behind plate</span></a>
     <a href="#revf" data-page="revf">Rev F<span class="tag pass">pyramid head</span></a>
     <a href="#spherical" data-page="spherical">Spherical, dry<span class="tag pass">flat head</span></a>
@@ -193,11 +193,14 @@ const PAGES = {
       ["Overall, bit tip to motor rear", "1,451: 111 over 1,340", "warn"],
       ["Masses: shell + fins / module / head / drive", "446 / 330 / 143 / 281 kg"],
       ["Thrust ring (Rev A)", "76.2 thk, Ø609.6 × Ø400; 4 × Chief WT 5 × 24 at R260"],
-      ["Thrust ring FoS, 800 kN (grid model)", "1.84", "pass"],
+      ["Register (placeholder)", "Ø589.5 × 10 spigot in a Ø590.6 × 12 shield counterbore"],
+      ["Shield end bearing, 800 kN (9.5 wall)", "44.7 MPa average"],
+      ["Slurry pipes / hoses", "end 5 inside the shield; Ø80 hoses through 86 notches"],
+      ["Thrust ring FoS, 800 kN (grid model, no notches)", "1.84", "pass"],
+      ["Ring section at the slurry notches (12, 6)", "16.8 of 104.8 radial (16 %); not rechecked", "fail"],
       ["Seal-purge supply (R209) vs ring bore R200", "crosses the ring: 5.98 cm³", "fail"],
-      ["Slurry pipe bores R212.5–277.5 at the shield rear", "covered by the ring face", "fail"],
       ["Saddle block outer face vs ring OD", "R310 vs R304.8 (+5.2)", "warn"],
-      ["Masses: thrust ring weldment + pins / cylinders", "126 / 210 kg"],
+      ["Masses: thrust ring weldment + pins / cylinders", "119 / 210 kg"],
     ],
   },
   assembly: {

@@ -23,6 +23,8 @@ UATXcavators (UATX) is building a DN600 slurry microTBM (micro tunnel boring mac
   - Jaw coupling. The spindle-side hub holds an internal 130 × 180 locking assembly; the motor-side hub has a W90 spline.
 - **Anti-roll fins:** 4 fins, each 20 × 70 × 990, at 1, 3, 9 and 11 o'clock.
 - **Thrust ring (Rev A, launch):** A572-50, 76.2 thick, Ø609.6 × Ø400. Modelled on the shield rear end (x = 1157 to 1233.2) as at launch, before the first jacking pipe. 4 × Chief WT 5 × 24 cylinders sit in welded saddles at R260, 2, 4, 8 and 10 o'clock; the cylinders are an envelope (outer shape only).
+  - A Ø589.5 × 10 spigot (a register, i.e. a locating step) enters a Ø590.6 × 12 counterbore in the shield rear end; placeholder casing-joint sizes.
+  - Slurry pipes end 5 mm inside the shield rear; Ø80 placeholder hoses pass through 86 wide notches in the ring at 12 and 6.
 
 Full numbers are in the docs.
 
@@ -91,7 +93,7 @@ Expected non-zero interference values in step 1 (all others are 0):
 
 Known conflict, open (not a modelling artefact): `tring/gsupply` 5.98. The seal-purge supply line at R209 passes through the thrust ring annulus (bore R200).
 
-Collision audit (step 5): it replays every motion and flags any pair whose mid-motion overlap exceeds its finished-state overlap by more than 0.3 cm³. Latest result (Oct 27, 55 steps, thrust ring included; 4.5 min on this machine): 0 collisions, in `out/audit/audit_final.json` and `audit_final.log`.
+Collision audit (step 5): it replays every motion and flags any pair whose mid-motion overlap exceeds its finished-state overlap by more than 0.3 cm³. Latest result (Oct 28, 56 steps, thrust ring, register and slurry hoses included; about 5 min on this machine when it is not left idle): 0 collisions, in `out/audit/audit_final.json` and `audit_final.log`.
 
 Rerun step 2 after any geometry change, and step 5 after any change to geometry or to the step list. Steps 1 and 5 are the checks.
 
@@ -112,7 +114,7 @@ Rerun step 2 after any geometry change, and step 5 after any change to geometry 
   - Steps are defined with `st(phase, title, text, add, remove, moves, focus, dur)`.
   - `add` and `remove` offsets are in world (viewer) coordinates. `moves` are waypoint lists of poses.
   - Motor mass is overridden to 152 kg (catalogue); the modelled motor is an envelope. The cylinders are overridden to 4 × 52.6 kg the same way.
-  - Phase 7 (steps 53–55) adds the thrust ring, cylinders and pins with the machine horizontal on the cradle.
+  - Phase 7 (steps 53–56) adds the slurry hoses, thrust ring, cylinders and pins with the machine horizontal on the cradle. Slurry hose mass is scaled to rubber (× 0.16), like the seal lips.
 - `src/audit_asm.py`: the collision replay. It must use the same easing and pose interpolation as the viewer (`ease`, `lerp_pose`); change both together.
 - `src/calc_revD.py`: annular plate solver. `calc_revH.py` loads it and adds `stepped_plate`, a two-thickness plate model of ring 1.
 - `src/calc_support.py`: weight of the cantilevered module, head and drive. Masses and CGs come from the detailed model.

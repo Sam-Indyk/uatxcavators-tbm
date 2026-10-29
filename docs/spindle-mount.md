@@ -423,6 +423,17 @@ Thrust ring Rev A (`docs/thrust-ring.md`) added to the detailed model at launch,
 | Slurry pipe bores at the shield rear, R212.5–277.5 at 12 and 6 | Covered by the ring front face (annulus R200–304.8) |
 | Motor body / port bosses / hoses in the Ø400 bore | Radial clearance 60 / 94 / 103 |
 
+Register and slurry clearance, same day (placeholders until the casing joint drawing; details in `docs/thrust-ring.md`):
+
+| Change | Value |
+|---|---|
+| Shield rear end | Counterbored Ø590.6 × 12 (casing bore, 24 in × 0.375 in) for the thrust ring's Ø589.5 × 10 spigot; end wall 9.5; bearing annulus 17,910 mm², 44.7 MPa average at 800 kN |
+| Slurry pipes | End at x = 1,152, 5 inside the shield rear face (were flush at 1,157) |
+| Slurry hoses | Ø80 placeholder, x = 1,152 to 1,500, through 86 wide notches in the thrust ring at 12 and 6 |
+| Shell weldment mass | 445.5 kg (was 446.2) |
+
+Assembly: 56 steps (slurry hoses added as step 53). Collision replay of all 56 steps (threshold 0.3 cm³): 0 collisions.
+
 ## Open
 
 - Drive: Poclain MS18 modelled (Oct 27). Need the certified drawing (flange pattern, body), coupling size selection, and a decision on the +111 mm over 1,340 (accept, direct-mount hollow-spline motor, or offset motor).
@@ -438,4 +449,4 @@ Thrust ring Rev A (`docs/thrust-ring.md`) added to the detailed model at launch,
 - Ring 1 pipe holes leave 8.6 mm between pipe and shell bore at 12 and 6; ring fillet runs into the pipe weld there.
 - Chamber depth 133 with 8 gussets sweeping it (rev H): confirm slurry feed/discharge flow with Jack.
 - Seal-purge supply line route behind x = 1,157: at R209 it crosses the thrust ring annulus (bore R200).
-- Slurry pipe ends at the shield rear (R245): covered by the thrust ring front face when there is no jacking pipe.
+- Shield rear counterbore Ø590.6 × 12 and slurry pipe set-back 5 are placeholders until the casing joint drawing.

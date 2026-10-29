@@ -1,3 +1,8 @@
 cadquery==2.8.0
 numpy
+scipy
 playwright
+gmsh
+scikit-fem
+pyamg
+matplotlib

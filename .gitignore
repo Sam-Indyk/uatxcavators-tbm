@@ -3,3 +3,7 @@ __pycache__/
 *.log
 !out/audit/*.log
 out/shots/
+
+out/fea/cache/
+.fusion-sync/
+fusion/UATXSync/config.json

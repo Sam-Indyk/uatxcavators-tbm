@@ -1,0 +1,13 @@
+{
+	"autodeskProduct": "Fusion",
+	"type": "addin",
+	"id": "00abd113-c7ad-4131-88f2-fe22dfbe5fbf",
+	"author": "UATXcavators",
+	"description": {
+		"": "Pulls the uatxcavators-tbm GitHub repo, imports changed scripted parts and parameters into the Fusion design 'UATX scripts reference', and exports Fusion designs back to the repo. Its code loads from the local clone, so a pull also updates the add-in."
+	},
+	"version": "1.0.0",
+	"runOnStartup": true,
+	"supportedOS": "windows|mac",
+	"editEnabled": true
+}

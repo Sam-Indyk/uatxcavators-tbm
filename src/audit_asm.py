@@ -1,9 +1,9 @@
 """Collision audit of the assembly animation: replays every step's motion (same kinematics as the viewer)
 and reports any moving part that passes through another visible part at intermediate positions.
 Pairs that already overlap in the finished state (threads in tapped holes etc.) are ignored."""
-import math, sys, json
+import importlib, math, os, sys, json
 import cadquery as cq
-import asm_revH as A
+A = importlib.import_module(os.environ.get("ASM", "asm_revI"))   # ASM=asm_revH replays the Rev H sequence
 from paths import AUDIT
 M = A.M
 V3 = cq.Vector

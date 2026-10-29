@@ -93,10 +93,12 @@ ol.steps li.ph{font-family:var(--f-display);font-weight:600;font-size:12px;lette
 <div class="wrap">
   <header>
     <h1>Cutterhead spindle mount options</h1>
-    <span class="dwg">UATXcavators · DN600 · mm · Oct 26, 2026 · rev H</span>
+    <span class="dwg">UATXcavators · DN600 · mm · Oct 28, 2026 · rev I</span>
   </header>
   <nav class="tabs" id="tabs" aria-label="Design options">
-    <a href="#revh" data-page="revh">Rev H<span class="tag pass">detailed + drive</span></a>
+    <a href="#revi" data-page="revi">Rev I<span class="tag pass">reviewed + FEA</span></a>
+    <a href="#assemblyi" data-page="assemblyi">Rev I assembly<span class="tag pass">57 steps</span></a>
+    <a href="#revh" data-page="revh">Rev H<span class="tag ref">detailed + drive</span></a>
     <a href="#assembly" data-page="assembly">Rev H assembly<span class="tag pass">55 steps</span></a>
     <a href="#revg" data-page="revg">Rev G<span class="tag ref">all behind plate</span></a>
     <a href="#revf" data-page="revf">Rev F<span class="tag pass">pyramid head</span></a>
@@ -170,6 +172,38 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const PAGES = {
+  revi: {
+    data: "I",
+    summary: "Rev I: Rev H after a full review with 3D FEA. Ring 1 counterbore Ø384 × 30 in A572 Gr 42 with the slurry pipes welded at both faces; pipes run through U-notches in thrust ring Rev B; ROTEX 160 coupling with a Ø300 adapter bore and a motor pilot plate; window guards; four lifting bosses; seal-purge supply rerouted inside the thrust ring bore. Design manual: docs/manual-00 to manual-09.",
+    keys: [
+      ["Load cases F (kN): LC2 cap / LC3 interlock / LC4 pump relief", "613 / 801 / 901"],
+      ["Jam moment at the seat, LC3 (F·e + M_g with side force)", "87.5 kNm"],
+      ["Bearings", "23228 + 29328N + 23228, L = 400"],
+      ["29328N s₀, LC3 / LC4", "3.56 / 3.16", "pass"],
+      ["Front 23228 s₀, LC3 (with side force)", "5.51", "pass"],
+      ["Ring 1", "A572 Gr 42, 110 thk, Ø384 × 30 counterbore"],
+      ["Ring 1 pipe-hole wall Pm+Pb, LC3 (FEA)", "187 MPa, FoS 1.55 on Fy 290", "pass"],
+      ["Same, LC4", "210 MPa, FoS 1.38", "pass"],
+      ["Ring 1 web Pm+Pb / weld, LC3", "156 MPa (1.86) / 79 MPa (1.84)", "pass"],
+      ["Spindle at the front 23228, LC3", "332 MPa, FoS 1.97 on yield", "pass"],
+      ["Coupling ROTEX 160, 64 ShD", "16.2 / 24 kNm nominal, 28 / 48 max", "pass"],
+      ["Spindle offset at the coupling, LC3", "0.38 / 0.46 mm", "pass"],
+      ["Drive / head locking assembly at 20 kNm", "FoS 1.19 / 1.41", "warn"],
+      ["Motor pump relief (rules 4.c.3.2)", "259 bar → 11.58 kNm stall"],
+      ["Lifting: 4 × Crosby HR-125M M20", "353 kg-f per point, WLL 2,150", "pass"],
+      ["Machine mass / CG", "1,206 kg (2,659 lb), x = 424"],
+      ["Thrust ring Rev B, notches at 12 and 6", "pipes pass, 3.9 clear", "pass"],
+      ["Seal-purge supply in the ring bore", "R185, 10 clear", "pass"],
+      ["Gauge bit holders overhang the arm end", "FoS 0.70: open (cutterhead layout)", "fail"],
+      ["Overall, bit tip to motor rear", "1,451: 111 over 1,340", "warn"],
+    ],
+  },
+  assemblyi: {
+    data: "I",
+    mode: "asm",
+    summary: "Rev I assembly in the shop orientation: shell on riser blocks (the slurry pipes stand 98 proud of its rear end), ring 1 and the pipes as one bench sub-weldment, lifting bosses; bearing module on the bench and lowered in from the front; head from the front; drive from the rear with the machine turned over (ROTEX hub through the Ø300 bore, motor with its pilot plate, guards, purge supply in two parts); thrust ring Rev B and cylinders with the machine on the cradle.",
+    keys: [],
+  },
   revh: {
     data: "H",
     summary: "Rev H, detailed: bearings with rollers and cages, seals, nuts and fasteners, welds, the seal-purge line, anti-roll fins and the hydraulic drive. The motor bolts to a bell-housing adapter, the adapter bolts to the cartridge rear face, and a jaw coupling inside the adapter joins the spindle to the motor shaft. Behind the shield: thrust ring Rev A with 4 jacking cylinders, as at launch before the first jacking pipe.",
@@ -693,7 +727,7 @@ new ResizeObserver(resize).observe(canvas.parentElement);
 
 let current = null;
 function show(page) {
-  if (!PAGES[page] && page !== "compare") page = "revh";
+  if (!PAGES[page] && page !== "compare") page = "revi";
   document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.page === page ? "page" : "false"));
   const isCmp = page === "compare";
   document.getElementById("viewer").style.display = isCmp ? "none" : "";
@@ -717,7 +751,7 @@ document.querySelectorAll("#tabs a").forEach(a => a.addEventListener("click", e 
   show(a.dataset.page);
 }));
 window.addEventListener("hashchange", () => show(location.hash.slice(1)));
-show(location.hash.slice(1) || "revh");
+show(location.hash.slice(1) || "revi");
 resize();
 (function loop(now) { tickAsm(now || performance.now()); controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
 </script>

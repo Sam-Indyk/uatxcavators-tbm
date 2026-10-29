@@ -1,0 +1,1519 @@
+{
+ "format": 1,
+ "rev": "I",
+ "source": "src/build_revI_detail.py",
+ "frame": "machine frame, mm: +X rearward, x = 0 at the ring 1 front face; angles about the axis, 0 = 12 o'clock",
+ "parts": [
+  {
+   "key": "shell",
+   "name": "Shield shell Ø609.6 × 12.7 × 1285, rear Ø590.6 × 12 counterbore",
+   "group": "Shell weldment",
+   "color": "#8a8f94",
+   "step": "out/step/parts/shell.step",
+   "sha256": "f53525a022dd4d685ff0cd52c45fe01f1fab7ce4fc125b5ba507120f62f19353",
+   "solids": 1
+  },
+  {
+   "key": "ring1",
+   "name": "Ring 1, 110 thk A572 Gr 42, Ø384 × 30 counterbore",
+   "group": "Shell weldment",
+   "color": "#5f86a8",
+   "step": "out/step/parts/ring1.step",
+   "sha256": "cf1dcea8bf95f29b3422d07cc7e1a049a231c018adc9f0d1b86be7fd3841a1cf",
+   "solids": 1
+  },
+  {
+   "key": "weld",
+   "name": "Ring 1 weld, 14 mm fillet from the front",
+   "group": "Shell weldment",
+   "color": "#c99a3c",
+   "step": "out/step/parts/weld.step",
+   "sha256": "18ee0e6d42cda3c2d312ace67596d687ddb7968f2ef9ed5db90e3117934e3209",
+   "solids": 1
+  },
+  {
+   "key": "pipes",
+   "name": "Slurry pipes Ø76.2 × 6.35, 12 + 6, x = 0 to 1,255",
+   "group": "Shell weldment",
+   "color": "#e0e4e8",
+   "step": "out/step/parts/pipes.step",
+   "sha256": "35867afe6b8c166ce10b9fe25104be76c4df333b6893de8a7c79744ed1ba9e11",
+   "solids": 1
+  },
+  {
+   "key": "pipewelds",
+   "name": "Pipe welds: 6 × 45° front seal weld + 6 mm rear fillet",
+   "group": "Shell weldment",
+   "color": "#c99a3c",
+   "step": "out/step/parts/pipewelds.step",
+   "sha256": "a60366240416a790841bd9a6aafd5a194c7c74fc97e793c091ed643c153b1793",
+   "solids": 1
+  },
+  {
+   "key": "saddles",
+   "name": "Pipe saddles",
+   "group": "Shell weldment",
+   "color": "#5f86a8",
+   "step": "out/step/parts/saddles.step",
+   "sha256": "c9e5929e939368bf3fd3ad9c26cea814b92a99023ee1eeb6438a6f684d9a91ee",
+   "solids": 1
+  },
+  {
+   "key": "taps",
+   "name": "Pressure-tap tubes, flush",
+   "group": "Shell weldment",
+   "color": "#e0e4e8",
+   "step": "out/step/parts/taps.step",
+   "sha256": "3f310bd9154e0cc223d1a2f331b34c409d5d372d173cf514e57eb433c2a472f1",
+   "solids": 1
+  },
+  {
+   "key": "fin30",
+   "name": "Anti-roll fin 20 × 70 × 990 at 30°",
+   "group": "Shell weldment",
+   "color": "#7d93a6",
+   "step": "out/step/parts/fin30.step",
+   "sha256": "a1a419424fafe311376df8c9fa9f401f5843fa790d9b83b48c0b408daa4e9070",
+   "solids": 1
+  },
+  {
+   "key": "fin90",
+   "name": "Anti-roll fin 20 × 70 × 990 at 90°",
+   "group": "Shell weldment",
+   "color": "#7d93a6",
+   "step": "out/step/parts/fin90.step",
+   "sha256": "0c94e449150f3d280189dfe225d895414c952ab6722f3edb6d5d61d2f0690a6a",
+   "solids": 1
+  },
+  {
+   "key": "fin270",
+   "name": "Anti-roll fin 20 × 70 × 990 at 270°",
+   "group": "Shell weldment",
+   "color": "#7d93a6",
+   "step": "out/step/parts/fin270.step",
+   "sha256": "e9e3a66a30b01a2e5c6a528bc926b3c51bad97f43b42e22647ef3eeec5fde623",
+   "solids": 1
+  },
+  {
+   "key": "fin330",
+   "name": "Anti-roll fin 20 × 70 × 990 at 330°",
+   "group": "Shell weldment",
+   "color": "#7d93a6",
+   "step": "out/step/parts/fin330.step",
+   "sha256": "b4d0beb980fef450ba06c164ae9e89a2bcb91ebd1ed3d5b5acc1b38b1fb65bf8",
+   "solids": 1
+  },
+  {
+   "key": "finwelds",
+   "name": "Fin welds, 2 × 8 mm fillets",
+   "group": "Shell weldment",
+   "color": "#c99a3c",
+   "step": "out/step/parts/finwelds.step",
+   "sha256": "a40ecd46fff383467bc232c3989b3acab0b677f87db33f5aa4b46519addd8e3e",
+   "solids": 1
+  },
+  {
+   "key": "liftboss",
+   "name": "Lifting bosses ×4, Ø60 × 40, M20 (hoist rings)",
+   "group": "Shell weldment",
+   "color": "#4f7a99",
+   "step": "out/step/parts/liftboss.step",
+   "sha256": "05eb4d58b136a1a27654195b0461df0005cf8bad20b9440d20e6032bb4228732",
+   "solids": 1
+  },
+  {
+   "key": "liftplug",
+   "name": "Lifting-boss plugs ×4, M20 set screws",
+   "group": "Shell weldment",
+   "color": "#3c3f44",
+   "step": "out/step/parts/liftplug.step",
+   "sha256": "67add1f69e28026c9ea80bce70f15036cb7d614f7ef6262384a11123c92c10b6",
+   "solids": 1
+  },
+  {
+   "key": "legs",
+   "name": "Gauge legs ×3, 1157 (fixture)",
+   "group": "Fixture",
+   "color": "#e07a3c",
+   "step": "out/step/parts/legs.step",
+   "sha256": "a1454b6c1aaa90e01c84e4bc4ad13575b565e32d1097701a17d5a78d422f758c",
+   "solids": 1
+  },
+  {
+   "key": "risers",
+   "name": "Riser blocks ×3, 110 (fixture)",
+   "group": "Fixture",
+   "color": "#e07a3c",
+   "step": "out/step/parts/risers.step",
+   "sha256": "897a4224ebb50654b995be99160b56b571f6b0e9bebafc209d29a69e762a1a5d",
+   "solids": 1
+  },
+  {
+   "key": "tube",
+   "name": "Cartridge tube, seamless 323.9 × 60",
+   "group": "Bearing module",
+   "color": "#b8673a",
+   "step": "out/step/parts/tube.step",
+   "sha256": "7de648385fb84c7717e105a39d428512d3b1e875450488c307ad0c93bc2bd391",
+   "solids": 1
+  },
+  {
+   "key": "halfA",
+   "name": "Split flange half A",
+   "group": "Bearing module",
+   "color": "#d08a4a",
+   "step": "out/step/parts/halfA.step",
+   "sha256": "54d10c7ec85d9221a2711e00569f414933677f48d6b22082789c1280a612e90b",
+   "solids": 1
+  },
+  {
+   "key": "halfB",
+   "name": "Split flange half B",
+   "group": "Bearing module",
+   "color": "#c7803f",
+   "step": "out/step/parts/halfB.step",
+   "sha256": "f1b57170c320ba87818cdf358f16e45676136e93480964b394f1375ef176eb6a",
+   "solids": 1
+  },
+  {
+   "key": "splitscrews",
+   "name": "Split-joint screws 2 × M8",
+   "group": "Bearing module",
+   "color": "#3c3f44",
+   "step": "out/step/parts/splitscrews.step",
+   "sha256": "aa4421603b7fa7fbcc4f1119ff423d178f54c09634e15e6bfe403265cb608c55",
+   "solids": 1
+  },
+  {
+   "key": "pin45",
+   "name": "Anti-rotation pin Ø12 at 45°",
+   "group": "Bearing module",
+   "color": "#e0a030",
+   "step": "out/step/parts/pin45.step",
+   "sha256": "ccee52559743a921d48dd1625373da91e0b93292097cf0a0576c13d8c829d190",
+   "solids": 1
+  },
+  {
+   "key": "pin135",
+   "name": "Anti-rotation pin Ø12 at 135°",
+   "group": "Bearing module",
+   "color": "#e0a030",
+   "step": "out/step/parts/pin135.step",
+   "sha256": "56642da7598407d1e5f96bcade84105697915ba54e1ba8fd27336999198b408c",
+   "solids": 1
+  },
+  {
+   "key": "pin225",
+   "name": "Anti-rotation pin Ø12 at 225°",
+   "group": "Bearing module",
+   "color": "#e0a030",
+   "step": "out/step/parts/pin225.step",
+   "sha256": "c13c2d408b65119b95db671b9a1bbe4ed49108b9775efe27ea726c91aca9a43e",
+   "solids": 1
+  },
+  {
+   "key": "pin315",
+   "name": "Anti-rotation pin Ø12 at 315°",
+   "group": "Bearing module",
+   "color": "#e0a030",
+   "step": "out/step/parts/pin315.step",
+   "sha256": "8c27557f322874474d7f4e8863eaffb088fe1d21ef3bd135d4c3a774b9f03ee1",
+   "solids": 1
+  },
+  {
+   "key": "oring",
+   "name": "Static O-ring on tube",
+   "group": "Bearing module",
+   "color": "#2b2f33",
+   "step": "out/step/parts/oring.step",
+   "sha256": "3f047048058d20cc5f09e16fab517847c775d774a9867982431ecc1c06719734",
+   "solids": 1
+  },
+  {
+   "key": "purge",
+   "name": "Seal-purge line Ø8 in OD groove",
+   "group": "Bearing module",
+   "color": "#d9c24a",
+   "step": "out/step/parts/purge.step",
+   "sha256": "e47fa33ccaa0604017aedf472a9b03694a47a5f212649710d6f2bb07d8080ae8",
+   "solids": 1
+  },
+  {
+   "key": "purgefit",
+   "name": "Purge line fittings (low profile)",
+   "group": "Bearing module",
+   "color": "#b59a2e",
+   "step": "out/step/parts/purgefit.step",
+   "sha256": "b005691ec27950ba5645cbf033ffe7cb75aa2d8e9cdadf82a9fbc83b044282cd",
+   "solids": 1
+  },
+  {
+   "key": "flscrews",
+   "name": "Flange screws 16 × M12 × 40 10.9",
+   "group": "Bearing module",
+   "color": "#3c3f44",
+   "step": "out/step/parts/flscrews.step",
+   "sha256": "28fa171d7c44bb3a7e62e5fc8c651d371193fcebb194467be76c247dd41ca5bd",
+   "solids": 1
+  },
+  {
+   "key": "fldowels",
+   "name": "Dowels 2 × Ø16, flange to ring 1",
+   "group": "Bearing module",
+   "color": "#e0a030",
+   "step": "out/step/parts/fldowels.step",
+   "sha256": "7dbac904e1fb58c486a45a94d6d9c28736e24a73446a57160b9eaf96e8ccee58",
+   "solids": 1
+  },
+  {
+   "key": "carrier",
+   "name": "Seal carrier",
+   "group": "Bearing module",
+   "color": "#9c5530",
+   "step": "out/step/parts/carrier.step",
+   "sha256": "54a4eea9f9e8af81707a016591e19e86f83a771639894bafffb676a71dad7ef6",
+   "solids": 1
+  },
+  {
+   "key": "sealcase",
+   "name": "Lip seals 170 × 200 × 15 ×3: steel case",
+   "group": "Bearing module",
+   "color": "#6b7076",
+   "step": "out/step/parts/sealcase.step",
+   "sha256": "02f6f3c50dd88898cb6c8ceab58260e151a277edeefac883718cb38ef58f19f9",
+   "solids": 1
+  },
+  {
+   "key": "seallip",
+   "name": "Lip seals: NBR lips",
+   "group": "Bearing module",
+   "color": "#24272a",
+   "step": "out/step/parts/seallip.step",
+   "sha256": "25ff7b2c949f939e67899f523f369a95d25ee067c6205d9025c298737ca5e668",
+   "solids": 1
+  },
+  {
+   "key": "sealspring",
+   "name": "Lip seals: garter springs",
+   "group": "Bearing module",
+   "color": "#b0b5ba",
+   "step": "out/step/parts/sealspring.step",
+   "sha256": "d5ee8ce4c11e294ac2a8f2e623811dbd4e2f321f54a16b12ad03becf1566c2dd",
+   "solids": 1
+  },
+  {
+   "key": "lantern",
+   "name": "Lantern rings ×2",
+   "group": "Bearing module",
+   "color": "#d9c24a",
+   "step": "out/step/parts/lantern.step",
+   "sha256": "3de8fb1c5c9233bb9c5653b8bcd2f18fcb42ce287086c2360007d6d8a4eaf648",
+   "solids": 1
+  },
+  {
+   "key": "shim",
+   "name": "Carrier shims",
+   "group": "Bearing module",
+   "color": "#d9c24a",
+   "step": "out/step/parts/shim.step",
+   "sha256": "f0e55f3b5864f540d87cf4250326c768b7539df336ac8c9875904d8bfbda50aa",
+   "solids": 1
+  },
+  {
+   "key": "carscrews",
+   "name": "Carrier screws 12 × M6 countersunk",
+   "group": "Bearing module",
+   "color": "#3c3f44",
+   "step": "out/step/parts/carscrews.step",
+   "sha256": "7d9e4f69f9ce79988105a6d9c720f8e2cd93fda1fa9cdaef3c9948b3c67ba58f",
+   "solids": 1
+  },
+  {
+   "key": "hw",
+   "name": "29328N housing washer",
+   "group": "Bearing module",
+   "color": "#4f8a8b",
+   "step": "out/step/parts/hw.step",
+   "sha256": "06ccefdf0eefc49ed4d42df0df6120063ba13165e99fbaa0c29721978e189d86",
+   "solids": 1
+  },
+  {
+   "key": "shaft",
+   "name": "Spindle Ø140, 4140 QT",
+   "group": "Bearing module",
+   "color": "#c7ccd1",
+   "step": "out/step/parts/shaft.step",
+   "sha256": "9bba458eb6eda74d6a562818a94d97cd240ad716bf3935f3aaad1f64d7cf5bda",
+   "solids": 1
+  },
+  {
+   "key": "f_ir",
+   "name": "Front 23228: inner ring",
+   "group": "Bearing module",
+   "color": "#6aa368",
+   "step": "out/step/parts/f_ir.step",
+   "sha256": "579608cde4d77d34f293f89150ad8f88e169a787fb359d51a3444c8a58f626e4",
+   "solids": 1
+  },
+  {
+   "key": "f_or",
+   "name": "Front 23228: outer ring",
+   "group": "Bearing module",
+   "color": "#5c9160",
+   "step": "out/step/parts/f_or.step",
+   "sha256": "c2c8e9081cc2eae2252df744b3dfff375d7b7221c6afca536283e74c1173a38c",
+   "solids": 1
+  },
+  {
+   "key": "f_rol",
+   "name": "Front 23228: rollers 2 × 19",
+   "group": "Bearing module",
+   "color": "#aab3bb",
+   "step": "out/step/parts/f_rol.step",
+   "sha256": "f9b0ae0efed40da986b61d9a469ab0f5abe1e3bc0cfec9743fcfbddf52c2b4ed",
+   "solids": 1
+  },
+  {
+   "key": "f_cage",
+   "name": "Front 23228: cage rings + guide ring",
+   "group": "Bearing module",
+   "color": "#b88a3a",
+   "step": "out/step/parts/f_cage.step",
+   "sha256": "1ce3f994851189c15be5faba166d5087e7d84b7692ec0359dff634e69e7dc4bf",
+   "solids": 1
+  },
+  {
+   "key": "backing",
+   "name": "Backing ring Ø190",
+   "group": "Bearing module",
+   "color": "#9aa0a6",
+   "step": "out/step/parts/backing.step",
+   "sha256": "ff627062251093d0e293f8a2f3b928a5d2743d43399a9ec07b46ff81a3e17f2c",
+   "solids": 1
+  },
+  {
+   "key": "sw",
+   "name": "29328N shaft washer",
+   "group": "Bearing module",
+   "color": "#4f8a8b",
+   "step": "out/step/parts/sw.step",
+   "sha256": "c6a6d06d6b482f7d370bba98431cd61650fe44aed6dc9db5160ae00234d91c14",
+   "solids": 1
+  },
+  {
+   "key": "t_rol",
+   "name": "29328N rollers ×24",
+   "group": "Bearing module",
+   "color": "#aab3bb",
+   "step": "out/step/parts/t_rol.step",
+   "sha256": "022fb80fe84fa6f1ff8eee92d6ab382115e6d000e425900d802eae50bcab561a",
+   "solids": 1
+  },
+  {
+   "key": "spacer",
+   "name": "Spacer sleeve",
+   "group": "Bearing module",
+   "color": "#9aa0a6",
+   "step": "out/step/parts/spacer.step",
+   "sha256": "b9ec040a2a839d0e4db245221ceaf46f6ca02a364a3528f6c413b56f081562f3",
+   "solids": 1
+  },
+  {
+   "key": "r_ir",
+   "name": "Rear 23228: inner ring",
+   "group": "Bearing module",
+   "color": "#6aa368",
+   "step": "out/step/parts/r_ir.step",
+   "sha256": "4b89fdbc4f7c68c6f23780a080297eeeeeb4068703aff077b3829c600fc03e49",
+   "solids": 1
+  },
+  {
+   "key": "r_or",
+   "name": "Rear 23228: outer ring",
+   "group": "Bearing module",
+   "color": "#5c9160",
+   "step": "out/step/parts/r_or.step",
+   "sha256": "da04abca9f693593918de0a2e0fa0dfd8f4c383584c77ae9b962309f12463005",
+   "solids": 1
+  },
+  {
+   "key": "r_rol",
+   "name": "Rear 23228: rollers 2 × 19",
+   "group": "Bearing module",
+   "color": "#aab3bb",
+   "step": "out/step/parts/r_rol.step",
+   "sha256": "4f6b47a4f69d51c82c16878eb71ed49634fb771965b11f989232a34dc4789e8d",
+   "solids": 1
+  },
+  {
+   "key": "r_cage",
+   "name": "Rear 23228: cage rings + guide ring",
+   "group": "Bearing module",
+   "color": "#b88a3a",
+   "step": "out/step/parts/r_cage.step",
+   "sha256": "e33aa82d37d644e06a622854e11b9d32cf06f24d23b139b4f92b1750a253372b",
+   "solids": 1
+  },
+  {
+   "key": "mb",
+   "name": "MB28 lock washer",
+   "group": "Bearing module",
+   "color": "#9aa0a6",
+   "step": "out/step/parts/mb.step",
+   "sha256": "e06c595b09812a8956d9b0d7398e358128eb38eaed24d99fb1edaa47ec18d4e1",
+   "solids": 1
+  },
+  {
+   "key": "nut",
+   "name": "KM28 lock nut",
+   "group": "Bearing module",
+   "color": "#7d8288",
+   "step": "out/step/parts/nut.step",
+   "sha256": "9f89e21b01e85fc9edf0c4fc110980f63b4ca3d1a7a5412b2444e442a23beaf0",
+   "solids": 1
+  },
+  {
+   "key": "eye",
+   "name": "M30 eye bolt in spindle nose (fixture)",
+   "group": "Fixture",
+   "color": "#e07a3c",
+   "step": "out/step/parts/eye.step",
+   "sha256": "a7604a6ca1602156320d666d3c1a2643e0f19a69d06eb784d7c4b1a7195cdb1b",
+   "solids": 1
+  },
+  {
+   "key": "spider",
+   "name": "Spider plate 50.8, one waterjet piece",
+   "group": "Cutterhead",
+   "color": "#8c6bb1",
+   "step": "out/step/parts/spider.step",
+   "sha256": "242920d8eaaba76d910a1b443dae2f2ca9ae7e7379d92652a4d37debd721880b",
+   "solids": 1
+  },
+  {
+   "key": "gussets",
+   "name": "Gussets ×8, 25 thk, tab-and-slot",
+   "group": "Cutterhead",
+   "color": "#a58ad0",
+   "step": "out/step/parts/gussets.step",
+   "sha256": "9796f8b957c978fa8673a77611f74dbd55baffbd458e72ed00fee730cbfff79e",
+   "solids": 1
+  },
+  {
+   "key": "hubring",
+   "name": "LA hub ring Ø340 × Ø190 × 50.8",
+   "group": "Cutterhead",
+   "color": "#7a5aa1",
+   "step": "out/step/parts/hubring.step",
+   "sha256": "47042dd17ef071106f6d79d02636608d67b350207b90bb5f70d432011ad0f40a",
+   "solids": 1
+  },
+  {
+   "key": "sleeve",
+   "name": "Journal sleeve Ø170 + labyrinth rings",
+   "group": "Cutterhead",
+   "color": "#d0a060",
+   "step": "out/step/parts/sleeve.step",
+   "sha256": "f22155bf3ac5ed2024e2d826d4a233912b5f745394af736bb643a6c90d93ccb7",
+   "solids": 1
+  },
+  {
+   "key": "headwelds",
+   "name": "Head welds (12 mm gusset-to-arm, 8 mm hub)",
+   "group": "Cutterhead",
+   "color": "#c99a3c",
+   "step": "out/step/parts/headwelds.step",
+   "sha256": "f484cefccd40f770c427f6d7a40fbd7e26b780d14e0f18032e3a6e21218f8678",
+   "solids": 1
+  },
+  {
+   "key": "holders",
+   "name": "Bit holders ×17 (spider), 30 × 24 × 20",
+   "group": "Cutterhead",
+   "color": "#5a4a7a",
+   "step": "out/step/parts/holders.step",
+   "sha256": "23afea145e7b0d59d4febe857b23732f48326814f88f5baf76513a684fe8c2dd",
+   "solids": 1
+  },
+  {
+   "key": "carbide",
+   "name": "Carbide drag bits ×17 (spider)",
+   "group": "Cutterhead",
+   "color": "#e8d36a",
+   "step": "out/step/parts/carbide.step",
+   "sha256": "9c5f70753f22b64d407d62e78c21bd5a947e10b8b1f63c3f872ead5fae0bd8a5",
+   "solids": 1
+  },
+  {
+   "key": "la",
+   "name": "Locking assembly 140 × 190 × 50",
+   "group": "Cutterhead",
+   "color": "#3f6f8f",
+   "step": "out/step/parts/la.step",
+   "sha256": "82d3dd86766eb54aa848db3384a3e360e08ef53523a0d7ad1396cc5acea73405",
+   "solids": 1
+  },
+  {
+   "key": "lascrews",
+   "name": "Locking assembly screws 12 × M12",
+   "group": "Cutterhead",
+   "color": "#3c3f44",
+   "step": "out/step/parts/lascrews.step",
+   "sha256": "7da35980ebe8607afdf3185d1e5d002f49a45ebf692262dc97436ed5345d305e",
+   "solids": 1
+  },
+  {
+   "key": "cap",
+   "name": "Centre cap 30 thk + cone",
+   "group": "Cutterhead",
+   "color": "#6a4a91",
+   "step": "out/step/parts/cap.step",
+   "sha256": "ca133b60d16f175317af2eb18caaef09dba3e519992c3a8a917bc65c5d24f5ae",
+   "solids": 1
+  },
+  {
+   "key": "capholders",
+   "name": "Bit holders ×7 (cap)",
+   "group": "Cutterhead",
+   "color": "#5a4a7a",
+   "step": "out/step/parts/capholders.step",
+   "sha256": "c66a13584bbb9e9e7ae2642f304005077ae3fe53a08e178b6be83aab9fc72c5f",
+   "solids": 1
+  },
+  {
+   "key": "capcarbide",
+   "name": "Carbide drag bits ×7 (cap)",
+   "group": "Cutterhead",
+   "color": "#e8d36a",
+   "step": "out/step/parts/capcarbide.step",
+   "sha256": "e2d5c8208173daac3de7493bc951051a59aa11b965bc6ecd38e52bbbeb904f78",
+   "solids": 1
+  },
+  {
+   "key": "blades",
+   "name": "Centre cone carbide blades ×3",
+   "group": "Cutterhead",
+   "color": "#e8d36a",
+   "step": "out/step/parts/blades.step",
+   "sha256": "3dc11e5682fd1fba0677e95f1b5f0a5a30c2fd96f065bd2d4b20b428f2c43252",
+   "solids": 1
+  },
+  {
+   "key": "capscrews",
+   "name": "Cap screws 8 × M8 countersunk",
+   "group": "Cutterhead",
+   "color": "#3c3f44",
+   "step": "out/step/parts/capscrews.step",
+   "sha256": "4836952b48410c0938e6150b14b7b339a2349c2b53224ddd32b1436010ccdf72",
+   "solids": 1
+  },
+  {
+   "key": "adapter",
+   "name": "Drive adapter weldment (bell housing)",
+   "group": "Drive",
+   "color": "#7b9fb8",
+   "step": "out/step/parts/adapter.step",
+   "sha256": "e66b1573be48147d2d2c47e276ae793b6905ac83cff67d2685687fdbf2904cd6",
+   "solids": 1
+  },
+  {
+   "key": "adwelds",
+   "name": "Adapter welds",
+   "group": "Drive",
+   "color": "#c99a3c",
+   "step": "out/step/parts/adwelds.step",
+   "sha256": "a99b73e92ecafc4989fcf7ce74b46551190386e837f2f15d4f4cfde95c4bd6e2",
+   "solids": 1
+  },
+  {
+   "key": "adscrews",
+   "name": "Adapter screws 12 × M16 10.9",
+   "group": "Drive",
+   "color": "#3c3f44",
+   "step": "out/step/parts/adscrews.step",
+   "sha256": "656c292f4b2160549e9ba8f0f1c2699eb5d157181a3b85b964bb6382bc772376",
+   "solids": 1
+  },
+  {
+   "key": "addowels",
+   "name": "Adapter dowels 3 × Ø16",
+   "group": "Drive",
+   "color": "#e0a030",
+   "step": "out/step/parts/addowels.step",
+   "sha256": "423fe99a9135ac8f3f48b4a064feba1ca56c2e050db51ee3f214d68e0f934abe",
+   "solids": 1
+  },
+  {
+   "key": "guards",
+   "name": "Window guards ×2, 3 mm",
+   "group": "Drive",
+   "color": "#9fb8c9",
+   "step": "out/step/parts/guards.step",
+   "sha256": "36a8096c55e1197627ed9c4bd2ec1a40ee16f20e6d47d0935c314b6530a39d7b",
+   "solids": 1
+  },
+  {
+   "key": "guardscr",
+   "name": "Guard screws 8 × M6",
+   "group": "Drive",
+   "color": "#3c3f44",
+   "step": "out/step/parts/guardscr.step",
+   "sha256": "a8605ea8e8c6bbfc501bcb763aa6a29ea67ad828b1269a9d5a65bbd279c12b67",
+   "solids": 1
+  },
+  {
+   "key": "gsupply",
+   "name": "Seal-purge supply line, part 1 (R209)",
+   "group": "Drive",
+   "color": "#d9c24a",
+   "step": "out/step/parts/gsupply.step",
+   "sha256": "e0278ca98b720d70543148e41c0c4c6e9c3e7a848b557a97470e739211372a1c",
+   "solids": 1
+  },
+  {
+   "key": "gsupply2",
+   "name": "Seal-purge supply line, part 2 (to R185 and the surface)",
+   "group": "Drive",
+   "color": "#d9c24a",
+   "step": "out/step/parts/gsupply2.step",
+   "sha256": "a548b5e4139044a701ae447ea9d5f8956c3171b8d2db6394267b85298dbbf4da",
+   "solids": 1
+  },
+  {
+   "key": "hub1",
+   "name": "ROTEX 160 hub, spindle side (steel, Ø180 bore)",
+   "group": "Drive",
+   "color": "#9aa7b2",
+   "step": "out/step/parts/hub1.step",
+   "sha256": "28af6816251bd6b533340aa2885d7bd7d4d2392b61324c43451a66d55979669a",
+   "solids": 1
+  },
+  {
+   "key": "hub1la",
+   "name": "B-LOC B400 130 × 180 locking assembly",
+   "group": "Drive",
+   "color": "#3f6f8f",
+   "step": "out/step/parts/hub1la.step",
+   "sha256": "961207245c8f75adff770df952a29f830c923f2ddc29f6dfd6fe383c502dbcea",
+   "solids": 1
+  },
+  {
+   "key": "hub1scr",
+   "name": "Hub locking-assembly screws 10 × M12",
+   "group": "Drive",
+   "color": "#3c3f44",
+   "step": "out/step/parts/hub1scr.step",
+   "sha256": "38a647c8a2000c35a933209450ca343d1f85c83a7d4c63ac1904173f1783c71a",
+   "solids": 1
+  },
+  {
+   "key": "elast",
+   "name": "ROTEX 160 spider, 64 ShD",
+   "group": "Drive",
+   "color": "#c0392b",
+   "step": "out/step/parts/elast.step",
+   "sha256": "839cce4adec97803aebc6e85e5d347cf44fe9536260a674e765c6c79e9801865",
+   "solids": 1
+  },
+  {
+   "key": "hub2",
+   "name": "ROTEX 160 hub, motor side (W90 × 3 × 28 spline)",
+   "group": "Drive",
+   "color": "#9aa7b2",
+   "step": "out/step/parts/hub2.step",
+   "sha256": "dbc14bdd71689f576f17403b6486d17fa8abd3184f92623ad19e411c0bf994ec",
+   "solids": 1
+  },
+  {
+   "key": "mshaft",
+   "name": "Motor shaft W90 × 3 × 28",
+   "group": "Drive",
+   "color": "#c7ccd1",
+   "step": "out/step/parts/mshaft.step",
+   "sha256": "df928619d0c7a931c17830a0a787535f673f462588d7dfa7e20a06674456bc2f",
+   "solids": 1
+  },
+  {
+   "key": "motor",
+   "name": "Hydraulic motor, Poclain MS18 2,812 cc (body approximate)",
+   "group": "Drive",
+   "color": "#2f6f9f",
+   "step": "out/step/parts/motor.step",
+   "sha256": "ae1bd8933db8c45ddab20eb3d968cb5ea6eb4e6641da5ecb193e6a6819c3db66",
+   "solids": 1
+  },
+  {
+   "key": "mbolts_r",
+   "name": "Motor housing bolts",
+   "group": "Drive",
+   "color": "#3c3f44",
+   "step": "out/step/parts/mbolts_r.step",
+   "sha256": "9b01a4bae6ab53235d0dcb77ca2d4982db804a69f08960901dd67f18f7267e5e",
+   "solids": 1
+  },
+  {
+   "key": "mplate",
+   "name": "Motor pilot plate Ø400 × 20 (Ø300 spigot, Ø282 recess)",
+   "group": "Drive",
+   "color": "#6f93ad",
+   "step": "out/step/parts/mplate.step",
+   "sha256": "87e0ce85034d6d59a3bc988633ec8209fb89920eb3f767ac1b45612106b85e58",
+   "solids": 1
+  },
+  {
+   "key": "mbolts",
+   "name": "Motor screws 8 × M20 × 65 10.9",
+   "group": "Drive",
+   "color": "#3c3f44",
+   "step": "out/step/parts/mbolts.step",
+   "sha256": "2b56779abed1a04f23824544d6b450dc653673d0fb56852a7a0daddcbc666aab",
+   "solids": 1
+  },
+  {
+   "key": "hoses",
+   "name": "Hoses A, B (3/4 in) + case drain",
+   "group": "Drive",
+   "color": "#24272a",
+   "step": "out/step/parts/hoses.step",
+   "sha256": "01108182da88fff737c2b4ab4a4c2caf245ccdb3374c09e424570eed70fd3cd9",
+   "solids": 1
+  },
+  {
+   "key": "tring",
+   "name": "Thrust ring 76.2 thk A572-50, Ø609.6 × Ø400, Ø589.5 × 10 register, notched 12 + 6 (Rev B)",
+   "group": "Thrust ring",
+   "color": "#5b8c6e",
+   "step": "out/step/parts/tring.step",
+   "sha256": "625b14ff894f7eddfb9c6e6b975b93c8b32fd902f52ea73c30e3c29001a65268",
+   "solids": 1
+  },
+  {
+   "key": "tsaddles",
+   "name": "Saddle blocks ×4, 144 × 100 × 45.5, Ø65 seat",
+   "group": "Thrust ring",
+   "color": "#6f9f80",
+   "step": "out/step/parts/tsaddles.step",
+   "sha256": "6870dc77d7e4b01aff4330264ba10eef30eac6eadb36994c2603279c6a775e48",
+   "solids": 1
+  },
+  {
+   "key": "tears",
+   "name": "Saddle ears ×8, 20 × 80, R40, Ø39.5 slotted 3",
+   "group": "Thrust ring",
+   "color": "#82b191",
+   "step": "out/step/parts/tears.step",
+   "sha256": "708747fc063bd400ad1961589c16a310580870c1a20614904dda121a571f0100",
+   "solids": 1
+  },
+  {
+   "key": "tsadwelds",
+   "name": "Saddle welds, 8 mm fillet (none past the ring OD)",
+   "group": "Thrust ring",
+   "color": "#c99a3c",
+   "step": "out/step/parts/tsadwelds.step",
+   "sha256": "cf25b976b282abb18ba1b446f788c3cefe6a0837177b30302d471e8c1b238f6c",
+   "solids": 1
+  },
+  {
+   "key": "tpin60",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 2 o'clock",
+   "group": "Thrust ring",
+   "color": "#e0a030",
+   "step": "out/step/parts/tpin60.step",
+   "sha256": "2141bd3e07589620d00bc528ae58c0712b9539e7e6fae8c811139f1a0d92eec6",
+   "solids": 1
+  },
+  {
+   "key": "tpin120",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 4 o'clock",
+   "group": "Thrust ring",
+   "color": "#e0a030",
+   "step": "out/step/parts/tpin120.step",
+   "sha256": "c7d14b2a31cebf8bdb010b2a6d3c5b5ebc75ab39bc830879be16e2ae57cd1994",
+   "solids": 1
+  },
+  {
+   "key": "tpin240",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 8 o'clock",
+   "group": "Thrust ring",
+   "color": "#e0a030",
+   "step": "out/step/parts/tpin240.step",
+   "sha256": "584516f991a6638a55e37066a381a0fd097b45f3854ba1406c1556fbbfecbf82",
+   "solids": 1
+  },
+  {
+   "key": "tpin300",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 10 o'clock",
+   "group": "Thrust ring",
+   "color": "#e0a030",
+   "step": "out/step/parts/tpin300.step",
+   "sha256": "a109c0ae8d87cec4a2e28551777766b6bbc6dc3b5ef50ebc5b6cff4259240dd3",
+   "solids": 1
+  },
+  {
+   "key": "jcyl",
+   "name": "Chief WT 5 × 24 ×4, retracted 889 (envelope)",
+   "group": "Jacking cylinders",
+   "color": "#a83232",
+   "step": "out/step/parts/jcyl.step",
+   "sha256": "e856523e7b129fd5c10a4b4de9e1c3d5e1cb829643b84b651991b36e13e1fd8a",
+   "solids": 1
+  }
+ ],
+ "parameters": [
+  {
+   "name": "SH_ID",
+   "value": 584.2,
+   "unit": "mm",
+   "comment": "Shield shell ID (24 in x 0.500 in pipe)"
+  },
+  {
+   "name": "SH_OD",
+   "value": 609.6,
+   "unit": "mm",
+   "comment": "Shield shell OD (24 in pipe)"
+  },
+  {
+   "name": "T_R1",
+   "value": 110.0,
+   "unit": "mm",
+   "comment": "Rev I: counterbore / split flange 30 deep (Rev H 35)"
+  },
+  {
+   "name": "CB",
+   "value": 30.0,
+   "unit": "mm",
+   "comment": "Rev I: counterbore / split flange 30 deep (Rev H 35)"
+  },
+  {
+   "name": "L_BRG",
+   "value": 400.0,
+   "unit": "mm",
+   "comment": "Bearing spacing, 23228 front to 23228 rear"
+  },
+  {
+   "name": "R_TUBE",
+   "value": 159.0,
+   "unit": "mm",
+   "comment": "Rev I: land 15 (Rev H 20); groove x = 15-30"
+  },
+  {
+   "name": "R_GRV",
+   "value": 148.0,
+   "unit": "mm",
+   "comment": "Rev I: land 15 (Rev H 20); groove x = 15-30"
+  },
+  {
+   "name": "LAND",
+   "value": 15.0,
+   "unit": "mm",
+   "comment": "Rev I: land 15 (Rev H 20); groove x = 15-30"
+  },
+  {
+   "name": "R_REC",
+   "value": 137.0,
+   "unit": "mm",
+   "comment": "Rev I: land 15 (Rev H 20); groove x = 15-30"
+  },
+  {
+   "name": "X_ARM_B",
+   "value": -133.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "X_ARM_F",
+   "value": -183.8,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "X_LA0",
+   "value": -133.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "X_LA1",
+   "value": -83.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "SH_X0",
+   "value": -128.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "SH_X1",
+   "value": 1157.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "R_PIPE",
+   "value": 245.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "D_PIPE",
+   "value": 76.2,
+   "unit": "mm",
+   "comment": "3.000 x 0.250 in DOM 1026 (Rev I)"
+  },
+  {
+   "name": "D_PIPE_ID",
+   "value": 63.5,
+   "unit": "mm",
+   "comment": "3.000 x 0.250 in DOM 1026 (Rev I)"
+  },
+  {
+   "name": "R_CB",
+   "value": 192.0,
+   "unit": "mm",
+   "comment": "ring 1 counterbore radius (Rev I: Ø384 x 30)"
+  },
+  {
+   "name": "R_BC",
+   "value": 177.0,
+   "unit": "mm",
+   "comment": "flange bolt circle radius"
+  },
+  {
+   "name": "X_PIPE_END",
+   "value": 1255.0,
+   "unit": "mm",
+   "comment": "slurry pipe rear end, 98 past the shield rear (through the thrust ring)"
+  },
+  {
+   "name": "SPLIT_X",
+   "value": 22.5,
+   "unit": "mm",
+   "comment": "split-flange joint screws M8 (Rev I), in the lip zone x = 15-30"
+  },
+  {
+   "name": "SPLIT_Z",
+   "value": 157.0,
+   "unit": "mm",
+   "comment": "split-flange joint screws M8 (Rev I), in the lip zone x = 15-30"
+  },
+  {
+   "name": "PIN_X",
+   "value": 7.5,
+   "unit": "mm",
+   "comment": "anti-rotation pins, radial, in the land zone x = 0-15"
+  },
+  {
+   "name": "PIN_D",
+   "value": 12.0,
+   "unit": "mm",
+   "comment": "anti-rotation pins, radial, in the land zone x = 0-15"
+  },
+  {
+   "name": "X_SHAFT_END",
+   "value": 715.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "X_AD0",
+   "value": 615.0,
+   "unit": "mm",
+   "comment": "adapter: cartridge face .. adapter rear face"
+  },
+  {
+   "name": "X_AD1",
+   "value": 857.0,
+   "unit": "mm",
+   "comment": "adapter: cartridge face .. adapter rear face"
+  },
+  {
+   "name": "T_MPL",
+   "value": 20.0,
+   "unit": "mm",
+   "comment": "motor pilot plate thickness (857-877)"
+  },
+  {
+   "name": "X_H1",
+   "value": 660.0,
+   "unit": "mm",
+   "comment": "spindle hub body (B-LOC B400 130 x 180 inside, 665-715)"
+  },
+  {
+   "name": "X_J1",
+   "value": 720.0,
+   "unit": "mm",
+   "comment": "spindle hub body (B-LOC B400 130 x 180 inside, 665-715)"
+  },
+  {
+   "name": "RTX_E",
+   "value": 75.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "RTX_S",
+   "value": 9.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "RTX_B",
+   "value": 57.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "RTX_R",
+   "value": 145.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "RTX_RI",
+   "value": 95.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "X_H2",
+   "value": 795.0,
+   "unit": "mm",
+   "comment": "motor hub body front face (795)"
+  },
+  {
+   "name": "X_H2E",
+   "value": 867.0,
+   "unit": "mm",
+   "comment": "motor hub rear face (W90 spline bore, 72 long)"
+  },
+  {
+   "name": "X_MOT",
+   "value": 877.0,
+   "unit": "mm",
+   "comment": "motor mounting face (877, as Rev H)"
+  },
+  {
+   "name": "MOT_SHAFT",
+   "value": 110.0,
+   "unit": "mm",
+   "comment": "motor shaft beyond the mounting face (placeholder until the certified drawing)"
+  },
+  {
+   "name": "X_WIN",
+   "value": 735.0,
+   "unit": "mm",
+   "comment": "adapter window centre"
+  },
+  {
+   "name": "A_PURGE",
+   "value": 30.0,
+   "unit": "deg",
+   "comment": "seal-purge port angle and line ends (line lies in an OD groove)"
+  },
+  {
+   "name": "X_PURGE0",
+   "value": 125.0,
+   "unit": "mm",
+   "comment": "seal-purge port angle and line ends (line lies in an OD groove)"
+  },
+  {
+   "name": "X_PURGE1",
+   "value": 600.0,
+   "unit": "mm",
+   "comment": "seal-purge port angle and line ends (line lies in an OD groove)"
+  },
+  {
+   "name": "FIN_ANGS_1",
+   "value": 30.0,
+   "unit": "deg",
+   "comment": "[FIN_ANGS[0]] Anti-roll fin angles from 12 o'clock"
+  },
+  {
+   "name": "FIN_ANGS_2",
+   "value": 90.0,
+   "unit": "deg",
+   "comment": "[FIN_ANGS[1]] Anti-roll fin angles from 12 o'clock"
+  },
+  {
+   "name": "FIN_ANGS_3",
+   "value": 270.0,
+   "unit": "deg",
+   "comment": "[FIN_ANGS[2]] Anti-roll fin angles from 12 o'clock"
+  },
+  {
+   "name": "FIN_ANGS_4",
+   "value": 330.0,
+   "unit": "deg",
+   "comment": "[FIN_ANGS[3]] Anti-roll fin angles from 12 o'clock"
+  },
+  {
+   "name": "FIN_X0",
+   "value": 150.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "FIN_X1",
+   "value": 1140.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "FIN_H",
+   "value": 70.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "FIN_T",
+   "value": 20.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "CAS_ID",
+   "value": 590.6,
+   "unit": "mm",
+   "comment": "casing bore Ø; counterbore depth in the shield rear end"
+  },
+  {
+   "name": "CAS_CB",
+   "value": 12.0,
+   "unit": "mm",
+   "comment": "Shield rear counterbore depth (seat for the thrust ring register spigot)"
+  },
+  {
+   "name": "BLK",
+   "value": 110.0,
+   "unit": "mm",
+   "comment": "riser blocks under the shell rear end while it stands (pipes 98 proud)"
+  },
+  {
+   "name": "LIFT_X_1",
+   "value": 155.0,
+   "unit": "mm",
+   "comment": "[LIFT_X[0]] Lifting boss x stations (symmetric about the CG)"
+  },
+  {
+   "name": "LIFT_X_2",
+   "value": 699.0,
+   "unit": "mm",
+   "comment": "[LIFT_X[1]] Lifting boss x stations (symmetric about the CG)"
+  },
+  {
+   "name": "LIFT_A_1",
+   "value": -18.0,
+   "unit": "deg",
+   "comment": "[LIFT_A[0]] Lifting boss angles from 12 o'clock"
+  },
+  {
+   "name": "LIFT_A_2",
+   "value": 18.0,
+   "unit": "deg",
+   "comment": "[LIFT_A[1]] Lifting boss angles from 12 o'clock"
+  },
+  {
+   "name": "LIFT_D",
+   "value": 60.0,
+   "unit": "mm",
+   "comment": "x symmetric about the CG (427)"
+  },
+  {
+   "name": "LIFT_L",
+   "value": 40.0,
+   "unit": "mm",
+   "comment": "x symmetric about the CG (427)"
+  },
+  {
+   "name": "R_ARM_IN",
+   "value": 150.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "R_ARM_OUT",
+   "value": 310.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "W_ARM",
+   "value": 76.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "HOLDER_R",
+   "value": 30.0,
+   "unit": "mm",
+   "comment": "holder 30 radial x 24 tangential x 20 high; Rev I weld: 14 mm fillet all round"
+  },
+  {
+   "name": "HOLDER_T",
+   "value": 24.0,
+   "unit": "mm",
+   "comment": "holder 30 radial x 24 tangential x 20 high; Rev I weld: 14 mm fillet all round"
+  },
+  {
+   "name": "HOLDER_H",
+   "value": 20.0,
+   "unit": "mm",
+   "comment": "holder 30 radial x 24 tangential x 20 high; Rev I weld: 14 mm fillet all round"
+  },
+  {
+   "name": "X_CAP1",
+   "value": -153.8,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "GD_X0",
+   "value": 649.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "GD_X1",
+   "value": 817.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "GD_HALF",
+   "value": 29.0,
+   "unit": "deg",
+   "comment": "Window guard half-angle"
+  },
+  {
+   "name": "GD_SA",
+   "value": 24.5,
+   "unit": "deg",
+   "comment": "Guard screw angle from the window centre"
+  },
+  {
+   "name": "SUP_R1",
+   "value": 209.0,
+   "unit": "mm",
+   "comment": "Rev I: jog from R209 to R185 between x 1095 and 1150"
+  },
+  {
+   "name": "SUP_R2",
+   "value": 185.0,
+   "unit": "mm",
+   "comment": "Rev I: jog from R209 to R185 between x 1095 and 1150"
+  },
+  {
+   "name": "SUP_XJ0",
+   "value": 1095.0,
+   "unit": "mm",
+   "comment": "Rev I: jog from R209 to R185 between x 1095 and 1150"
+  },
+  {
+   "name": "SUP_XJ1",
+   "value": 1150.0,
+   "unit": "mm",
+   "comment": "Rev I: jog from R209 to R185 between x 1095 and 1150"
+  },
+  {
+   "name": "X_JT1",
+   "value": 786.0,
+   "unit": "mm",
+   "comment": "hub 1 jaw tips (786)"
+  },
+  {
+   "name": "X_JT2",
+   "value": 729.0,
+   "unit": "mm",
+   "comment": "hub 2 jaw tips (729)"
+  },
+  {
+   "name": "X_H2N",
+   "value": 825.0,
+   "unit": "mm",
+   "comment": "hub 2: jaw disc 795-825 Ø290, then a Ø140 neck to 867 inside the adapter's Ø282 rear bore"
+  },
+  {
+   "name": "X_MS0",
+   "value": 767.0,
+   "unit": "mm",
+   "comment": "motor shaft tip (767: projects 28 into the spider bore, allowed by KTR)"
+  },
+  {
+   "name": "TR_X0",
+   "value": 1157.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "TR_T",
+   "value": 76.2,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "TR_ID",
+   "value": 400.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "TR_OD",
+   "value": 609.6,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "TR_X1",
+   "value": 1233.2,
+   "unit": "mm",
+   "comment": "rear face"
+  },
+  {
+   "name": "TR_R",
+   "value": 260.0,
+   "unit": "mm",
+   "comment": "cylinders at 2, 4, 8, 10 o'clock"
+  },
+  {
+   "name": "TR_ANGS_1",
+   "value": 60.0,
+   "unit": "deg",
+   "comment": "[TR_ANGS[0]] Cylinder angles from 12 o'clock (2, 4, 8, 10 o'clock)"
+  },
+  {
+   "name": "TR_ANGS_2",
+   "value": 120.0,
+   "unit": "deg",
+   "comment": "[TR_ANGS[1]] Cylinder angles from 12 o'clock (2, 4, 8, 10 o'clock)"
+  },
+  {
+   "name": "TR_ANGS_3",
+   "value": 240.0,
+   "unit": "deg",
+   "comment": "[TR_ANGS[2]] Cylinder angles from 12 o'clock (2, 4, 8, 10 o'clock)"
+  },
+  {
+   "name": "TR_ANGS_4",
+   "value": 300.0,
+   "unit": "deg",
+   "comment": "[TR_ANGS[3]] Cylinder angles from 12 o'clock (2, 4, 8, 10 o'clock)"
+  },
+  {
+   "name": "SD_U",
+   "value": 144.0,
+   "unit": "mm",
+   "comment": "saddle block tangential x radial x high, seat Ø"
+  },
+  {
+   "name": "SD_V",
+   "value": 100.0,
+   "unit": "mm",
+   "comment": "saddle block tangential x radial x high, seat Ø"
+  },
+  {
+   "name": "SD_H",
+   "value": 45.5,
+   "unit": "mm",
+   "comment": "saddle block tangential x radial x high, seat Ø"
+  },
+  {
+   "name": "SD_SEAT",
+   "value": 65.0,
+   "unit": "mm",
+   "comment": "saddle block tangential x radial x high, seat Ø"
+  },
+  {
+   "name": "X_CT",
+   "value": 1290.7,
+   "unit": "mm",
+   "comment": "cross-tube and pin axis"
+  },
+  {
+   "name": "EAR_T",
+   "value": 20.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "EAR_W",
+   "value": 80.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "EAR_R",
+   "value": 40.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "EAR_GAP",
+   "value": 104.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "EAR_HOLE",
+   "value": 39.5,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "EAR_SLOT",
+   "value": 3.0,
+   "unit": "mm",
+   "comment": "build_revI_detail.py"
+  },
+  {
+   "name": "CYL_L",
+   "value": 889.0,
+   "unit": "mm",
+   "comment": "Chief WT 5 x 24, pin to pin, retracted"
+  },
+  {
+   "name": "NOTCH_W",
+   "value": 84.0,
+   "unit": "mm",
+   "comment": "Rev B: U-notch 84 wide to R287 at 12 and 6 (slurry pipes)"
+  },
+  {
+   "name": "NOTCH_R",
+   "value": 287.0,
+   "unit": "mm",
+   "comment": "Rev B: U-notch 84 wide to R287 at 12 and 6 (slurry pipes)"
+  },
+  {
+   "name": "SP_D",
+   "value": 589.5,
+   "unit": "mm",
+   "comment": "register spigot into the casing bore: Ø, height ahead of the bearing face, radial width"
+  },
+  {
+   "name": "SP_H",
+   "value": 10.0,
+   "unit": "mm",
+   "comment": "register spigot into the casing bore: Ø, height ahead of the bearing face, radial width"
+  },
+  {
+   "name": "SP_W",
+   "value": 9.0,
+   "unit": "mm",
+   "comment": "register spigot into the casing bore: Ø, height ahead of the bearing face, radial width"
+  },
+  {
+   "name": "REL_W",
+   "value": 1.5,
+   "unit": "mm",
+   "comment": "relief groove at the spigot root: into the spigot, below the bearing face"
+  },
+  {
+   "name": "REL_D",
+   "value": 0.5,
+   "unit": "mm",
+   "comment": "relief groove at the spigot root: into the spigot, below the bearing face"
+  }
+ ]
+}

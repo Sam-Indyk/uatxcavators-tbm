@@ -1,0 +1,1828 @@
+{
+ "parts": [
+  {
+   "key": "shell",
+   "name": "Shield shell Ø609.6 × 12.7 × 1285, rear Ø590.6 × 12 counterbore",
+   "group": "Shell weldment",
+   "kg": 238.55,
+   "cg": [
+    513.4,
+    -1.3,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -128.0,
+    1157.0
+   ],
+   "bbox_r": 431.1
+  },
+  {
+   "key": "ring1",
+   "name": "Ring 1, 110 thk A572 Gr 42, Ø384 × 30 counterbore",
+   "group": "Shell weldment",
+   "kg": 144.7,
+   "cg": [
+    57.4,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -0.0,
+    110.0
+   ],
+   "bbox_r": 412.4
+  },
+  {
+   "key": "weld",
+   "name": "Ring 1 weld, 14 mm fillet from the front",
+   "group": "Shell weldment",
+   "kg": 1.39,
+   "cg": [
+    -4.7,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -14.0,
+    0.0
+   ],
+   "bbox_r": 413.1
+  },
+  {
+   "key": "pipes",
+   "name": "Slurry pipes Ø76.2 × 6.35, 12 + 6, x = 0 to 1,255",
+   "group": "Shell weldment",
+   "kg": 27.46,
+   "cg": [
+    627.5,
+    0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    0.0,
+    1255.0
+   ],
+   "bbox_r": 285.7
+  },
+  {
+   "key": "pipewelds",
+   "name": "Pipe welds: 6 × 45° front seal weld + 6 mm rear fillet",
+   "group": "Shell weldment",
+   "kg": 0.15,
+   "cg": [
+    53.5,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    0.0,
+    116.0
+   ],
+   "bbox_r": 292.9
+  },
+  {
+   "key": "saddles",
+   "name": "Pipe saddles",
+   "group": "Shell weldment",
+   "kg": 0.26,
+   "cg": [
+    960.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    950.0,
+    970.0
+   ],
+   "bbox_r": 284.6
+  },
+  {
+   "key": "taps",
+   "name": "Pressure-tap tubes, flush",
+   "group": "Shell weldment",
+   "kg": 0.12,
+   "cg": [
+    170.0,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    110.0,
+    230.0
+   ],
+   "bbox_r": 231.1
+  },
+  {
+   "key": "fin30",
+   "name": "Anti-roll fin 20 × 70 × 990 at 30°",
+   "group": "Shell weldment",
+   "kg": 9.81,
+   "cg": [
+    658.2,
+    293.2,
+    169.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    150.0,
+    1140.0
+   ],
+   "bbox_r": 383.5
+  },
+  {
+   "key": "fin90",
+   "name": "Anti-roll fin 20 × 70 × 990 at 90°",
+   "group": "Shell weldment",
+   "kg": 9.81,
+   "cg": [
+    658.2,
+    0.0,
+    338.6
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    150.0,
+    1140.0
+   ],
+   "bbox_r": 374.9
+  },
+  {
+   "key": "fin270",
+   "name": "Anti-roll fin 20 × 70 × 990 at 270°",
+   "group": "Shell weldment",
+   "kg": 9.81,
+   "cg": [
+    658.2,
+    -0.0,
+    -338.6
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    150.0,
+    1140.0
+   ],
+   "bbox_r": 374.9
+  },
+  {
+   "key": "fin330",
+   "name": "Anti-roll fin 20 × 70 × 990 at 330°",
+   "group": "Shell weldment",
+   "kg": 9.81,
+   "cg": [
+    658.2,
+    293.2,
+    -169.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    150.0,
+    1140.0
+   ],
+   "bbox_r": 359.6
+  },
+  {
+   "key": "finwelds",
+   "name": "Fin welds, 2 × 8 mm fillets",
+   "group": "Shell weldment",
+   "kg": 1.94,
+   "cg": [
+    648.5,
+    133.1,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    166.0,
+    1131.0
+   ],
+   "bbox_r": 417.1
+  },
+  {
+   "key": "liftboss",
+   "name": "Lifting bosses ×4, Ø60 × 40, M20 (hoist rings)",
+   "group": "Shell weldment",
+   "kg": 3.31,
+   "cg": [
+    427.0,
+    270.6,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    125.0,
+    729.0
+   ],
+   "bbox_r": 323.3
+  },
+  {
+   "key": "liftplug",
+   "name": "Lifting-boss plugs ×4, M20 set screws",
+   "group": "Shell weldment",
+   "kg": 0.14,
+   "cg": [
+    427.0,
+    280.1,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    146.3,
+    707.6
+   ],
+   "bbox_r": 309.5
+  },
+  {
+   "key": "legs",
+   "name": "Gauge legs ×3, 1157 (fixture)",
+   "group": "Fixture",
+   "kg": 19.26,
+   "cg": [
+    688.5,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    110.0,
+    1267.0
+   ],
+   "bbox_r": 368.3
+  },
+  {
+   "key": "risers",
+   "name": "Riser blocks ×3, 110 (fixture)",
+   "group": "Fixture",
+   "kg": 9.33,
+   "cg": [
+    1212.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1157.0,
+    1267.0
+   ],
+   "bbox_r": 444.5
+  },
+  {
+   "key": "tube",
+   "name": "Cartridge tube, seamless 323.9 × 60",
+   "group": "Bearing module",
+   "kg": 147.23,
+   "cg": [
+    308.4,
+    -0.5,
+    -0.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    0.0,
+    615.0
+   ],
+   "bbox_r": 224.9
+  },
+  {
+   "key": "halfA",
+   "name": "Split flange half A",
+   "group": "Bearing module",
+   "kg": 4.03,
+   "cg": [
+    15.9,
+    112.8,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -0.0,
+    30.0
+   ],
+   "bbox_r": 271.4
+  },
+  {
+   "key": "halfB",
+   "name": "Split flange half B",
+   "group": "Bearing module",
+   "kg": 4.27,
+   "cg": [
+    16.3,
+    -110.1,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -0.0,
+    30.0
+   ],
+   "bbox_r": 271.4
+  },
+  {
+   "key": "splitscrews",
+   "name": "Split-joint screws 2 × M8",
+   "group": "Bearing module",
+   "kg": 0.05,
+   "cg": [
+    22.5,
+    7.4,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    16.0,
+    29.0
+   ],
+   "bbox_r": 165.9
+  },
+  {
+   "key": "pin45",
+   "name": "Anti-rotation pin Ø12 at 45°",
+   "group": "Bearing module",
+   "kg": 0.04,
+   "cg": [
+    7.5,
+    119.3,
+    119.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1.5,
+    13.5
+   ],
+   "bbox_r": 197.5
+  },
+  {
+   "key": "pin135",
+   "name": "Anti-rotation pin Ø12 at 135°",
+   "group": "Bearing module",
+   "kg": 0.04,
+   "cg": [
+    7.5,
+    -119.3,
+    119.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1.5,
+    13.5
+   ],
+   "bbox_r": 171.2
+  },
+  {
+   "key": "pin225",
+   "name": "Anti-rotation pin Ø12 at 225°",
+   "group": "Bearing module",
+   "kg": 0.04,
+   "cg": [
+    7.5,
+    -119.3,
+    -119.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1.5,
+    13.5
+   ],
+   "bbox_r": 197.5
+  },
+  {
+   "key": "pin315",
+   "name": "Anti-rotation pin Ø12 at 315°",
+   "group": "Bearing module",
+   "kg": 0.04,
+   "cg": [
+    7.5,
+    119.3,
+    -119.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1.5,
+    13.5
+   ],
+   "bbox_r": 171.2
+  },
+  {
+   "key": "oring",
+   "name": "Static O-ring on tube",
+   "group": "Bearing module",
+   "kg": 0.18,
+   "cg": [
+    73.0,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    70.5,
+    75.5
+   ],
+   "bbox_r": 225.1
+  },
+  {
+   "key": "purge",
+   "name": "Seal-purge line Ø8 in OD groove",
+   "group": "Bearing module",
+   "kg": 0.18,
+   "cg": [
+    362.5,
+    133.8,
+    77.2
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    131.0,
+    594.0
+   ],
+   "bbox_r": 160.0
+  },
+  {
+   "key": "purgefit",
+   "name": "Purge line fittings (low profile)",
+   "group": "Bearing module",
+   "kg": 0.02,
+   "cg": [
+    362.5,
+    133.7,
+    77.2
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    119.0,
+    606.0
+   ],
+   "bbox_r": 163.8
+  },
+  {
+   "key": "flscrews",
+   "name": "Flange screws 16 × M12 × 40 10.9",
+   "group": "Bearing module",
+   "kg": 0.87,
+   "cg": [
+    24.1,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1.0,
+    53.0
+   ],
+   "bbox_r": 258.2
+  },
+  {
+   "key": "fldowels",
+   "name": "Dowels 2 × Ø16, flange to ring 1",
+   "group": "Bearing module",
+   "kg": 0.16,
+   "cg": [
+    30.0,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    5.0,
+    55.0
+   ],
+   "bbox_r": 185.2
+  },
+  {
+   "key": "carrier",
+   "name": "Seal carrier",
+   "group": "Bearing module",
+   "kg": 9.88,
+   "cg": [
+    33.5,
+    -0.1,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    0.0,
+    70.0
+   ],
+   "bbox_r": 193.0
+  },
+  {
+   "key": "sealcase",
+   "name": "Lip seals 170 × 200 × 15 ×3: steel case",
+   "group": "Bearing module",
+   "kg": 0.86,
+   "cg": [
+    37.3,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    8.0,
+    69.0
+   ],
+   "bbox_r": 141.4
+  },
+  {
+   "key": "seallip",
+   "name": "Lip seals: NBR lips",
+   "group": "Bearing module",
+   "kg": 0.22,
+   "cg": [
+    37.9,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    9.6,
+    67.5
+   ],
+   "bbox_r": 136.6
+  },
+  {
+   "key": "sealspring",
+   "name": "Lip seals: garter springs",
+   "group": "Bearing module",
+   "kg": 0.07,
+   "cg": [
+    37.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    12.7,
+    61.3
+   ],
+   "bbox_r": 127.8
+  },
+  {
+   "key": "lantern",
+   "name": "Lantern rings ×2",
+   "group": "Bearing module",
+   "kg": 0.87,
+   "cg": [
+    38.5,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    23.0,
+    54.0
+   ],
+   "bbox_r": 141.4
+  },
+  {
+   "key": "shim",
+   "name": "Carrier shims",
+   "group": "Bearing module",
+   "kg": 0.04,
+   "cg": [
+    9.7,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    9.4,
+    10.0
+   ],
+   "bbox_r": 192.3
+  },
+  {
+   "key": "carscrews",
+   "name": "Carrier screws 12 × M6 countersunk",
+   "group": "Bearing module",
+   "kg": 0.07,
+   "cg": [
+    9.8,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    0.0,
+    22.0
+   ],
+   "bbox_r": 187.4
+  },
+  {
+   "key": "hw",
+   "name": "29328N housing washer",
+   "group": "Bearing module",
+   "kg": 3.15,
+   "cg": [
+    236.5,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    216.3,
+    248.0
+   ],
+   "bbox_r": 169.4
+  },
+  {
+   "key": "shaft",
+   "name": "Spindle Ø140, 4140 QT",
+   "group": "Bearing module",
+   "kg": 100.67,
+   "cg": [
+    283.1,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -133.0,
+    715.0
+   ],
+   "bbox_r": 116.7
+  },
+  {
+   "key": "f_ir",
+   "name": "Front 23228: inner ring",
+   "group": "Bearing module",
+   "kg": 4.78,
+   "cg": [
+    114.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    70.0,
+    158.0
+   ],
+   "bbox_r": 124.4
+  },
+  {
+   "key": "f_or",
+   "name": "Front 23228: outer ring",
+   "group": "Bearing module",
+   "kg": 7.29,
+   "cg": [
+    114.0,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    70.0,
+    158.0
+   ],
+   "bbox_r": 176.8
+  },
+  {
+   "key": "f_rol",
+   "name": "Front 23228: rollers 2 × 19",
+   "group": "Bearing module",
+   "kg": 4.04,
+   "cg": [
+    114.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    77.0,
+    151.0
+   ],
+   "bbox_r": 158.6
+  },
+  {
+   "key": "f_cage",
+   "name": "Front 23228: cage rings + guide ring",
+   "group": "Bearing module",
+   "kg": 0.61,
+   "cg": [
+    114.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    71.5,
+    156.5
+   ],
+   "bbox_r": 142.1
+  },
+  {
+   "key": "backing",
+   "name": "Backing ring Ø190",
+   "group": "Bearing module",
+   "kg": 1.52,
+   "cg": [
+    180.5,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    173.0,
+    188.0
+   ],
+   "bbox_r": 134.4
+  },
+  {
+   "key": "sw",
+   "name": "29328N shaft washer",
+   "group": "Bearing module",
+   "kg": 4.59,
+   "cg": [
+    203.2,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    188.0,
+    226.5
+   ],
+   "bbox_r": 152.7
+  },
+  {
+   "key": "t_rol",
+   "name": "29328N rollers ×24",
+   "group": "Bearing module",
+   "kg": 1.04,
+   "cg": [
+    218.3,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    204.3,
+    232.4
+   ],
+   "bbox_r": 164.3
+  },
+  {
+   "key": "spacer",
+   "name": "Spacer sleeve",
+   "group": "Bearing module",
+   "kg": 9.01,
+   "cg": [
+    348.3,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    226.5,
+    470.0
+   ],
+   "bbox_r": 113.1
+  },
+  {
+   "key": "r_ir",
+   "name": "Rear 23228: inner ring",
+   "group": "Bearing module",
+   "kg": 4.78,
+   "cg": [
+    514.0,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    470.0,
+    558.0
+   ],
+   "bbox_r": 124.4
+  },
+  {
+   "key": "r_or",
+   "name": "Rear 23228: outer ring",
+   "group": "Bearing module",
+   "kg": 7.29,
+   "cg": [
+    514.0,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    470.0,
+    558.0
+   ],
+   "bbox_r": 176.8
+  },
+  {
+   "key": "r_rol",
+   "name": "Rear 23228: rollers 2 × 19",
+   "group": "Bearing module",
+   "kg": 4.04,
+   "cg": [
+    514.0,
+    0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    477.0,
+    551.0
+   ],
+   "bbox_r": 158.6
+  },
+  {
+   "key": "r_cage",
+   "name": "Rear 23228: cage rings + guide ring",
+   "group": "Bearing module",
+   "kg": 0.61,
+   "cg": [
+    514.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    471.5,
+    556.5
+   ],
+   "bbox_r": 142.1
+  },
+  {
+   "key": "mb",
+   "name": "MB28 lock washer",
+   "group": "Bearing module",
+   "kg": 0.16,
+   "cg": [
+    559.0,
+    0.4,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    558.0,
+    560.0
+   ],
+   "bbox_r": 134.4
+  },
+  {
+   "key": "nut",
+   "name": "KM28 lock nut",
+   "group": "Bearing module",
+   "kg": 2.46,
+   "cg": [
+    572.5,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    560.0,
+    585.0
+   ],
+   "bbox_r": 133.9
+  },
+  {
+   "key": "eye",
+   "name": "M30 eye bolt in spindle nose (fixture)",
+   "group": "Fixture",
+   "kg": 1.07,
+   "cg": [
+    -170.6,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -274.0,
+    -73.0
+   ],
+   "bbox_r": 43.7
+  },
+  {
+   "key": "spider",
+   "name": "Spider plate 50.8, one waterjet piece",
+   "group": "Cutterhead",
+   "kg": 47.84,
+   "cg": [
+    -157.3,
+    0.1,
+    0.9
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -183.8,
+    -133.0
+   ],
+   "bbox_r": 438.4
+  },
+  {
+   "key": "gussets",
+   "name": "Gussets ×8, 25 thk, tab-and-slot",
+   "group": "Cutterhead",
+   "kg": 22.35,
+   "cg": [
+    -93.9,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -183.8,
+    -8.0
+   ],
+   "bbox_r": 410.1
+  },
+  {
+   "key": "hubring",
+   "name": "LA hub ring Ø340 × Ø190 × 50.8",
+   "group": "Cutterhead",
+   "kg": 24.51,
+   "cg": [
+    -108.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -133.0,
+    -83.0
+   ],
+   "bbox_r": 240.4
+  },
+  {
+   "key": "sleeve",
+   "name": "Journal sleeve Ø170 + labyrinth rings",
+   "group": "Cutterhead",
+   "kg": 24.92,
+   "cg": [
+    -30.7,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -83.0,
+    70.0
+   ],
+   "bbox_r": 176.8
+  },
+  {
+   "key": "headwelds",
+   "name": "Head welds (12 mm gusset-to-arm, 8 mm hub)",
+   "group": "Cutterhead",
+   "kg": 2.0,
+   "cg": [
+    -110.1,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -133.0,
+    -10.0
+   ],
+   "bbox_r": 404.5
+  },
+  {
+   "key": "holders",
+   "name": "Bit holders ×17 (spider), 30 × 24 × 20",
+   "group": "Cutterhead",
+   "kg": 1.9,
+   "cg": [
+    -193.8,
+    -18.3,
+    -1.6
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -203.8,
+    -183.8
+   ],
+   "bbox_r": 431.6
+  },
+  {
+   "key": "carbide",
+   "name": "Carbide drag bits ×17 (spider)",
+   "group": "Cutterhead",
+   "kg": 0.71,
+   "cg": [
+    -213.8,
+    -18.3,
+    -1.6
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -225.8,
+    -203.8
+   ],
+   "bbox_r": 426.0
+  },
+  {
+   "key": "la",
+   "name": "Locking assembly 140 × 190 × 50",
+   "group": "Cutterhead",
+   "kg": 4.53,
+   "cg": [
+    -107.3,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -133.0,
+    -83.0
+   ],
+   "bbox_r": 134.4
+  },
+  {
+   "key": "lascrews",
+   "name": "Locking assembly screws 12 × M12",
+   "group": "Cutterhead",
+   "kg": 0.6,
+   "cg": [
+    -124.2,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -145.0,
+    -98.0
+   ],
+   "bbox_r": 129.4
+  },
+  {
+   "key": "cap",
+   "name": "Centre cap 30 thk + cone",
+   "group": "Cutterhead",
+   "kg": 12.5,
+   "cg": [
+    -169.0,
+    -0.4,
+    -3.6
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -208.8,
+    -153.8
+   ],
+   "bbox_r": 190.9
+  },
+  {
+   "key": "capholders",
+   "name": "Bit holders ×7 (cap)",
+   "group": "Cutterhead",
+   "kg": 0.78,
+   "cg": [
+    -193.8,
+    8.6,
+    -7.6
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -203.8,
+    -183.8
+   ],
+   "bbox_r": 171.3
+  },
+  {
+   "key": "capcarbide",
+   "name": "Carbide drag bits ×7 (cap)",
+   "group": "Cutterhead",
+   "kg": 0.29,
+   "cg": [
+    -213.8,
+    8.6,
+    -7.6
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -225.8,
+    -203.8
+   ],
+   "bbox_r": 165.7
+  },
+  {
+   "key": "blades",
+   "name": "Centre cone carbide blades ×3",
+   "group": "Cutterhead",
+   "kg": 0.05,
+   "cg": [
+    -195.8,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -205.8,
+    -185.8
+   ],
+   "bbox_r": 35.1
+  },
+  {
+   "key": "capscrews",
+   "name": "Cap screws 8 × M8 countersunk",
+   "group": "Cutterhead",
+   "kg": 0.14,
+   "cg": [
+    -165.6,
+    0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    -183.8,
+    -143.8
+   ],
+   "bbox_r": 152.4
+  },
+  {
+   "key": "adapter",
+   "name": "Drive adapter weldment (bell housing)",
+   "group": "Drive",
+   "kg": 44.25,
+   "cg": [
+    726.5,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    600.0,
+    857.0
+   ],
+   "bbox_r": 282.8
+  },
+  {
+   "key": "adwelds",
+   "name": "Adapter welds",
+   "group": "Drive",
+   "kg": 0.86,
+   "cg": [
+    733.5,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    640.0,
+    827.0
+   ],
+   "bbox_r": 262.8
+  },
+  {
+   "key": "adscrews",
+   "name": "Adapter screws 12 × M16 10.9",
+   "group": "Drive",
+   "kg": 1.48,
+   "cg": [
+    626.5,
+    0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    590.0,
+    656.0
+   ],
+   "bbox_r": 215.0
+  },
+  {
+   "key": "addowels",
+   "name": "Adapter dowels 3 × Ø16",
+   "group": "Drive",
+   "kg": 0.2,
+   "cg": [
+    617.0,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    596.0,
+    638.0
+   ],
+   "bbox_r": 178.8
+  },
+  {
+   "key": "guards",
+   "name": "Window guards ×2, 3 mm",
+   "group": "Drive",
+   "kg": 1.43,
+   "cg": [
+    733.0,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    649.0,
+    817.0
+   ],
+   "bbox_r": 201.1
+  },
+  {
+   "key": "guardscr",
+   "name": "Guard screws 8 × M6",
+   "group": "Drive",
+   "kg": 0.05,
+   "cg": [
+    733.0,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    650.0,
+    816.0
+   ],
+   "bbox_r": 190.8
+  },
+  {
+   "key": "gsupply",
+   "name": "Seal-purge supply line, part 1 (R209)",
+   "group": "Drive",
+   "kg": 0.34,
+   "cg": [
+    821.9,
+    179.0,
+    103.3
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    595.0,
+    1095.0
+   ],
+   "bbox_r": 215.8
+  },
+  {
+   "key": "gsupply2",
+   "name": "Seal-purge supply line, part 2 (to R185 and the surface)",
+   "group": "Drive",
+   "kg": 0.26,
+   "cg": [
+    1289.9,
+    162.0,
+    93.5
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1090.0,
+    1500.0
+   ],
+   "bbox_r": 215.8
+  },
+  {
+   "key": "hub1",
+   "name": "ROTEX 160 hub, spindle side (steel, Ø180 bore)",
+   "group": "Drive",
+   "kg": 26.17,
+   "cg": [
+    707.0,
+    0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    660.0,
+    786.0
+   ],
+   "bbox_r": 205.1
+  },
+  {
+   "key": "hub1la",
+   "name": "B-LOC B400 130 × 180 locking assembly",
+   "group": "Drive",
+   "kg": 4.21,
+   "cg": [
+    690.0,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    665.0,
+    715.0
+   ],
+   "bbox_r": 127.3
+  },
+  {
+   "key": "hub1scr",
+   "name": "Hub locking-assembly screws 10 × M12",
+   "group": "Drive",
+   "kg": 0.55,
+   "cg": [
+    703.9,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    675.0,
+    727.0
+   ],
+   "bbox_r": 119.7
+  },
+  {
+   "key": "elast",
+   "name": "ROTEX 160 spider, 64 ShD",
+   "group": "Drive",
+   "kg": 0.54,
+   "cg": [
+    757.5,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    729.0,
+    786.0
+   ],
+   "bbox_r": 195.0
+  },
+  {
+   "key": "hub2",
+   "name": "ROTEX 160 hub, motor side (W90 × 3 × 28 spline)",
+   "group": "Drive",
+   "kg": 24.08,
+   "cg": [
+    800.4,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    729.0,
+    867.0
+   ],
+   "bbox_r": 205.1
+  },
+  {
+   "key": "mshaft",
+   "name": "Motor shaft W90 × 3 × 28",
+   "group": "Drive",
+   "kg": 4.91,
+   "cg": [
+    822.0,
+    0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    767.0,
+    877.0
+   ],
+   "bbox_r": 63.2
+  },
+  {
+   "key": "motor",
+   "name": "Hydraulic motor, Poclain MS18 2,812 cc (body approximate)",
+   "group": "Drive",
+   "kg": 152.0,
+   "cg": [
+    1042.5,
+    0.0,
+    0.2
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    871.0,
+    1247.0
+   ],
+   "bbox_r": 272.2
+  },
+  {
+   "key": "mbolts_r",
+   "name": "Motor housing bolts",
+   "group": "Drive",
+   "kg": 0.72,
+   "cg": [
+    1116.1,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1104.0,
+    1130.0
+   ],
+   "bbox_r": 129.7
+  },
+  {
+   "key": "mplate",
+   "name": "Motor pilot plate Ø400 × 20 (Ø300 spigot, Ø282 recess)",
+   "group": "Drive",
+   "kg": 11.56,
+   "cg": [
+    865.4,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    849.0,
+    877.0
+   ],
+   "bbox_r": 282.8
+  },
+  {
+   "key": "mbolts",
+   "name": "Motor screws 8 × M20 × 65 10.9",
+   "group": "Drive",
+   "kg": 1.98,
+   "cg": [
+    881.1,
+    0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    834.0,
+    919.0
+   ],
+   "bbox_r": 240.1
+  },
+  {
+   "key": "hoses",
+   "name": "Hoses A, B (3/4 in) + case drain",
+   "group": "Drive",
+   "kg": 4.36,
+   "cg": [
+    1376.5,
+    0.0,
+    49.8
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1241.0,
+    1507.0
+   ],
+   "bbox_r": 103.4
+  },
+  {
+   "key": "tring",
+   "name": "Thrust ring 76.2 thk A572-50, Ø609.6 × Ø400, Ø589.5 × 10 register, notched 12 + 6 (Rev B)",
+   "group": "Thrust ring",
+   "kg": 92.65,
+   "cg": [
+    1194.5,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1147.0,
+    1233.2
+   ],
+   "bbox_r": 431.1
+  },
+  {
+   "key": "tsaddles",
+   "name": "Saddle blocks ×4, 144 × 100 × 45.5, Ø65 seat",
+   "group": "Thrust ring",
+   "kg": 16.52,
+   "cg": [
+    1252.4,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1233.2,
+    1278.7
+   ],
+   "bbox_r": 374.1
+  },
+  {
+   "key": "tears",
+   "name": "Saddle ears ×8, 20 × 80, R40, Ø39.5 slotted 3",
+   "group": "Thrust ring",
+   "kg": 3.8,
+   "cg": [
+    1297.5,
+    -0.0,
+    -0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1258.2,
+    1330.7
+   ],
+   "bbox_r": 364.1
+  },
+  {
+   "key": "tsadwelds",
+   "name": "Saddle welds, 8 mm fillet (none past the ring OD)",
+   "group": "Thrust ring",
+   "kg": 0.32,
+   "cg": [
+    1235.9,
+    0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1233.2,
+    1241.2
+   ],
+   "bbox_r": 365.6
+  },
+  {
+   "key": "tpin60",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 2 o'clock",
+   "group": "Thrust ring",
+   "kg": 1.43,
+   "cg": [
+    1290.7,
+    130.0,
+    225.2
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1271.7,
+    1309.8
+   ],
+   "bbox_r": 350.6
+  },
+  {
+   "key": "tpin120",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 4 o'clock",
+   "group": "Thrust ring",
+   "kg": 1.43,
+   "cg": [
+    1290.7,
+    -130.0,
+    225.2
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1271.7,
+    1309.8
+   ],
+   "bbox_r": 286.3
+  },
+  {
+   "key": "tpin240",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 8 o'clock",
+   "group": "Thrust ring",
+   "kg": 1.43,
+   "cg": [
+    1290.7,
+    -130.0,
+    -225.2
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1271.7,
+    1309.8
+   ],
+   "bbox_r": 350.6
+  },
+  {
+   "key": "tpin300",
+   "name": "Saddle pin Ø38.1 × 160, 4140 HT, 10 o'clock",
+   "group": "Thrust ring",
+   "kg": 1.43,
+   "cg": [
+    1290.7,
+    130.0,
+    -225.2
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1271.7,
+    1309.8
+   ],
+   "bbox_r": 286.3
+  },
+  {
+   "key": "jcyl",
+   "name": "Chief WT 5 × 24 ×4, retracted 889 (envelope)",
+   "group": "Jacking cylinders",
+   "kg": 210.4,
+   "cg": [
+    1771.1,
+    -0.0,
+    0.0
+   ],
+   "n_solids": 1,
+   "bbox_x": [
+    1259.0,
+    2211.4
+   ],
+   "bbox_r": 360.8
+  }
+ ],
+ "groups": {
+  "Shell weldment": {
+   "kg": 457.3,
+   "cg": [
+    386.7,
+    14.5,
+    0.0
+   ],
+   "keys": [
+    "shell",
+    "ring1",
+    "weld",
+    "pipes",
+    "pipewelds",
+    "saddles",
+    "taps",
+    "fin30",
+    "fin90",
+    "fin270",
+    "fin330",
+    "finwelds",
+    "liftboss",
+    "liftplug"
+   ]
+  },
+  "Fixture": {
+   "kg": 29.7,
+   "cg": [
+    822.2,
+    0.0,
+    0.0
+   ],
+   "keys": [
+    "legs",
+    "risers",
+    "eye"
+   ]
+  },
+  "Bearing module": {
+   "kg": 325.2,
+   "cg": [
+    282.5,
+    -0.2,
+    -0.1
+   ],
+   "keys": [
+    "tube",
+    "halfA",
+    "halfB",
+    "splitscrews",
+    "pin45",
+    "pin135",
+    "pin225",
+    "pin315",
+    "oring",
+    "purge",
+    "purgefit",
+    "flscrews",
+    "fldowels",
+    "carrier",
+    "sealcase",
+    "seallip",
+    "sealspring",
+    "lantern",
+    "shim",
+    "carscrews",
+    "hw",
+    "shaft",
+    "f_ir",
+    "f_or",
+    "f_rol",
+    "f_cage",
+    "backing",
+    "sw",
+    "t_rol",
+    "spacer",
+    "r_ir",
+    "r_or",
+    "r_rol",
+    "r_cage",
+    "mb",
+    "nut"
+   ]
+  },
+  "Cutterhead": {
+   "kg": 143.1,
+   "cg": [
+    -116.7,
+    -0.3,
+    -0.1
+   ],
+   "keys": [
+    "spider",
+    "gussets",
+    "hubring",
+    "sleeve",
+    "headwelds",
+    "holders",
+    "carbide",
+    "la",
+    "lascrews",
+    "cap",
+    "capholders",
+    "capcarbide",
+    "blades",
+    "capscrews"
+   ]
+  },
+  "Drive": {
+   "kg": 279.9,
+   "cg": [
+    921.8,
+    0.4,
+    1.1
+   ],
+   "keys": [
+    "adapter",
+    "adwelds",
+    "adscrews",
+    "addowels",
+    "guards",
+    "guardscr",
+    "gsupply",
+    "gsupply2",
+    "hub1",
+    "hub1la",
+    "hub1scr",
+    "elast",
+    "hub2",
+    "mshaft",
+    "motor",
+    "mbolts_r",
+    "mplate",
+    "mbolts",
+    "hoses"
+   ]
+  },
+  "Thrust ring": {
+   "kg": 119.0,
+   "cg": [
+    1210.6,
+    0.0,
+    0.0
+   ],
+   "keys": [
+    "tring",
+    "tsaddles",
+    "tears",
+    "tsadwelds",
+    "tpin60",
+    "tpin120",
+    "tpin240",
+    "tpin300"
+   ]
+  },
+  "Jacking cylinders": {
+   "kg": 210.4,
+   "cg": [
+    1771.1,
+    0.0,
+    0.0
+   ],
+   "keys": [
+    "jcyl"
+   ]
+  }
+ },
+ "machine": {
+  "kg": 1205.5,
+  "cg": [
+   423.1,
+   5.5,
+   0.2
+  ],
+  "groups": [
+   "Shell weldment",
+   "Bearing module",
+   "Cutterhead",
+   "Drive"
+  ]
+ },
+ "hung_off_ring1": {
+  "kg": 748.3,
+  "cg_x": 445.3,
+  "M_seat_kNm": 3.049,
+  "M_seat_head_off_kNm": 3.255
+ },
+ "shell_weldment": {
+  "kg": 457.3,
+  "cg_x": 386.7
+ },
+ "thrust_ring": {
+  "kg": 119.0,
+  "cg_x": 1210.6
+ },
+ "cylinders": {
+  "kg": 210.4
+ },
+ "lifting": {
+  "x_front": 155.0,
+  "x_rear": 699.0,
+  "angles_deg": [
+   -18.0,
+   18.0
+  ],
+  "share_rear": 0.4929,
+  "kg_per_front_point": 305.7,
+  "kg_per_rear_point": 297.1
+ }
+}

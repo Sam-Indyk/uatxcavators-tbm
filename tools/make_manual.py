@@ -1158,7 +1158,7 @@ BOM = {
     "hub2": (1, "KTR ROTEX 160 hub, steel, W90 × 3 × 28 spline", "buy"), "mshaft": (0, "(motor)", "–"),
     "motor": (1, "Poclain MS18 2,812 cc, 2A50 shaft", "buy"), "mbolts_r": (0, "(motor)", "–"), "mplate": (1, "A572 Gr 50, 1 in plate", "make"),
     "mbolts": (8, "ISO 4762 M20 × 65 10.9", "buy"), "hoses": (3, "Hydraulic hoses 3/4 in ×2 + drain", "buy"),
-    "tring": (1, "A572 Gr 50, 3 in plate", "make"), "tsaddles": (4, "A572 Gr 50, 2 in", "make"), "tears": (8, "A572 Gr 50, 3/4 in plate", "make"),
+    "tring": (1, "A572 Gr 50, 3.5 in plate (86.2 overall with the spigot)", "make"), "tsaddles": (4, "A572 Gr 50, 2 in", "make"), "tears": (8, "A572 Gr 50, 3/4 in plate", "make"),
     "tsadwelds": (4, "E7018", "weld"), "tpin60": (1, "4140 HT Ø38.1 × 160 + 2 clips", "make"), "tpin120": (1, "4140 HT Ø38.1 × 160 + 2 clips", "make"),
     "tpin240": (1, "4140 HT Ø38.1 × 160 + 2 clips", "make"), "tpin300": (1, "4140 HT Ø38.1 × 160 + 2 clips", "make"),
     "jcyl": (4, "Chief WT 5 × 24, Bailey SKU 216207", "buy"),

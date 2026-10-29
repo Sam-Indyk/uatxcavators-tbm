@@ -94,7 +94,7 @@ Every part in the Rev I model. Mass is the modelled total for the line (motor an
 | 84 | mplate | Drive | Motor pilot plate Ø400 × 20 (Ø300 spigot, Ø282 recess) | 1 | A572 Gr 50, 1 in plate | 11.56 | make |
 | 85 | mbolts | Drive | Motor screws 8 × M20 × 65 10.9 | 8 | ISO 4762 M20 × 65 10.9 | 1.98 | buy |
 | 86 | hoses | Drive | Hoses A, B (3/4 in) + case drain | 3 | Hydraulic hoses 3/4 in ×2 + drain | 4.36 | buy |
-| 87 | tring | Thrust ring | Thrust ring 76.2 thk A572-50, Ø609.6 × Ø400, Ø589.5 × 10 register, notched 12 + 6 (Rev B) | 1 | A572 Gr 50, 3 in plate | 92.65 | make |
+| 87 | tring | Thrust ring | Thrust ring 76.2 thk A572-50, Ø609.6 × Ø400, Ø589.5 × 10 register, notched 12 + 6 (Rev B) | 1 | A572 Gr 50, 3.5 in plate (86.2 overall with the spigot) | 92.65 | make |
 | 88 | tsaddles | Thrust ring | Saddle blocks ×4, 144 × 100 × 45.5, Ø65 seat | 4 | A572 Gr 50, 2 in | 16.52 | make |
 | 89 | tears | Thrust ring | Saddle ears ×8, 20 × 80, R40, Ø39.5 slotted 3 | 8 | A572 Gr 50, 3/4 in plate | 3.80 | make |
 | 90 | tsadwelds | Thrust ring | Saddle welds, 8 mm fillet (none past the ring OD) | 4 | E7018 | 0.32 | weld |

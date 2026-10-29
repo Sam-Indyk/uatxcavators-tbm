@@ -1,0 +1,40 @@
+{
+ "case": "LC3",
+ "pipe_mode": "open",
+ "r_pipe": 245.0,
+ "rear_weld": 10.0,
+ "F_kN": 800.5978169740464,
+ "M_kNm": 87.08277078227488,
+ "seat_pressure": {
+  "mean_MPa": 20.99772455463817,
+  "gradient_MPa_per_100mm": 14.06623521536159
+ },
+ "nodes": 31613,
+ "tets": 130764,
+ "dofs": 643980,
+ "mesh_s": 7.2,
+ "solve_s": 244.5,
+ "vm_peak": {
+  "pipe_ligaments": 435.2103440429781,
+  "tapped_holes": 248.07009739648717,
+  "tap_holes": 127.94171505439417,
+  "counterbore_corner": 176.22240891084616
+ },
+ "vm_weld_root_singular": 225.42070467112504,
+ "vm_ring_elsewhere": 247.23585170048688,
+ "vm_shell_x_gt_120": 282.19542205833375,
+ "pipe_peak_location": {
+  "x": 0.5762623468884911,
+  "r": 206.3783776232252,
+  "theta_deg": 0.04898874040089364
+ },
+ "elsewhere_peak_location": {
+  "x": 2.140887507570553,
+  "r": 200.07096962823258,
+  "theta_deg": 4.817563100976009
+ },
+ "seat_axial_disp_mm": {
+  "max": 0.3629901724781712,
+  "min": 0.03995378019581191
+ }
+}

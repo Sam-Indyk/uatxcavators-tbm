@@ -122,7 +122,8 @@ def _row(cid, case=None):
 
 
 _r12 = _row("R1-2", "LC3")
-_tr3 = fea_json("tring_LC3_notch_casing.json")
+TRV = "reg"                                    # thrust ring FEA variant of Rev B (notches + register)
+_tr3 = fea_json(f"tring_LC3_{TRV}_casing.json")
 _ch7 = _row("CH-7")
 changes = [
     ["I-1", "Ring 1 counterbore", "Ø400 × 35; flange OD 399.8; bolt circle Ø370; tube land 20",
@@ -157,6 +158,10 @@ changes = [
      f"One bit taking the stall torque ({LD.T_MOTOR_RELIEF/1e6:.2f} kNm) at R296: {n(_ch7['value'], 0) if _ch7 else '–'} MPa vs 145"],
     ["I-14", "Fixtures", "Shell stands on its rear end on the table", f"Shell stands on 3 riser blocks {M.BLK:.0f} high; gauge legs {M.SH_X1 + M.BLK - M.T_R1:.0f}",
      "Pipes stand 98 proud of the shield rear end (I-3)"],
+    ["I-15", "Thrust ring register", "Flat front face; ring not located on the shield or casing",
+     f"Spigot Ø{M.SP_D} × {M.SP_H:.0f} high × {M.SP_W:.0f} wide with a {M.REL_W} × {M.REL_D} relief groove; shield rear counterbored Ø{M.CAS_ID} × {M.CAS_CB:.0f}",
+     "Locates the ring concentric with the shield and casing (radial gap 0.55), so the four cylinder forces stay on the pipe wall; the shield end takes the "
+     "same seat as a casing end. Ported from the Oct 27 local Rev H work; sizes are placeholders until the casing joint drawing"],
 ]
 n_low = len(below)
 ch00 = header("00", "Overview", "This chapter is the entry point: what the machine is, how the chapters are organised, what changed from Rev H and why, "
@@ -205,7 +210,7 @@ ch00 += f"""
 
 ## Check status
 
-{len(ROWS)} checks in `src/calc_revI.py` (hand calculations and FEA results). {n_low} are below their required factor of safety:
+{len(ROWS)} checks in `src/calc_revI.py` (hand calculations and FEA results). {n_low} {'is' if n_low == 1 else 'are'} below {'its' if n_low == 1 else 'their'} required factor of safety:
 
 {table(["ID", "Part", "Check", "Case", "FoS", "Required", "Note"], [[r_['id'], r_['part'], r_['item'], r_['case'], n(r_['fos'], 2), n(r_['req'], 2) if r_['req'] is not None else "–", r_['note']] for r_ in below]) if below else "None."}
 
@@ -430,7 +435,7 @@ Parts and masses (model):
 | Item | Value |
 |---|---|
 | Function | Outer skin of the machine. Carries the full thrust from ring 1 to its rear end, the torque reaction from ring 1 to the fins and the ground, and ground pressure |
-| Size | Ø609.6 × 12.7 wall (24 in, 0.500 in wall pipe), 1,285 long, x = {M.SH_X0:.0f} to {M.SH_X1:.0f} |
+| Size | Ø609.6 × 12.7 wall (24 in, 0.500 in wall pipe), 1,285 long, x = {M.SH_X0:.0f} to {M.SH_X1:.0f}; rear end counterbored Ø{M.CAS_ID} × {M.CAS_CB:.0f} for the thrust ring register (end wall 9.5) |
 | Material | API 5L Gr B / ASTM A53 Gr B assumed (Fy 241); grade to confirm with the stock pipe |
 | Manufacture | Saw; face both ends on the lathe to 1,285.0. The front end face is the datum for the ring 1 depth |
 | Section | A = π/4 (609.6² − 584.2²) = {pi / 4 * (609.6 ** 2 - 584.2 ** 2):,.0f} mm²; S = π (609.6⁴ − 584.2⁴) / (32 × 609.6) = {pi * (609.6 ** 4 - 584.2 ** 4) / (32 * 609.6):,.0f} mm³ |
@@ -884,12 +889,13 @@ write("manual-05-drive.md", ch05)
 tr_rows = []
 for c in ("LC2", "LC3", "LC4"):
     for sup in ("shield", "casing"):
-        d = fea_json(f"tring_{c}_notch_{sup}.json")
+        d = fea_json(f"tring_{c}_{TRV}_{sup}.json")
         if not d:
             continue
         bl = d.get("block_lin", {})
         rb = d.get("ring_under_block_lin", {})
         tr_rows.append([c, sup, n(d["F_kN"], 1), n(d["vm_ring_away_from_block_and_pass"], 0), n(d["vm_pass_zone"], 0),
+                        n(d["vm_spigot_zone"], 0) if d.get("vm_spigot_zone") is not None else "–",
                         n(max(bl.get("PmPb_vm_p0", 0), bl.get("PmPb_vm_p1", 0)), 0) if bl else "–",
                         n(max(rb.get("PmPb_vm_p0", 0), rb.get("PmPb_vm_p1", 0)), 0) if rb else "–",
                         n(d["vm_block_zone"], 0), n(d["contact_fraction"] * 100, 0) + " %", n(d["contact_pressure_max_MPa"], 1), n(d["ux_min_mm"], 3)])
@@ -900,7 +906,8 @@ for lab, d in (("uniform pressure on the half groove", revA_u), ("Hertz-like, ±
     if d:
         seat_cmp.append([lab, n(d["vm_ring_away_from_block_and_pass"], 0), n(d["vm_block_zone"], 0), n(d["vm_ring_max"], 0)])
 ch06 = header("06", "Thrust ring Rev B", "The thrust ring is launch equipment: it spreads the four cylinder forces onto the shield rear end (at launch) and then "
-              "onto the rear end of the last jacking pipe. Rev B adds notches for the slurry pipes. Design record: `docs/thrust-ring.md`. "
+              "onto the rear end of the last jacking pipe. Rev B adds notches for the slurry pipes and a register spigot that locates the ring in the "
+              "shield or casing bore. Design record: `docs/thrust-ring.md`. "
               "Calculations: `src/calc_revI.py` rows TR, `src/fea_thrust_ring.py`.")
 ch06 += f"""
 Parts and masses (model):
@@ -923,9 +930,11 @@ Parts and masses (model):
 
 | Item | Rev B |
 |---|---|
-| Ring | A572 Gr 50, 76.2 thick (3 in plate), Ø609.6 × Ø400 |
-| Notches | U-notch at 12 and 6 o'clock, {M.NOTCH_W:.0f} wide, open to the bore, round end at R{M.NOTCH_R:.0f}. The Ø{M.D_PIPE} slurry pipes at R{M.R_PIPE:.0f} pass with {M.NOTCH_W / 2 - M.D_PIPE / 2:.1f} each side and {M.NOTCH_R - M.R_PIPE - M.D_PIPE / 2:.1f} at the end |
-| Position at launch | Front face on the shield rear end, x = {M.TR_X0:.1f} to {M.TR_X1:.1f}; not bolted |
+| Ring | A572 Gr 50, Ø609.6 × Ø400; bearing face to rear face 76.2, 86.2 overall with the spigot, from 3.5 in plate (88.9) |
+| Register | A register is a machined step that locates one part on another. Spigot (raised ring) on the bearing face: Ø{M.SP_D} × {M.SP_H:.0f} high × {M.SP_W:.0f} wide (R{M.SP_D / 2 - M.SP_W:.2f}-{M.SP_D / 2:.2f}), 1 × 45° lead-in at the tip; radial gap {(M.CAS_ID - M.SP_D) / 2:.2f} in the Ø{M.CAS_ID} casing bore (24 in × 0.375 wall assumed). Relief groove {M.REL_W} into the spigot × {M.REL_D} below the bearing face at its root, so the pipe wall bears on flat face up to its bore edge (R{M.CAS_ID / 2:.1f}) |
+| Shield rear end | Counterbored Ø{M.CAS_ID} × {M.CAS_CB:.0f} to take the spigot like a casing end; end wall 9.5; spigot tip 2.0 short of the counterbore floor. Bearing annulus R{M.CAS_ID / 2:.1f}-304.8 = {math.pi / 4 * (609.6 ** 2 - M.CAS_ID ** 2):,.0f} mm² on both the shield and a casing end |
+| Notches | U-notch at 12 and 6 o'clock, {M.NOTCH_W:.0f} wide, open to the bore, round end at R{M.NOTCH_R:.0f}, through the ring and the spigot (the spigot is cut back to R{M.NOTCH_R:.0f} over the notch: {M.NOTCH_R - (M.SP_D / 2 - M.SP_W):.2f} deep at the centreline). The Ø{M.D_PIPE} slurry pipes at R{M.R_PIPE:.0f} pass with {M.NOTCH_W / 2 - M.D_PIPE / 2:.1f} each side and {M.NOTCH_R - M.R_PIPE - M.D_PIPE / 2:.1f} at the end; the spigot bore clears the pipe OD by {M.SP_D / 2 - M.SP_W - M.R_PIPE - M.D_PIPE / 2:.2f} |
+| Position at launch | Bearing face on the shield rear end wall, x = {M.TR_X0:.1f} to {M.TR_X1:.1f} (spigot to x = {M.TR_X0 - M.SP_H:.1f}); not bolted |
 | Bore contents | Motor (R140, 60 clear), port bosses, hoses, seal-purge line (R185, 10 clear) |
 | Mass | {n(KG['tring']['kg'], 1)} kg (ring) |
 
@@ -943,9 +952,9 @@ Why a notch and not a hole: a hole would need the pipes threaded through it from
 
 ## 6.4 FEA
 
-Model: ring + 4 fused saddle blocks, quarter model; seat loads as a Hertz-like pressure over ±20° about the seat bottom; compression-only springs at the front face (chapter 01, section 1.9).
+Model: ring + register spigot + 4 fused saddle blocks, quarter model; seat loads as a Hertz-like pressure over ±20° about the seat bottom; compression-only springs on the bearing annulus R295.3-304.8 (chapter 01, section 1.9). The relief groove is not modelled, so the spigot root is a sharp re-entrant corner in the mesh; its peak is reported separately.
 
-{table(["Case", "Support", "F (kN)", "Ring away from saddles and notches", "Notch zone", "Block Pm + Pb", "Ring under block Pm + Pb", "Block zone peak", "Contact", "Max contact p (MPa)", "u_x min (mm)"], tr_rows)}
+{table(["Case", "Support", "F (kN)", "Ring away from saddles, notches and spigot", "Notch zone", "Spigot zone peak", "Block Pm + Pb", "Ring under block Pm + Pb", "Block zone peak", "Contact", "Max contact p (MPa)", "u_x min (mm)"], tr_rows)}
 
 Stresses von Mises, MPa.
 
@@ -955,13 +964,15 @@ Seat load model, Rev A ring at LC3 on the casing:
 
 The uniform half-groove pressure ends abruptly at the groove edges and puts a false peak there (about 300 MPa at LC3); the cross tube in a slightly larger seat touches over a narrow arc around the seat bottom (Hertz half-width 5.8 mm at LC3, about ±10°), so the Hertz-like model is the realistic one.
 
-Cross-check with the Rev A curved-grid hand model (`docs/thrust-ring.md`): 112.7 MPa at 800 kN on the casing (k = 3,800 N/mm per mm); FEA ring away from the saddles on the casing at LC3 ≈ {n(fea_json('tring_LC3_notch_casing.json')['vm_ring_away_from_block_and_pass'], 0) if fea_json('tring_LC3_notch_casing.json') else '–'} MPa. The grid model is the more conservative of the two.
+Cross-check with the Rev A curved-grid hand model (`docs/thrust-ring.md`): 112.7 MPa at 800 kN on the casing (k = 3,800 N/mm per mm); FEA ring away from the saddles on the casing at LC3 ≈ {n(_tr3['vm_ring_away_from_block_and_pass'], 0) if _tr3 else '–'} MPa. The grid model is the more conservative of the two.
 
-{img("tring_LC3_notch_casing.png")}
+{img(f"tring_LC3_{TRV}_casing.png")}
 
-{img("tring_LC4_notch_casing.png")}
+{img(f"tring_LC3_{TRV}_shield.png")}
 
-{checks_md(parts=["Thrust ring", "Saddle block", "Saddle pins", "Saddle welds", "Cylinders"])}
+{img(f"tring_LC4_{TRV}_casing.png")}
+
+{checks_md(parts=["Thrust ring", "Shield rear end", "Saddle block", "Saddle pins", "Saddle welds", "Cylinders"])}
 """
 write("manual-06-thrust-ring.md", ch06)
 
@@ -1070,6 +1081,9 @@ findings = [
      "Rejected; flexible coupling kept"],
     ["F-17", "Thrust ring FEA showed 300-336 MPa at the saddle seat edges", "Uniform pressure on the half groove ends abruptly at its edges",
      "Hertz-like seat pressure; block judged on linearized stress and Hertz contact"],
+    ["F-18", "Two versions of the thrust ring front end", "Uncommitted Oct 27-28 edits in the local clone: register spigot, shield rear counterbore, pipes ending "
+     "5 inside the shield rear with Ø80 hoses through 86-wide notches; not in the repo that Rev I was built from",
+     "Saved on branch local-oct28-register; register and counterbore ported (I-15); Rev I pipe routing kept (pipes through the notches to x = 1,255)"],
 ]
 open_items = [
     "Poclain certified drawing: flange pattern (8 × M20 on Ø335 assumed), pilot, shaft length (110 assumed), body. Sets the pilot plate, hub 2 length and the motor envelope.",
@@ -1082,7 +1096,7 @@ open_items = [
     "Gauge bit holders (R308.65) overhang the arm end by 13.65 of 30: holder or arm-tip change with the cutterhead layout (CH-7).",
     "Centre cap and inner bit layout (7 bits on the cap).",
     "Slurry hose connection at the pipe ends (x = 1,255): fitting OD ≤ 95 to pass inside the jacking pipes later.",
-    "Casing joint drawing: register on the thrust ring front face.",
+    "Casing joint drawing: confirm the register placeholders (spigot Ø589.5 × 10 × 9 wide, shield rear counterbore Ø590.6 × 12) and the casing wall (24 in × 0.375 assumed).",
     "Soil c_u from the geotechnical report: fins give FoS 1.09 alone at c_u 25 kPa (FN-1).",
     "Launch seal notches for the Ø750 fin envelope.",
     "Overall length 1,451 vs the 1,340 envelope from Rev F: accept or change the motor arrangement.",

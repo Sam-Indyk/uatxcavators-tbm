@@ -1,4 +1,4 @@
-# Thrust Ring (Rev A, Oct 27, 2026)
+# Thrust Ring (Rev B, Oct 28, 2026; Rev A Oct 27)
 
 Interface between 4 × Chief WT 5 × 24 cylinders and the rear end of the last casing segment. Units mm unless noted. Ring front face (casing side) is z = 0, +z rearward toward the cylinders.
 
@@ -151,7 +151,7 @@ Model: `src/build_revH_detail.py`, parts `tring`, `tsaddles`, `tears`, `tsadweld
 | Item | Value |
 |---|---|
 | Position | Launch before the first jacking pipe: ring front face on the shield rear end; x = 1,157.0 to 1,233.2 (z = 0 at x = 1,157) |
-| Front face | Flat. The register (the machined step that locates the ring on the casing end) is not modelled: casing joint drawing open |
+| Front face | Flat. The register (the machined step that locates the ring on the casing end) is not modelled: casing joint drawing open (Rev B adds it, below) |
 | Cross-tube and pin axis | x = 1,290.7 (z = 133.7: rear face + 57.5); tube concentric with the Ø65 seat |
 | Cap-end pin, retracted | x = 2,179.7 |
 | Ears, as modelled | Lug (plate with a pin hole) on each block end: R40 end rearward; foot shaped to the Ø65 seat so the eye is closed; Ø39.5 hole slotted 3 toward the ring |
@@ -174,14 +174,49 @@ Interference (`build_revH_detail.py --check`, cm³): every thrust-ring pair is 0
 |---|---|---|---|
 | Saddle fillet, 8 mm, 316.3 on the ring face | 26.5 MPa | 145 | 5.46 |
 
+## Rev B (Oct 28, 2026): notches for the slurry pipes, register, 3D FEA
+
+Model: `src/build_revI_detail.py` (part `tring`, constants `NOTCH_W`, `NOTCH_R`), assembly phase 7 in `src/asm_revI.py`, STEP `out/step/thrust_ring_revB.step`. FEA: `src/fea_thrust_ring.py`. Design manual chapter: `docs/manual-06-thrust-ring.md`.
+
+| Item | Rev B |
+|---|---|
+| Notches | U-notch at 12 and 6 o'clock, 84 wide, open to the bore, round end at R287, through the ring and the spigot |
+| Register | Spigot Ø589.5 × 10 high × 9 wide (R285.75-294.75) ahead of the bearing face, 1 × 45° lead-in; radial gap 0.55 in the Ø590.6 casing bore; relief groove 1.5 into the spigot × 0.5 below the bearing face at its root. Ported from the Oct 27 local Rev H work (branch `local-oct28-register`); placeholder sizes until the casing joint drawing |
+| Shield rear end | Counterbored Ø590.6 × 12 (casing bore, 24 in × 0.375 wall assumed) to take the spigot like a casing end; end wall 9.5; spigot tip 2.0 short of the floor. Bearing annulus R295.3-304.8 = 17,910 mm²: 44.7 MPa at LC3, 50.3 MPa at LC4 |
+| Ring stock | Bearing face to rear face 76.2; 86.2 overall with the spigot, from 3.5 in plate (88.9) |
+| Slurry pipes | Ø76.2 at R245 run through the notches to x = 1,255: 3.9 clear each side and at the end. The ring slides on axially over the pipe ends and hoses |
+| Seal-purge supply | Now at R185 in the bore (jog behind the motor at x = 1,095-1,150): 10 clear of the bore |
+| Everything else | As Rev A |
+
+FEA (quadratic tetrahedra, quarter model, ring + spigot + saddle blocks; compression-only springs on the bearing annulus R295.3-304.8: shield end k = 156, casing end k = 400 N/mm³; seat load Hertz-like over ±20° about the seat bottom). The relief groove is not modelled, so the spigot root is a sharp corner in the mesh; its peak is listed separately. Von Mises, MPa:
+
+| Case | Support | F (kN) | Ring away from saddles, notches and spigot | Notch zone | Spigot zone peak | Block Pm + Pb | Ring under block Pm + Pb | Contact | Max contact p (MPa) |
+|---|---|---|---|---|---|---|---|---|---|
+| LC2 | shield | 613.1 | 68 | 31 | 71 | 37 | 33 | 100 % | 47.5 |
+| LC2 | casing | 613.1 | 66 | 34 | 70 | 36 | 31 | 100 % | 50.1 |
+| LC3 | shield | 800.6 | 89 | 40 | 92 | 48 | 43 | 100 % | 62.1 |
+| LC3 | casing | 800.6 | 87 | 44 | 92 | 47 | 41 | 100 % | 65.4 |
+| LC4 | shield | 901.4 | 100 | 45 | 104 | 54 | 49 | 100 % | 69.9 |
+| LC4 | casing | 901.4 | 98 | 50 | 103 | 53 | 46 | 100 % | 73.6 |
+
+Seat-load model, Rev A ring at LC3 on the casing: uniform pressure over the half groove gives 293 MPa at the seat edges and 98 MPa in the ring away from the saddles; the Hertz-like pressure gives 237 and 98. The edge peak of the uniform model is an artefact of the load model.
+
+The notch zone sits midway between cylinders, where the ring is lightly loaded. Load cases: LC2 121 bar (613.1 kN), LC3 158 bar (800.6 kN), LC4 2,580 psi pump relief (901.4 kN); required FoS on yield 1.5 at LC2-LC3 and 1.0 at LC4 (A572 Gr 50, Fy 345).
+
+| Check | LC3 | LC4 |
+|---|---|---|
+| Seat bearing on 63.5 × 101.6 (MPa) / FoS on 0.9 Fy | 31.0 / 10.0 | 34.9 / 8.9 |
+| Hertz p_max, Ø63.5 in Ø65 (MPa) / FoS on first sub-surface yield 1.67 Fy (Fy 300 cross tube) | 224 / 2.24 | 237 / 2.11 |
+| Cylinder rod Euler FoS (P_cr 701 kN) | 3.50 | 3.11 |
+| Shield rear end wall, bearing on 17,910 mm² (MPa) / FoS on 0.9 Fy (Fy 241) | 44.7 / 4.85 | 50.3 / 4.31 |
+| Shield rear end wall, axial compression (MPa) / FoS on 0.6 Fy | 44.7 / 3.23 | 50.3 / 2.87 |
+
 ## Open
 
-- Casing joint drawing: register type and dimensions for the ring front face.
+- Casing joint drawing: confirm the register placeholders (spigot Ø589.5 × 10 × 9 wide, shield rear counterbore Ø590.6 × 12) and the casing wall (24 in × 0.375 assumed).
 - Spacer column geometry (length set, saddle at each end).
 - Reaction-wall spreader saddles (barrel-end cross tubes).
-- Hydraulic circuit: common supply vs per-cylinder control; relief 121 bar; retract relief 50 bar.
-- Ring FEA (grid-model FoS 1.84 at 800 kN).
-- Seal-purge supply line route at the shield rear: R209 crosses the ring annulus (bore R200).
-- Slurry pipe connection at the shield rear: the ring front face covers both pipe bores at R245 when there is no jacking pipe.
+- Hydraulic circuit: common supply vs per-cylinder control; reducing valve 121 bar; interlock 158 bar; pump relief 2,580 psi (LC4); retract relief 50 bar.
 - Saddle block radial position or size: outer face 5.2 past the ring OD; fillet on 316 of the 488 perimeter.
-- Cylinder certified drawing: gland and barrel lengths (modelled as an envelope).
+- Cylinder certified drawing: gland and barrel lengths (modelled as an envelope); cross-tube steel grade (Fy 300 assumed in the Hertz check).
+- Slurry hose connection behind the ring (pipe ends at x = 1,255): fitting OD ≤ 95 at R245 to pass inside the jacking pipes later.

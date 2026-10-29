@@ -561,18 +561,21 @@ chk("DR-13", "Motor circuit", "pump relief vs rules 4.c.3.2 (operating + 10 % or
 Fc_seat = lambda c: FM(c)[0] / 4
 
 
-def fea_tr(case, var="notch", sup="casing"):
+TR_VAR = "reg"                       # FEA variant of Rev B: notches + register spigot (src/fea_thrust_ring.py)
+
+
+def fea_tr(case, var=TR_VAR, sup="casing"):
     p = FEA / f"tring_{case}_{var}_{sup}.json"
     return json.loads(p.read_text()) if p.exists() else None
 
 
 for c in ("LC2", "LC3", "LC4"):
     for sup in ("shield", "casing"):
-        d = fea_tr(c, "notch", sup)
+        d = fea_tr(c, TR_VAR, sup)
         if not d:
             continue
         req_ = 1.5 if c in ("LC2", "LC3") else 1.0
-        chk("TR-1", "Thrust ring", f"FEA: ring away from the saddles and notches, on the {sup}", c, "max von Mises", d["vm_ring_away_from_block_and_pass"],
+        chk("TR-1", "Thrust ring", f"FEA: ring away from the saddles, notches and spigot root, on the {sup}", c, "max von Mises", d["vm_ring_away_from_block_and_pass"],
             "MPa", Fy_50, "Fy", Fy_50, req=req_)
         chk("TR-2", "Thrust ring", f"FEA: notch zone (12 and 6 o'clock), on the {sup}", c, "max von Mises", d["vm_pass_zone"], "MPa", Fy_50, "Fy", Fy_50,
             req=req_)
@@ -582,6 +585,17 @@ for c in ("LC2", "LC3", "LC4"):
                 max(bl["PmPb_vm_p0"], bl["PmPb_vm_p1"]), "MPa", Fy_50, "Fy", Fy_50, req=req_)
         chk("TR-4", "Thrust ring", f"FEA: contact with the {sup} (fraction of the annulus in compression)", c, "compression-only foundation iteration",
             d["contact_fraction"], "–", 1.0, "full contact", kind="capacity")
+        if d.get("vm_spigot_zone") is not None:
+            chk("TR-12", "Thrust ring", f"FEA: register spigot and its root corner, on the {sup}", c,
+                "max von Mises (sharp re-entrant corner in the mesh; the part has a 1.5 × 0.5 relief groove there)", d["vm_spigot_zone"], "MPa", Fy_50,
+                "Fy", Fy_50, req=None, note="peak at a modelled sharp corner, reported only")
+A_END = pi / 4 * (609.6 ** 2 - 590.6 ** 2)            # shield rear end wall / casing wall under the bearing face, R295.3-304.8
+for c in ("LC3", "LC4"):
+    F = FM(c)[0]
+    chk("TR-13", "Shield rear end", "bearing face on the end wall Ø609.6 × Ø590.6 (counterbored for the register)", c,
+        f"σ = F/A = {F/1e3:.1f} kN / {A_END:,.0f} mm²", F / A_END, "MPa", 0.9 * Fy_sh, "0.9 Fy (bearing, machined faces)", Fy_sh)
+    chk("TR-14", "Shield rear end", "axial compression in the 9.5 end wall over the 12 deep counterbore", c,
+        f"σ = F/A = {F/1e3:.1f} kN / {A_END:,.0f} mm²", F / A_END, "MPa", 0.6 * Fy_sh, "0.6 Fy", Fy_sh)
 for c in ("LC3", "LC4"):
     Fc = Fc_seat(c)
     chk("TR-5", "Saddle block", "seat bearing on the projected area 63.5 × 101.6", c, f"σ = F_cyl/(d L) = {Fc/1e3:.1f} kN/(63.5 × 101.6)",

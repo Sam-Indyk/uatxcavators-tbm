@@ -1,0 +1,25 @@
+{
+ "case": "LC3",
+ "variant": "hole",
+ "support": "shield",
+ "F_kN": 800.5978169740464,
+ "F_cyl_kN": 200.1494542435116,
+ "k_N_per_mm3": 155.6420233463035,
+ "nodes": 18599,
+ "dofs": 406878,
+ "solve_s": 110.3,
+ "contact_iterations": 1,
+ "contact_fraction": 1.0,
+ "contact_pressure_max_MPa": 51.11493393859418,
+ "vm_ring_max": 194.46387908384796,
+ "vm_ring_away_from_block_and_pass": 79.44033453186638,
+ "vm_pass_zone": 17.62189203143437,
+ "vm_block_zone": 329.07554504790215,
+ "ux_min_mm": -0.3916874810217665,
+ "ux_max_mm": -0.07622024863788897,
+ "ring_peak_at": {
+  "x": 0.4327024119125209,
+  "r": 291.78316479553473,
+  "deg_from_12": 76.86949574135406
+ }
+}

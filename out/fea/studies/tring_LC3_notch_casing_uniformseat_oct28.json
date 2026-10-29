@@ -1,0 +1,25 @@
+{
+ "case": "LC3",
+ "variant": "notch",
+ "support": "casing",
+ "F_kN": 800.5978169740464,
+ "F_cyl_kN": 200.1494542435116,
+ "k_N_per_mm3": 400.0,
+ "nodes": 17818,
+ "dofs": 390552,
+ "solve_s": 110.6,
+ "contact_iterations": 1,
+ "contact_fraction": 1.0,
+ "contact_pressure_max_MPa": 69.1219629195501,
+ "vm_ring_max": 220.9733678034151,
+ "vm_ring_away_from_block_and_pass": 96.40676923207813,
+ "vm_pass_zone": 51.49166481418061,
+ "vm_block_zone": 298.1926505246423,
+ "ux_min_mm": -0.2821390818418267,
+ "ux_max_mm": -0.04275538338414757,
+ "ring_peak_at": {
+  "x": 0.3721233932781498,
+  "r": 298.7924011844717,
+  "deg_from_12": 70.42745866945606
+ }
+}

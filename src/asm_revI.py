@@ -69,7 +69,7 @@ st(P1, "Anti-roll fins",
    add=[(["fin30"], [500 * 0.866, 0, 500 * 0.5]), (["fin90"], [0, 0, 500]), (["fin270"], [0, 0, -500]), (["fin330"], [500 * 0.866, 0, -500 * 0.5]),
         (["finwelds"], [0, 0, 0])], focus=["shell"])
 st(P1, "Lifting bosses",
-   f"Four Ø60 × 40 bosses set flush into Ø60 holes at 12 o'clock ± 18°, x = {M.LIFT_X[0]:.0f} and {M.LIFT_X[1]:.0f} (either side of the machine CG at x = 424), "
+   f"Four Ø60 × 40 bosses set flush into Ø60 holes at 12 o'clock ± 18°, x = {M.LIFT_X[0]:.0f} and {M.LIFT_X[1]:.0f} (either side of the machine CG at x ≈ 423), "
    "full-penetration bevel groove weld from outside with the boss as backing. M20 × 32 tapped for Crosby HR-125M hoist rings (WLL 2,150 kg each); "
    "plugged with M20 set screws while tunnelling. Each boss is stencilled 'LIFT 700 kg'.",
    add=[(["liftboss"], [0, 0, 0]), (["liftplug"], [0, 0, 0])], focus=["shell"])

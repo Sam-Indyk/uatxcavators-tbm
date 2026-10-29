@@ -116,7 +116,7 @@ risers = comp([cq.Workplane("XY").box(BLK, 60, 60).translate((SH_X1 + BLK / 2, 2
                for a in (90, 210, 330)])
 # lifting bosses (Rev I): Ø60 x 40 bosses set into Ø60 holes in the shell, flush outside, full-penetration groove weld;
 # M20 x 32 deep tapped for swivel hoist rings; set-screw plugs flush while tunnelling
-LIFT_X, LIFT_A, LIFT_D, LIFT_L = (155.0, 699.0), (-18.0, 18.0), 60.0, 40.0   # x symmetric about the CG (427)
+LIFT_X, LIFT_A, LIFT_D, LIFT_L = (155.0, 699.0), (-18.0, 18.0), 60.0, 40.0   # x either side of the machine CG (x ≈ 423)
 lift_bosses, lift_plugs = [], []
 for xl in LIFT_X:
     for al in LIFT_A:

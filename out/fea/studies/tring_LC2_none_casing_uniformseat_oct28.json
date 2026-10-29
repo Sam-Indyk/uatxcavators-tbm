@@ -1,0 +1,25 @@
+{
+ "case": "LC2",
+ "variant": "none",
+ "support": "casing",
+ "F_kN": 613.1160497079724,
+ "F_cyl_kN": 153.2790124269931,
+ "k_N_per_mm3": 400.0,
+ "nodes": 22586,
+ "dofs": 502275,
+ "solve_s": 153.0,
+ "contact_iterations": 1,
+ "contact_fraction": 1.0,
+ "contact_pressure_max_MPa": 53.23377021682828,
+ "vm_ring_max": 141.5565290335531,
+ "vm_ring_away_from_block_and_pass": 73.02023742480198,
+ "vm_pass_zone": null,
+ "vm_block_zone": 222.36057272506622,
+ "ux_min_mm": -0.20768333784774962,
+ "ux_max_mm": -0.0241366033796274,
+ "ring_peak_at": {
+  "x": 0.43686230538325166,
+  "r": 298.8413219538927,
+  "deg_from_12": 75.31164913760303
+ }
+}

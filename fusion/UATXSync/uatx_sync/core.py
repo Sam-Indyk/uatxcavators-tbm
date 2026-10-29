@@ -385,6 +385,7 @@ class Sync:
             self.state.update(applied_manifest_sha=man_sha, last_apply=_now(), last_apply_commit=commit,
                               last_apply_summary=f"{len(todo)} imported, {len(gone)} removed, {np_} parameters")
             self.state.pop("failed_manifest_sha", None)
+            self.state.pop("last_error", None)
             self._save_state()
             msg = f"applied manifest {commit}: {len(todo)} parts imported, {len(gone)} removed, {np_} parameters changed"
             self.log(msg)

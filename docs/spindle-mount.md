@@ -1,8 +1,8 @@
-# Cutterhead Spindle Mount (current: Rev H, Oct 26, 2026)
+# Cutterhead Spindle Mount (current: Rev I, Oct 28, 2026)
 
 Scripts, viewer and STEP files: GitHub repo Sam-Indyk/uatxcavators-tbm (src/, viewer/, out/; see its CLAUDE.md). This doc is mirrored there as docs/spindle-mount.md.
 
-Rev H is at the end of this doc. The sections below it record rev E and the options that led to rev H.
+Rev I is at the end of this doc, before the Open list. The full Rev I design manual (every part, loads, equations, FEA, lift plan, BOM) is `docs/manual-00-overview.md` to `docs/manual-09-bom.md` (project docs `claude/manual-*.md`). The sections below record rev E and the options that led to rev H and rev I.
 
 One welded ring, one bolted cartridge carrying all three bearings and the drive. Supersedes rev D (rear bearing in a separate rear plate on a second ring).
 Fusion 360 is the model of record. Visual model: `spindle_mount_revE.step` (CadQuery, envelope-level). Calc: `calc_revE.py`.
@@ -423,19 +423,46 @@ Thrust ring Rev A (`docs/thrust-ring.md`) added to the detailed model at launch,
 | Slurry pipe bores at the shield rear, R212.5–277.5 at 12 and 6 | Covered by the ring front face (annulus R200–304.8) |
 | Motor body / port bosses / hoses in the Ø400 bore | Radial clearance 60 / 94 / 103 |
 
+## Rev I (Oct 28, 2026): review, FEA and corrections
+
+Model: `src/build_revI_detail.py`, `src/asm_revI.py` (57 steps) → `out/step/spindle_mount_revI_detail.step`, `out/step/thrust_ring_revB.step`, `viewer/data/I.json`. Calcs: `src/loads.py`, `src/calc_revI.py` (174 checks with equations), `src/massprops_revI.py`, `src/fea_ring1.py`, `src/fea_thrust_ring.py` (3D FEA: gmsh + scikit-fem, quadratic tetrahedra). Manual: `tools/make_manual.py` → `docs/manual-*.md`.
+
+| ID | Item | Rev H | Rev I | Reason |
+|---|---|---|---|---|
+| I-1 | Ring 1 counterbore | Ø400 × 35; flange OD 399.8; bolt circle Ø370; tube land 20 | Ø384 × 30; flange OD 383.8; bolt circle Ø354 (16 × M12 × 40); tube land 15 | FEA: the 6.5 mm wall between the counterbore and the 12 / 6 o'clock pipe holes reached 461 MPa peak at LC3. Rev I wall 14.5; membrane + bending 187 MPa at LC3 (FoS 1.55 on Fy 290) |
+| I-2 | Ring 1 material | A572 Gr 50, 4.5 in plate | A572 Gr 42, 4.5 in plate (Fy 290) | A572 Gr 50 plate is limited to 4 in |
+| I-3 | Slurry pipes | Ø76.1, front seal weld only, end flush at x = 1,157 | A1085 HSS Ø76.2 × 6.35; welded at both ring 1 faces on the bench; run to x = 1,255 | The thrust ring covered both pipe bores at launch; the rear weld also supports the hole |
+| I-4 | Thrust ring | Rev A | Rev B: U-notches 84 wide to R287 at 12 and 6 | Pipes pass the ring (thrust-ring.md) |
+| I-5 | Seal-purge supply | R209 to x = 1,500 | R209 to x = 1,095, down to R185 by x = 1,150 | Crossed the thrust ring annulus (5.98 cm³); now 10 clear of the bore |
+| I-6 | Coupling | Jaw coupling Ø280, size open; adapter rear bore Ø282 | KTR ROTEX 160, 64 ShD spider, steel hubs (T_KN 24 / T_Kmax 48 kNm); adapter rear bore Ø300; motor pilot plate Ø400 × 20 carries the Ø282 motor spigot; motor screws M20 × 65 | Smallest ROTEX that takes the Ø180 locking assembly (max bore 185); its Ø290 hubs need the Ø300 bore. A rigid splined sleeve was rejected: 0.38 mm spindle offset at the coupling at LC3 |
+| I-7 | Guards | Windows open | 3 mm bolted guards, 4 × M6 each | Rules 3.a.1 |
+| I-8 | Lifting | None | 4 bosses Ø60, M20, x = 155 and 699 at 12 o'clock ± 18°, Crosby HR-125M hoist rings (WLL 2,150 kg); plugs in service | Rules: marked lifting points, lifting FoS > 5. Machine 1,205.5 kg (2,658 lb), CG x = 423 |
+| I-9 | Split-flange joint screws | 2 × M10 at x = 15, z = ±172 | 2 × M8 at x = 22.5, z = ±157 | M10 counterbores broke into the flange bolt holes |
+| I-10 | Anti-rotation pins | 4 × Ø16 at x = 10 | 4 × Ø12 at x = 7.5 | Shorter land; shear FoS 1.44 at 20 kNm |
+| I-11 | Load basis, motor relief | 590 kN + 62 kNm screen; 800 kN; relief = operating + 20 bar | LC1-LC4 = 303 / 613.1 / 800.6 / 901.4 kN from F = 4 p A (thrust model, 121 bar cap, 158 bar interlock, 2,580 psi pump relief); M = F·e + M_g, e = 105; side force F_s = 3T/(πR) = 35.1 kN added as a vector. Motor relief 235.4 + 10 % = 259 bar → 11.58 kNm stall | Each case traces to a pressure setting; rules 4.c.3.2: 10 % or 20 bar, whichever is higher |
+| I-12 | Materials | E355 Fy 355; adapter tube Fy 345 | E355 Fy 335 (40-65 mm wall); A106 B adapter tube Fy 241 | Thickness bands; pipe grade |
+| I-13 | Bit holders | Weld not specified | 14 mm fillet all round | One-bit jam at the stall torque: 139 MPa vs 145 |
+| I-14 | Fixtures | Legs 1,047, shell on the table | 3 riser blocks 110; legs 1,157 | Pipes stand 98 proud of the rear end |
+| I-15 | Thrust ring register | Flat front face; ring not located | Spigot Ø589.5 × 10 high × 9 wide (1.5 × 0.5 relief groove at its root) on the ring; shield rear counterbored Ø590.6 × 12 (end wall 9.5) | Locates the ring concentric with the shield and casing (radial gap 0.55). Ported Oct 28 from the uncommitted Oct 27 local Rev H work (saved on branch `local-oct28-register`); Rev I pipe routing kept. Placeholders until the casing joint drawing |
+
+Ring 1 FEA (face-welded pipes, as built), LC2 / LC3 / LC4: pipe-hole wall membrane + bending 145 / 187 / 210 MPa (Fy 290: FoS 2.00 / 1.55 / 1.38); web 120 / 156 / 175; shell 54 / 70 / 79; tapped-hole peak 203 / 263 / 295 (local). Thrust ring Rev B FEA with the register (LC3 on the casing / shield): ring away from the saddles 87 / 89 MPa, notch zone 44 / 40, spigot-root peak 92 / 92 (Fy 345). Interference check: 148 pairs, non-zero only for threads in tapped holes, the eye bolt and the 0.03 cm³ pipe-weld sliver. 1 check below requirement: CH-7, gauge bit holder weld (FoS 0.70; cutterhead layout). Full results in `docs/manual-00-overview.md`.
+
 ## Open
 
-- Drive: Poclain MS18 modelled (Oct 27). Need the certified drawing (flange pattern, body), coupling size selection, and a decision on the +111 mm over 1,340 (accept, direct-mount hollow-spline motor, or offset motor).
-- Locking assembly: B-LOC B400 140 gives 1.41 on 20 kNm. Tollok TLK450 140 × 190 is 64.6 kNm by Rexnord part code (width to confirm).
-- Tube stock: seamless 323.9 × 60 E355 is a European stock size; find a US source or equivalent (OD ≥ 320, ID ≤ 206).
+- Poclain certified drawing: flange pattern (8 × M20 on Ø335 assumed), pilot, shaft length (110 assumed), body. Sets the pilot plate, hub 2 and the motor envelope.
+- Fenner: B-LOC B400 130 × 180 hub pressure (160 MPa assumed) for the coupling hub check.
+- KTR: ROTEX 160 hubs shortened (hub 1 body 60 with Ø180 H7, 42CrMo4+QT; hub 2 jaw disc 30 + Ø140 neck, W90 × 3 × 28 spline).
+- Koyo: C₀, C, misalignment limits for 23228 and 29328N; 23228 quantity.
+- Ring 1 plate: mill certificate, 4.5 in A572 Gr 42 (Fy ≥ 290).
+- Shell pipe grade (API 5L B / A53 B assumed, Fy 241).
+- Tube stock: US source for seamless 323.9 × 60 (OD ≥ 320, ID ≤ 206).
+- Gauge bit holders (R308.65) overhang the arm end by 13.65 of 30: holder or arm-tip change with Daniel (CH-7).
 - Centre cap and inner bit layout with Daniel (7 bits on the cap).
-- Soil cu from the geotech report: fins give FoS 1.09 alone at cu 25 kPa.
+- Slurry hose connection at the pipe ends (x = 1,255): fitting OD ≤ 95 to pass inside the jacking pipes (with Jack).
+- Casing joint drawing: confirm the register placeholders (spigot Ø589.5 × 10 × 9 wide, shield rear counterbore Ø590.6 × 12) and the casing wall (24 in × 0.375 assumed).
+- Soil c_u from the geotech report: fins give FoS 1.09 alone at c_u 25 kPa.
 - Launch portal / seal notches for the Ø750 fin envelope.
-- Koyo: C₀, C, Y₀, misalignment limits; 23228 quantity; 23228 inner ring as a thrust spacer (≈ 128 MPa face stress).
-- Ring 1 FEA (rev H web FoS 1.51 with weight added, stepped-plate model).
-- Depth 393: confirm from the cutterhead + adapter stack.
-- Shell pipe grade (A53 Gr B assumed).
-- Ring 1 pipe holes leave 8.6 mm between pipe and shell bore at 12 and 6; ring fillet runs into the pipe weld there.
-- Chamber depth 133 with 8 gussets sweeping it (rev H): confirm slurry feed/discharge flow with Jack.
-- Seal-purge supply line route behind x = 1,157: at R209 it crosses the thrust ring annulus (bore R200).
-- Slurry pipe ends at the shield rear (R245): covered by the thrust ring front face when there is no jacking pipe.
+- Overall length 1,451 vs the 1,340 envelope: accept or change the motor arrangement.
+- Depth 128 (ring 1 face from the shield front): confirm from the cutterhead stack.
+- Chamber depth 133 with 8 gussets sweeping it: confirm slurry feed/discharge flow with Jack.
+- Ring 1 FEA mesh refinement on the pipe-hole wall (h 14 → 10).

@@ -1,0 +1,86 @@
+{
+ "case": "LC3",
+ "pipe_mode": "welded",
+ "r_pipe": 245.0,
+ "rear_weld": 0.0,
+ "F_kN": 800.5978169740464,
+ "M_kNm": 87.08277078227488,
+ "seat_pressure": {
+  "mean_MPa": 24.032402054317433,
+  "gradient_MPa_per_100mm": 16.516585784817792
+ },
+ "nodes": 35887,
+ "tets": 151258,
+ "dofs": 735999,
+ "mesh_s": 7.9,
+ "solve_s": 295.3,
+ "vm_peak": {
+  "pipe_ligaments": 262.76702395553053,
+  "tapped_holes": 205.01469624288933,
+  "tap_holes": 138.50340111336803,
+  "counterbore_corner": 138.58557247154792
+ },
+ "vm_weld_root_singular": 456.6137649320995,
+ "vm_ring_elsewhere": 167.39439567377505,
+ "vm_shell_x_gt_120": 69.51305749213532,
+ "pipe_peak_location": {
+  "x": 4.571834223991307,
+  "r": 213.05235344355592,
+  "theta_deg": 0.10947183307114718
+ },
+ "elsewhere_peak_location": {
+  "x": 4.106430632270106,
+  "r": 291.1599981142401,
+  "theta_deg": 1.4751940121664584
+ },
+ "linearized": {
+  "ligament_x1": "ERR ValueError",
+  "ligament_x4": {
+   "length_mm": 17.25,
+   "Pm_vm": 154.47311003012032,
+   "PmPb_vm_p0": 89.60594480406283,
+   "PmPb_vm_p1": 220.08100583047207,
+   "peak_vm_on_line": 267.14341915073584
+  },
+  "ligament_x10": {
+   "length_mm": 17.25,
+   "Pm_vm": 145.6822568173135,
+   "PmPb_vm_p0": 81.39614311517288,
+   "PmPb_vm_p1": 210.04424069856495,
+   "peak_vm_on_line": 246.11122507375524
+  },
+  "ligament_x20": {
+   "length_mm": 17.25,
+   "Pm_vm": 117.13162537377643,
+   "PmPb_vm_p0": 70.90549246754583,
+   "PmPb_vm_p1": 164.27005514707776,
+   "peak_vm_on_line": 193.17309288195034
+  },
+  "ligament_x30": {
+   "length_mm": 17.25,
+   "Pm_vm": 85.77974458491754,
+   "PmPb_vm_p0": 59.08251847019504,
+   "PmPb_vm_p1": 114.25034141123871,
+   "peak_vm_on_line": 134.65336343554347
+  },
+  "web_R180_0deg": "ERR ValueError",
+  "web_R180_90deg": {
+   "length_mm": 75.0,
+   "Pm_vm": 32.56281760996707,
+   "PmPb_vm_p0": 50.72981777432644,
+   "PmPb_vm_p1": 75.64135517982668,
+   "peak_vm_on_line": 76.01122858550174
+  },
+  "web_R245_30deg": {
+   "length_mm": 110.0,
+   "Pm_vm": 13.411316219349535,
+   "PmPb_vm_p0": 66.81022893944444,
+   "PmPb_vm_p1": 65.04765966784976,
+   "peak_vm_on_line": 66.37362129965278
+  }
+ },
+ "seat_axial_disp_mm": {
+  "max": 0.3956667097208697,
+  "min": 0.059641883234895644
+ }
+}

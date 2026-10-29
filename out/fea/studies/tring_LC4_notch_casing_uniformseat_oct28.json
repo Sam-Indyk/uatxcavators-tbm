@@ -1,0 +1,25 @@
+{
+ "case": "LC4",
+ "variant": "notch",
+ "support": "casing",
+ "F_kN": 901.3536425430191,
+ "F_cyl_kN": 225.33841063575477,
+ "k_N_per_mm3": 400.0,
+ "nodes": 17818,
+ "dofs": 390552,
+ "solve_s": 116.9,
+ "contact_iterations": 1,
+ "contact_fraction": 1.0,
+ "contact_pressure_max_MPa": 77.82101291833544,
+ "vm_ring_max": 248.78302906615266,
+ "vm_ring_away_from_block_and_pass": 108.53963222272162,
+ "vm_pass_zone": 57.97192879428002,
+ "vm_block_zone": 335.720415452924,
+ "ux_min_mm": -0.3176464933197749,
+ "ux_max_mm": -0.0481361799069416,
+ "ring_peak_at": {
+  "x": 0.3721233932781498,
+  "r": 298.7924011844717,
+  "deg_from_12": 70.42745866945606
+ }
+}

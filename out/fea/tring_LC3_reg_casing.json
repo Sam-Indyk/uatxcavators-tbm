@@ -1,0 +1,40 @@
+{
+ "case": "LC3",
+ "variant": "reg",
+ "support": "casing",
+ "F_kN": 800.5978169740464,
+ "F_cyl_kN": 200.1494542435116,
+ "k_N_per_mm3": 400.0,
+ "nodes": 20966,
+ "dofs": 467229,
+ "solve_s": 311.9,
+ "contact_iterations": 1,
+ "contact_fraction": 1.0,
+ "contact_pressure_max_MPa": 65.36137420184743,
+ "vm_ring_max": 178.57600436247014,
+ "vm_ring_away_from_block_and_pass": 86.65723256210077,
+ "vm_spigot_zone": 91.55774973166538,
+ "vm_pass_zone": 44.352448534370154,
+ "vm_block_zone": 244.3093087117565,
+ "ux_min_mm": -0.2656319318469292,
+ "ux_max_mm": -0.03567196906377148,
+ "block_lin": {
+  "length_mm": 24.999999999999986,
+  "Pm_vm": 39.377579456483026,
+  "PmPb_vm_p0": 47.31932777255854,
+  "PmPb_vm_p1": 32.55514700262267,
+  "peak_vm_on_line": 48.89364891592816
+ },
+ "ring_under_block_lin": {
+  "length_mm": 76.2,
+  "Pm_vm": 15.355420691859972,
+  "PmPb_vm_p0": 25.086416585351852,
+  "PmPb_vm_p1": 40.538037791718416,
+  "peak_vm_on_line": 44.66553653479145
+ },
+ "ring_peak_at": {
+  "x": 0.3747892126708101,
+  "r": 298.7738365814852,
+  "deg_from_12": 89.08736163867255
+ }
+}

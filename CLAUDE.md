@@ -12,7 +12,7 @@ From a Fusion MCP script (same Python interpreter as the add-in), `sys.modules["
 - Team priorities: `docs/mechanical-priorities.md`.
 - Competition rules (NABC 2027 Full Rules Rev A2, PDF) are in the claude.ai project "UATXcavators" and are not copied here.
 - `docs/*.md` are mirrored with the claude.ai project docs `claude/*.md`. Follow "Docs sync" below at the start and end of every session.
-- Published viewer (claude.ai artifact): https://claude.ai/artifact/9CTeunW3jLoUrd8VnANaB9. It is republished from a claude.ai session as the page plus `data/<tag>.json`. From here, view it locally (see below).
+- Published viewer (claude.ai artifact): https://claude.ai/artifact/9CTeunW3jLoUrd8VnANaB9. Republish it with the Artifact tool (from here or a claude.ai session) as the page `viewer/index.html` plus `data/<tag>.json` and `fea/*.png`; only changed files need to be sent. View it locally as in step 8.
 
 ## Current design: Rev I
 
@@ -102,10 +102,10 @@ If the system Python is newer than 3.13, `uv venv --python 3.13 --seed .venv` do
 | 2b. Fusion sync package | `python tools/fusion_manifest.py` | `out/step/parts/<key>.step` (one per part, deterministic), `fusion/sync/manifest.json`; ~3 min |
 | 3. Mass properties | `python src/massprops_revI.py` | `out/calc/massprops_revI.json` |
 | 4. FEA | `R1_RCB=192 R1_CB=30 python src/fea_ring1.py LC3 facewelded 245` (LC2, LC3, LC4) · `python src/fea_thrust_ring.py LC3 reg casing` (LC2-LC4 × shield / casing; variant `reg` = notches + register) | `out/fea/*.json`, `*.png`; 5-8 min per ring 1 case, 2-3 min per thrust ring case on 2 cores, ~4 GB RAM |
-| 5. Hand checks | `python src/calc_revI.py` | Printed table; `out/calc/calc_revI.json` (151 checks) |
+| 5. Hand checks | `python src/calc_revI.py` | Printed table; `out/calc/calc_revI.json` (174 checks) |
 | 6. Design manual | `python tools/make_manual.py` | `docs/manual-00` … `manual-09` |
 | 7. Collision audit of the animation | `ASM=asm_revI python src/audit_asm.py 0.3 out/audit/audit_revI.json` | ~30 min on 2 cores |
-| 8. View | `python -m http.server 8000 -d viewer`, then http://localhost:8000/#revh or `#assembly` | Rev I data is `viewer/data/I.json` |
+| 8. View | `python -m http.server 8000 -d viewer`, then http://localhost:8000/#revi, `#assemblyi` or `#fea` | Rev I data is `viewer/data/I.json` |
 | 9. Headless screenshots and console errors | `python tools/shoot_viewer.py assembly --steps 0,9,52`, `--mid 38`, `revh --views iso,side` | `out/shots/` |
 
 Expected non-zero interference values in step 1 (all others are 0):
@@ -149,14 +149,16 @@ Rerun steps 2-6 after any geometry change, and step 7 after any change to geomet
 - `src/calc_support.py`: weight of the cantilevered module, head and drive. Masses and CGs come from the detailed model.
 - `src/calc_fins.py`: anti-roll fin sizing, T_resist = Σ Nc·cu × A_eff × R. Only fin height beyond the 10.2 mm overcut counts.
 - `viewer/index.html`: the single-page viewer.
-  - Tabs are at the top. Page text and check tables live in the JS object `PAGES`; edit them in place.
-  - Each revision's meshes are in `viewer/data/<tag>.json` (B–H, S).
+  - Tabs are at the top. Page text and check tables live in the JS object `PAGES`; the Compare table is `CMP`; the Rev I FEA tab is static HTML in `<section id="fea">`. Edit them in place.
+  - Each revision's meshes are in `viewer/data/<tag>.json` (B–I, S).
+  - `viewer/fea/*.png`: FEA panels shown on the FEA tab, copied from `out/fea/docs/` (copy again after rerunning the FEA).
   - three@0.160.0 loads from jsdelivr through an importmap.
 - `tools/docsync.py`: three-way hash check behind the docs sync.
 - `archive/`: rev B–G scripts, STEP files and old viewer templates. Kept for history only and not maintained; they still contain old absolute paths.
 
 ## Gotchas
 
+- Viewer: the render loop draws nothing while the Compare or FEA page covers the 3D view (`view3d`). Without that, browsers that render WebGL in software (headless tests) freeze for about a minute when a 3D tab comes back.
 - `cq.Solid.makeSphere` gives a hemisphere by default. Pass `angleDegrees1=-90, angleDegrees2=90` for a full sphere band.
 - `build_opts.vol()` returns 0 when a boolean fails, so a 0 can hide a failure. Treat unexpected zeros as suspect.
 - In assembly steps, groups that move together need the same pivot, or they drift apart mid-motion.

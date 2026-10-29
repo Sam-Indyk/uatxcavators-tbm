@@ -65,8 +65,8 @@ async def main(a):
             pg.on("pageerror", lambda e: errs.append(f"pageerror: {e}"))
             await pg.goto(f"http://127.0.0.1:{port}/index.html#{a.page}", wait_until="load", timeout=120000)
             await pg.wait_for_timeout(a.wait)
-            box = await pg.locator("#c").bounding_box()
-            clip = {k: box[k] for k in ("x", "y", "width", "height")}
+            box = await pg.locator("#c").bounding_box()   # None on the compare and fea pages (no 3D view)
+            clip = {k: box[k] for k in ("x", "y", "width", "height")} if box else None
             if a.no_section:
                 await pg.click("#secBtn")
             if a.explode is not None:
@@ -97,7 +97,7 @@ async def main(a):
                 shots.append(f)
             if not shots:
                 f = SHOTS / f"{a.page}_full.png"
-                await pg.screenshot(path=str(f))
+                await pg.screenshot(path=str(f), full_page=clip is None)
                 shots.append(f)
             await b.close()
     finally:
@@ -110,7 +110,7 @@ async def main(a):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("page", nargs="?", default="revh", help="tab id: revh, assembly, revg, revf, spherical, reve, revd, revc, revb, compare")
+    ap.add_argument("page", nargs="?", default="revh", help="tab id: revi, assemblyi, fea, revh, assembly, revg, revf, spherical, reve, revd, revc, revb, compare")
     ap.add_argument("--views", help="comma list of iso,side,front,rear")
     ap.add_argument("--no-section", action="store_true")
     ap.add_argument("--explode", type=float)

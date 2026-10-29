@@ -20,7 +20,7 @@
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px}
 .wrap{max-width:1320px;margin:0 auto;padding-block:20px 32px;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  display:grid;gap:14px}
+  display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
 header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;border-bottom:2px solid var(--ink);padding-bottom:10px}
 h1{font-family:var(--f-display);font-weight:700;font-size:28px;letter-spacing:.01em;margin:0;text-wrap:balance}
 .dwg{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
@@ -67,7 +67,7 @@ tr:first-child td{border-top:0}
 .v-pass{color:var(--pass)} .v-fail{color:var(--fail)} .v-warn{color:var(--warn)}
 #compare{display:none}
 .cmp-wrap{overflow-x:auto;background:var(--sheet);border:1px solid var(--rule)}
-.cmp{min-width:1250px}
+.cmp{min-width:1400px}
 .cmp th{font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.03em;border-top:0;border-bottom:2px solid var(--ink)}
 .cmp td:not(:first-child){font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
 .cmp td:first-child{color:var(--muted)}
@@ -88,6 +88,25 @@ ol.steps li.ph{font-family:var(--f-display);font-weight:600;font-size:12px;lette
 .stepbtn .n{font-family:var(--f-mono);font-size:11px;color:var(--muted);width:20px;flex:none;padding-top:2px}
 .stepbtn[aria-current="step"]{background:var(--ink);color:var(--sheet)}
 .stepbtn[aria-current="step"] .n{color:var(--sheet)}
+/* FEA page */
+#fea{display:none}
+.fea{display:grid;gap:16px}
+.fea .block{min-width:0}
+.fea .lead{margin:0;padding:10px 12px;font-size:14px;line-height:1.5;max-width:100ch}
+.tw{overflow-x:auto}
+table.data th{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.03em;border-top:0;border-bottom:2px solid var(--ink);vertical-align:bottom}
+table.data td.n{text-align:right;font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.data th.n{text-align:right}
+table.data tr.hl td{font-weight:500;background:color-mix(in srgb,var(--accent) 9%,transparent)}
+table.chg{min-width:880px} table.r1{min-width:860px} table.st{min-width:620px} table.trr{min-width:900px} table.sm{min-width:520px}
+.seg{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px 0}
+.seg .lbl{font-family:var(--f-mono);font-size:12px;color:var(--muted);align-self:center;margin-right:4px}
+.figpair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 12px 0;padding:8px;background:#fff;border:1px solid var(--rule);align-items:center;max-width:1240px}
+.figpair.r1p{grid-template-columns:minmax(0,395fr) minmax(0,602fr);max-width:1000px}
+@media (max-width:700px){.figpair,.figpair.r1p{grid-template-columns:minmax(0,1fr)}}
+.figpair img{width:100%;height:auto;display:block}
+.figcap{margin:0;padding:8px 12px 12px;font-size:13px;color:var(--muted);line-height:1.45}
+.fea h3{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.02em;margin:0;padding:12px 12px 6px}
 </style>
 
 <div class="wrap">
@@ -98,6 +117,7 @@ ol.steps li.ph{font-family:var(--f-display);font-weight:600;font-size:12px;lette
   <nav class="tabs" id="tabs" aria-label="Design options">
     <a href="#revi" data-page="revi">Rev I<span class="tag pass">reviewed + FEA</span></a>
     <a href="#assemblyi" data-page="assemblyi">Rev I assembly<span class="tag pass">57 steps</span></a>
+    <a href="#fea" data-page="fea">Rev I FEA<span class="tag pass">ring 1 + thrust ring</span></a>
     <a href="#revh" data-page="revh">Rev H<span class="tag ref">detailed + drive</span></a>
     <a href="#assembly" data-page="assembly">Rev H assembly<span class="tag pass">55 steps</span></a>
     <a href="#revg" data-page="revg">Rev G<span class="tag ref">all behind plate</span></a>
@@ -158,11 +178,129 @@ ol.steps li.ph{font-family:var(--f-display);font-weight:600;font-size:12px;lette
   <section id="compare" aria-label="Comparison">
     <div class="cmp-wrap">
       <table class="cmp">
-        <thead><tr><th></th><th>Rev H</th><th>Rev G</th><th>Rev F</th><th>Spherical, dry</th><th>Rev E</th><th>Rev D</th><th>Rev C</th><th>Rev B</th></tr></thead>
+        <thead><tr><th></th><th>Rev I</th><th>Rev H</th><th>Rev G</th><th>Rev F</th><th>Spherical, dry</th><th>Rev E</th><th>Rev D</th><th>Rev C</th><th>Rev B</th></tr></thead>
         <tbody id="cmpBody"></tbody>
       </table>
     </div>
-    <p class="note">Rev B–D are earlier revisions kept for comparison; their models use the HMB100 envelope (Ø502) where the newer options use the Ø400 drive envelope. Static safety s₀ = C₀ / P₀, target ≥ 2. Ratings: 23228 C₀ 1,250 kN, 29328 C₀ 2,850 kN (SKF catalogue values; Koyo to confirm). Jam = 590 kN + 62 kNm; envelope = 800 kN + 62 kNm; both + 26.8 kN chamber pressure. Rev F, spherical-dry and rev E carry the same 64 kNm through ring 1 and its weld. Rev F head mass is from the visual model; Daniel's flat head is 38.3 kg with bits. A dash means not checked for that revision.</p>
+    <p class="note">Rev B–D are earlier revisions kept for comparison; their models use the HMB100 envelope (Ø502) where the newer options use the Ø400 drive envelope. Static safety s₀ = C₀ / P₀, target ≥ 2. Ratings: 23228 C₀ 1,250 kN, 29328 C₀ 2,850 kN (SKF catalogue values; Koyo to confirm). Jam = 590 kN + 62 kNm; envelope = 800 kN + 62 kNm; both + 26.8 kN chamber pressure. Rev F, spherical-dry and rev E carry the same 64 kNm through ring 1 and its weld. Rev F head mass is from the visual model; Daniel's flat head is 38.3 kg with bits. A dash means not checked for that revision. Rev I uses its own load cases: LC2 613.1 kN (121 bar cap), LC3 800.6 kN (158 bar interlock), with M = F·e + M_g and a side force (87.5 kNm at the seat at LC3); its bearing values are at those cases.</p>
+  </section>
+
+  <section id="fea" class="fea" aria-label="Rev I FEA results">
+    <div class="block">
+      <h2>Design changes from the simulations</h2>
+      <div class="tw"><table class="data chg">
+        <thead><tr><th>Simulation</th><th>Finding</th><th>Rev I change</th><th>Rev I result</th></tr></thead>
+        <tbody>
+          <tr><td>Ring 1 FEA</td><td>Rev H counterbore Ø400 × 35 left a 6.5 mm wall between the counterbore and the 12 and 6 o'clock pipe holes: 461 MPa peak at the hole edge at LC3 (open holes, Fy 345)</td><td>Counterbore Ø384 × 30: wall 14.5, web 75 → 80. Knock-on: split flange OD 383.8 × 30 thk, bolt circle Ø354, tube land 15, anti-rotation pins Ø12</td><td>Wall Pm + Pb 187 MPa at LC3: FoS 1.55 on Fy 290 (required 1.5)</td></tr>
+          <tr><td>Ring 1 FEA</td><td>Pipes welded only at the two ring faces carry the hole about as well as a pipe fused over the full 110: Pm + Pb 196 vs 198 MPa (Ø384 × 35, LC3). A thicker pipe wall lowers the peak 272 → 263 MPa (Ø392 × 35, fused)</td><td>Slurry pipes A1085 Ø76.2 × 6.35, welded at both ring faces on the bench</td><td>Included in the row above</td></tr>
+          <tr><td>Ring 1 FEA</td><td>The Rev H hand model (stepped annular plate) checked the web, FoS 1.51; it cannot represent the pipe-hole wall, which governs</td><td>Ring 1 judged on the FEA wall stress; web checked by both</td><td>Web Pm + Pb 156 MPa (FEA) vs 147 MPa (hand) at LC3: FoS 1.86</td></tr>
+          <tr><td>Thrust ring FEA</td><td>Notch zone at 12 and 6 o'clock, midway between cylinders: 40-44 MPa vs 87-89 MPa in the rest of the ring at LC3</td><td>U-notches 84 wide kept at 12 and 6 (no reinforcement)</td><td>Ring FoS 3.88 (shield) / 3.98 (casing) on Fy 345 at LC3</td></tr>
+          <tr><td>Thrust ring FEA</td><td>Uniform pressure on the half seat groove ends abruptly at the groove edges and puts a false peak there (~300 MPa at LC3)</td><td>Seat load modelled as Hertz-like contact over ±20° about the seat bottom; no geometry change</td><td>Block zone peak 293 → 237 MPa (Rev A, LC3, casing)</td></tr>
+          <tr><td>Thrust ring FEA</td><td>Rev A curved-grid hand model 112.7 MPa vs FEA 87 MPa at LC3 on the casing</td><td>Hand model kept as the conservative check</td><td>—</td></tr>
+          <tr><td>Interference check</td><td>Seal-purge supply at R209 crossed the thrust ring annulus (bore R200): 5.98 cm³ overlap</td><td>Supply drops to R185 by x = 1,150</td><td>0 cm³; 10 mm clear of the ring bore</td></tr>
+          <tr><td>Spindle bending model</td><td>A rigid one-piece splined drive sleeve sees 0.38 mm spindle offset at the coupling at LC3 (overhang stiffness 297 kN/mm)</td><td>Flexible coupling kept: KTR ROTEX 160, 64 ShD spider</td><td>0.38 vs 0.46 mm allowed: FoS 1.22</td></tr>
+        </tbody>
+      </table></div>
+      <p class="figcap">Pm + Pb: membrane plus bending stress, the average and the linear part of the stress through a section (linearized stress). It is compared with yield; peaks at sharp re-entrant corners such as weld roots and the 0.4 mm pipe-to-hole gap grow without limit with mesh refinement and are reported separately. Von Mises stress: the single equivalent stress compared with the yield strength.</p>
+    </div>
+
+    <div class="block">
+      <h2>Ring 1 (bulkhead)</h2>
+      <div class="seg" role="group" aria-label="Ring 1 load case"><span class="lbl">Case</span>
+        <button data-r1="LC2" aria-pressed="false">LC2 613 kN</button>
+        <button data-r1="LC3" aria-pressed="true">LC3 801 kN</button>
+        <button data-r1="LC4" aria-pressed="false">LC4 901 kN</button>
+      </div>
+      <div class="figpair r1p">
+        <img id="r1front" alt="Ring 1 front face, von Mises stress" width="395" height="569" loading="lazy">
+        <img id="r1rear" alt="Ring 1 rear face, von Mises stress" width="602" height="548" loading="lazy">
+      </div>
+      <p class="figcap">Ring 1 + front fillet weld + shell to x = 500, half model seen from the front (12 o'clock up), pipes welded at both faces. Von Mises stress, MPa, scale 0-345. Left: front face (x ≈ 2, chamber side). Right: rear face (x ≈ 108). Quadratic tetrahedra, 791,511 degrees of freedom.</p>
+      <h3>Results (MPa)</h3>
+      <div class="tw"><table class="data r1">
+        <thead><tr><th>Case</th><th class="n">F (kN)</th><th class="n">M at seat (kNm)</th><th class="n">Wall Pm</th><th class="n">Wall Pm + Pb</th><th class="n">FoS on Fy 290</th><th class="n">Required</th><th class="n">Peak on wall lines</th><th class="n">Web Pm + Pb</th><th class="n">Tapped holes, peak</th><th class="n">Shell, peak</th><th class="n">Seat disp. (mm)</th></tr></thead>
+        <tbody>
+          <tr><td>LC2</td><td class="n">613.1</td><td class="n">67.94</td><td class="n">122</td><td class="n">145</td><td class="n v-pass">2.00</td><td class="n">1.5</td><td class="n">164</td><td class="n">120</td><td class="n">203</td><td class="n">54</td><td class="n">0.309</td></tr>
+          <tr class="hl"><td>LC3</td><td class="n">800.6</td><td class="n">87.49</td><td class="n">157</td><td class="n">187</td><td class="n v-pass">1.55</td><td class="n">1.5</td><td class="n">213</td><td class="n">156</td><td class="n">263</td><td class="n">70</td><td class="n">0.400</td></tr>
+          <tr><td>LC4</td><td class="n">901.4</td><td class="n">98.04</td><td class="n">177</td><td class="n">210</td><td class="n v-pass">1.38</td><td class="n">1.0</td><td class="n">239</td><td class="n">175</td><td class="n v-warn">295</td><td class="n">79</td><td class="n">0.448</td></tr>
+        </tbody>
+      </table></div>
+      <p class="figcap">LC4 peaks are reported, not required (tapped-hole peak 295 MPa, 0.98 of yield, local to the thread roots). Ring 1 is A572 Gr 42 (Fy 290): A572 Gr 50 plate stops at 4 in, ring 1 is 4.5 in plate.</p>
+      <h3>Design study, LC3 (one change per row)</h3>
+      <div class="tw"><table class="data st">
+        <thead><tr><th>Variant</th><th class="n">M (kNm)</th><th class="n">Wall Pm</th><th class="n">Wall Pm + Pb</th><th class="n">Peak</th></tr></thead>
+        <tbody>
+          <tr><td>Rev H: Ø400 × 35, pipes open (front seal weld only)</td><td class="n">87.08</td><td class="n">–</td><td class="n">–</td><td class="n v-fail">461</td></tr>
+          <tr><td>Ø392 × 35, pipes open</td><td class="n">87.08</td><td class="n">–</td><td class="n">–</td><td class="n">378</td></tr>
+          <tr><td>Ø400 × 35, Ø76.1 × 5.55 pipe fused over 110</td><td class="n">87.08</td><td class="n">–</td><td class="n">–</td><td class="n">295</td></tr>
+          <tr><td>Ø392 × 35, Ø76.1 × 5.55 pipe fused</td><td class="n">87.08</td><td class="n">–</td><td class="n">–</td><td class="n">272</td></tr>
+          <tr><td>Ø392 × 35, Ø76.2 × 6.35 pipe fused</td><td class="n">87.08</td><td class="n">154</td><td class="n">220</td><td class="n">263</td></tr>
+          <tr><td>Ø384 × 35, pipe fused</td><td class="n">87.08</td><td class="n">147</td><td class="n">198</td><td class="n">248</td></tr>
+          <tr><td>Ø384 × 35, pipe welded at both faces only</td><td class="n">87.51</td><td class="n">162</td><td class="n v-warn">196</td><td class="n">896 *</td></tr>
+          <tr class="hl"><td>Rev I: Ø384 × 30, pipe welded at both faces</td><td class="n">87.49</td><td class="n">157</td><td class="n v-pass">187</td><td class="n">213 †</td></tr>
+        </tbody>
+      </table></div>
+      <p class="figcap">Requirement at LC3: Pm + Pb ≤ Fy/1.5 = 193 MPa. * Root of the 0.4 mm pipe-to-hole gap behind the front weld, a crack-like corner; excluded. † Maximum on the linearization lines. The study rows use M = F·e + M_g (87.08 kNm); the Rev I rows add the side-force moment as a vector.</p>
+    </div>
+
+    <div class="block">
+      <h2>Thrust ring Rev B (launch)</h2>
+      <div class="seg" role="group" aria-label="Thrust ring load case"><span class="lbl">Case</span>
+        <button data-trc="LC2" aria-pressed="false">LC2</button>
+        <button data-trc="LC3" aria-pressed="true">LC3</button>
+        <button data-trc="LC4" aria-pressed="false">LC4</button>
+        <span class="lbl" style="margin-left:10px">Bears on</span>
+        <button data-trs="casing" aria-pressed="true">Casing</button>
+        <button data-trs="shield" aria-pressed="false">Shield</button>
+      </div>
+      <div class="figpair">
+        <img id="trfront" alt="Thrust ring bearing face, von Mises stress" width="610" height="537" loading="lazy">
+        <img id="trrear" alt="Thrust ring rear face at the saddles, von Mises stress" width="610" height="538" loading="lazy">
+      </div>
+      <p class="figcap">Ring + register spigot + 4 saddle blocks, quarter model (12 to 3 o'clock), notch at 12 o'clock. Compression-only support on the bearing annulus R295.3-304.8; cylinder loads as Hertz-like pressure in the saddle seats. Von Mises stress, MPa, scale 0-250. Left: bearing face (x ≈ 1.5). Right: rear face at the saddles (x ≈ 74.7).</p>
+      <h3>Results (MPa)</h3>
+      <div class="tw"><table class="data trr">
+        <thead><tr><th>Case</th><th>Bears on</th><th class="n">F (kN)</th><th class="n">Ring away from saddles, notches, spigot</th><th class="n">FoS on Fy 345</th><th class="n">Notch zone</th><th class="n">Spigot root, peak ‡</th><th class="n">Block Pm + Pb</th><th class="n">Contact</th><th class="n">Max contact p</th><th class="n">u_x min (mm)</th></tr></thead>
+        <tbody>
+          <tr><td>LC2</td><td>shield</td><td class="n">613.1</td><td class="n">68</td><td class="n v-pass">5.07</td><td class="n">31</td><td class="n">71</td><td class="n">37</td><td class="n">100 %</td><td class="n">47.5</td><td class="n">−0.346</td></tr>
+          <tr><td>LC2</td><td>casing</td><td class="n">613.1</td><td class="n">66</td><td class="n v-pass">5.20</td><td class="n">34</td><td class="n">70</td><td class="n">36</td><td class="n">100 %</td><td class="n">50.1</td><td class="n">−0.203</td></tr>
+          <tr class="hl"><td>LC3</td><td>shield</td><td class="n">800.6</td><td class="n">89</td><td class="n v-pass">3.88</td><td class="n">40</td><td class="n">92</td><td class="n">48</td><td class="n">100 %</td><td class="n">62.1</td><td class="n">−0.452</td></tr>
+          <tr class="hl"><td>LC3</td><td>casing</td><td class="n">800.6</td><td class="n">87</td><td class="n v-pass">3.98</td><td class="n">44</td><td class="n">92</td><td class="n">47</td><td class="n">100 %</td><td class="n">65.4</td><td class="n">−0.266</td></tr>
+          <tr><td>LC4</td><td>shield</td><td class="n">901.4</td><td class="n">100</td><td class="n v-pass">3.45</td><td class="n">45</td><td class="n">104</td><td class="n">54</td><td class="n">100 %</td><td class="n">69.9</td><td class="n">−0.509</td></tr>
+          <tr><td>LC4</td><td>casing</td><td class="n">901.4</td><td class="n">98</td><td class="n v-pass">3.54</td><td class="n">50</td><td class="n">103</td><td class="n">53</td><td class="n">100 %</td><td class="n">73.6</td><td class="n">−0.299</td></tr>
+        </tbody>
+      </table></div>
+      <p class="figcap">‡ The 1.5 × 0.5 relief groove at the spigot root is not modelled, so the root is a sharp corner in the mesh; reported only. Shield rear end wall over the Ø590.6 × 12 counterbore: 44.7 MPa at LC3 (FoS 3.23 on 0.6 Fy). Contact: share of the bearing annulus in compression.</p>
+      <h3>Seat load model, Rev A ring, LC3 on the casing</h3>
+      <div class="seg" role="group" aria-label="Seat load model"><span class="lbl">Seat pressure</span>
+        <button data-seat="uniformseat" aria-pressed="true">Uniform on half groove</button>
+        <button data-seat="hertz" aria-pressed="false">Hertz-like, ±20°</button>
+      </div>
+      <div class="figpair">
+        <img id="smfront" alt="Rev A thrust ring bearing face, seat model comparison" width="610" height="538" loading="lazy">
+        <img id="smrear" alt="Rev A thrust ring rear face, seat model comparison" width="610" height="537" loading="lazy">
+      </div>
+      <div class="tw"><table class="data sm" style="margin-top:8px">
+        <thead><tr><th>Seat pressure</th><th class="n">Ring away (MPa)</th><th class="n">Block zone peak (MPa)</th><th class="n">Ring max (MPa)</th></tr></thead>
+        <tbody>
+          <tr><td>Uniform on the half groove</td><td class="n">98</td><td class="n v-warn">293</td><td class="n">183</td></tr>
+          <tr><td>Hertz-like, ±20° about the seat bottom</td><td class="n">98</td><td class="n">237</td><td class="n">188</td></tr>
+        </tbody>
+      </table></div>
+      <p class="figcap">The Ø63.5 cross tube in the Ø65 seat touches over a narrow arc (Hertz half-width 5.6 mm at LC3), so the Hertz-like model is the realistic one; the uniform model's edge peaks are an artefact of the load model.</p>
+    </div>
+
+    <div class="block">
+      <h2>Other checks run on Rev I</h2>
+      <div class="tw"><table class="data sm">
+        <thead><tr><th>Check</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Interference, every part pair of interest</td><td>148 pairs; non-zero only for screw threads in tapped holes, the eye bolt in the nose thread and a 0.03 cm³ pipe-weld sliver</td></tr>
+          <tr><td>Collision replay of the 57-step assembly animation</td><td>0 collisions (threshold 0.3 cm³ above the finished-state overlap)</td></tr>
+          <tr><td>Hand checks</td><td>174 rows; 1 below requirement: CH-7 gauge bit holder weld, FoS 0.70 (cutterhead layout, open)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
   </section>
 </div>
 
@@ -357,38 +495,43 @@ const PAGES = {
 
 const CMP = [
   ["sec", "Bearings"],
-  ["Bearings", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 22318 E", "23228 + 29328N"],
-  ["Spacing L", "400", "400", "280", "400", "400", "400", "300", "350"],
-  ["Thrust bearing s₀, jam", ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["2.67", "pass"]],
-  ["Thrust bearing s₀, 800 kN", ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["2.18", "pass"]],
-  ["Radial bearing s₀, jam", ["6.20", "pass"], ["6.20", "pass"], ["4.34", "pass"], ["6.20", "pass"], ["6.20", "pass"], ["6.20", "pass"], "—", ["7.06", "pass"]],
-  ["Preload / end play", "carrier shims", "carrier shims", "cover shims", "cover shims", "cover shims", "cover shims", "cover shims", ["disc springs", "warn"]],
-  ["Shaft", "Ø140 + collar, plain ends", "Ø140 + collar, splined ends", "Ø140 + collar", "Ø140 + collar", "Ø140 + collar", "Ø140 + collar", ["5 diameters", "warn"], "Ø140 + collar"],
+  ["Bearings", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 23228", "23228 + 29328N + 22318 E", "23228 + 29328N"],
+  ["Spacing L", "400", "400", "400", "280", "400", "400", "400", "300", "350"],
+  ["Thrust bearing s₀, jam", ["4.65 (LC2 613 kN)", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["4.62", "pass"], ["2.67", "pass"]],
+  ["Thrust bearing s₀, 800 kN", ["3.56 (LC3 801 kN)", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["3.45", "pass"], ["2.18", "pass"]],
+  ["Radial bearing s₀, jam", ["6.93 (LC2, with side force)", "pass"], ["6.20", "pass"], ["6.20", "pass"], ["4.34", "pass"], ["6.20", "pass"], ["6.20", "pass"], ["6.20", "pass"], "—", ["7.06", "pass"]],
+  ["Preload / end play", "carrier shims", "carrier shims", "carrier shims", "cover shims", "cover shims", "cover shims", "cover shims", "cover shims", ["disc springs", "warn"]],
+  ["Shaft", "Ø140 + collar, plain ends", "Ø140 + collar, plain ends", "Ø140 + collar, splined ends", "Ø140 + collar", "Ø140 + collar", "Ø140 + collar", "Ø140 + collar", ["5 diameters", "warn"], "Ø140 + collar"],
   ["sec", "Cutterhead"],
-  ["Head", "spider plate + 8 gussets", "pyramid frame, splined hub", "pyramid frame, adapter", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)"],
-  ["Side-load factor at front bearing", "1.85", "1.85", ["2.65", "warn"], "—", "—", "—", "—", "—"],
-  ["Chamber depth, head to plate", ["133, swept by gussets", "warn"], ["133", "warn"], "≈ 350", "≈ 460", "≈ 460", "≈ 460", "—", "—"],
+  ["Head", "spider plate + 8 gussets", "spider plate + 8 gussets", "pyramid frame, splined hub", "pyramid frame, adapter", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)"],
+  ["Side-load factor at front bearing", "1.85", "1.85", "1.85", ["2.65", "warn"], "—", "—", "—", "—", "—"],
+  ["Chamber depth, head to plate", ["133, swept by gussets", "warn"], ["133, swept by gussets", "warn"], ["133", "warn"], "≈ 350", "≈ 460", "≈ 460", "≈ 460", "—", "—"],
   ["sec", "Shell structure"],
-  ["Welded parts in shell", "ring 1 (110)", "ring 1 (110)", "ring 1", "ring 1", "ring 1", "ring 1 + ring 2", "ring 1 + ring 2", ["bulkhead + motor plate", "fail"]],
-  ["Stationary parts ahead of bulkhead face", ["none", "pass"], ["none", "pass"], ["40 + cover", "pass"], ["40 + cover", "pass"], ["218 + cover", "warn"], ["218 + cover", "warn"], ["30 + cover", "pass"], ["30 + cover", "pass"]],
-  ["Thrust joint", "tube land on split-flange lip", "metal + O-ring", "metal + O-ring", "metal + O-ring", "metal + O-ring", "metal + O-ring", ["fibre gasket", "warn"], "metal"],
-  ["Weld in thrust path", ["head gusset fillets 1.76", "pass"], ["flange CJP 2.69, struts 2.31", "warn"], ["flange CJP 2.69, struts 2.31", "warn"], ["CJP, FoS 2.69", "warn"], ["none", "pass"], ["none", "pass"], "ring weld only", "bulkhead weld"],
-  ["Field alignment step", ["none", "pass"], ["none", "pass"], ["none", "pass"], ["none", "pass"], ["none", "pass"], ["mandrel", "warn"], ["dial indicator", "warn"], ["dial indicator", "warn"]],
-  ["Bearing service from the front", ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes", "pass"], ["no", "fail"], ["no", "fail"]],
-  ["Bulkhead / ring 1 bending FoS", "1.51 † (with weight)", ["1.45 †", "warn"], "1.62", "1.62", "1.62", "1.63", "1.86*", "—"],
-  ["Anti-roll fins", ["4 × 20 × 70 × 990, FoS 2.17", "pass"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"]],
+  ["Welded parts in shell", "ring 1 (110, A572 Gr 42) + pipes welded both faces", "ring 1 (110)", "ring 1 (110)", "ring 1", "ring 1", "ring 1", "ring 1 + ring 2", "ring 1 + ring 2", ["bulkhead + motor plate", "fail"]],
+  ["Stationary parts ahead of bulkhead face", ["none", "pass"], ["none", "pass"], ["none", "pass"], ["40 + cover", "pass"], ["40 + cover", "pass"], ["218 + cover", "warn"], ["218 + cover", "warn"], ["30 + cover", "pass"], ["30 + cover", "pass"]],
+  ["Thrust joint", "tube land on split-flange lip", "tube land on split-flange lip", "metal + O-ring", "metal + O-ring", "metal + O-ring", "metal + O-ring", "metal + O-ring", ["fibre gasket", "warn"], "metal"],
+  ["Weld in thrust path", ["head gusset fillets 1.54 (LC3)", "pass"], ["head gusset fillets 1.76", "pass"], ["flange CJP 2.69, struts 2.31", "warn"], ["flange CJP 2.69, struts 2.31", "warn"], ["CJP, FoS 2.69", "warn"], ["none", "pass"], ["none", "pass"], "ring weld only", "bulkhead weld"],
+  ["Field alignment step", ["none", "pass"], ["none", "pass"], ["none", "pass"], ["none", "pass"], ["none", "pass"], ["none", "pass"], ["mandrel", "warn"], ["dial indicator", "warn"], ["dial indicator", "warn"]],
+  ["Bearing service from the front", ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes (drive out first)", "pass"], ["yes", "pass"], ["no", "fail"], ["no", "fail"]],
+  ["Bulkhead / ring 1 bending FoS", ["1.55 on yield, FEA wall ‡", "pass"], "1.51 † (with weight)", ["1.45 †", "warn"], "1.62", "1.62", "1.62", "1.63", "1.86*", "—"],
+  ["Anti-roll fins", ["4 × 20 × 70 × 990, FoS 2.17", "pass"], ["4 × 20 × 70 × 990, FoS 2.17", "pass"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"], ["none", "fail"]],
   ["sec", "Manufacture"],
-  ["Splines", ["none", "pass"], ["3 (head hub, shaft ×2)", "warn"], ["2 + adapter", "warn"], "—", "—", "—", "—", "—"],
-  ["Cartridge build", ["seamless tube + split flange, no weld", "pass"], ["plate flange + tube, CJP, machine after weld", "warn"], "flange + tube, CJP", "—", "—", "—", "—", "—"],
-  ["Head build", ["waterjet spider, tab-and-slot gussets", "pass"], ["arms + 8 compound-angle struts", "warn"], ["arms + 8 compound-angle struts", "warn"], "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)"],
-  ["Drilled passages through ring 1", ["0", "pass"], "1 (seal purge)", "—", "—", "—", "—", "—", "—"],
+  ["Splines", ["none", "pass"], ["none", "pass"], ["3 (head hub, shaft ×2)", "warn"], ["2 + adapter", "warn"], "—", "—", "—", "—", "—"],
+  ["Cartridge build", ["seamless tube + split flange, no weld", "pass"], ["seamless tube + split flange, no weld", "pass"], ["plate flange + tube, CJP, machine after weld", "warn"], "flange + tube, CJP", "—", "—", "—", "—", "—"],
+  ["Head build", ["waterjet spider, tab-and-slot gussets", "pass"], ["waterjet spider, tab-and-slot gussets", "pass"], ["arms + 8 compound-angle struts", "warn"], ["arms + 8 compound-angle struts", "warn"], "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)", "flat (Daniel)"],
+  ["Drilled passages through ring 1", ["0", "pass"], ["0", "pass"], "1 (seal purge)", "—", "—", "—", "—", "—", "—"],
   ["sec", "Size"],
-  ["Cartridge length", "615", "615", "440", "560", "560", "233", "396", "469"],
-  ["Bulkhead face from shield front", "128", "128", "345", "215", "393", "393", "205", "290"],
-  ["Drive rear face", ["x = 1225 (MS18)", "warn"], "x = 1093", "x = 918", "x = 1038", "x = 1038", "x = 1038", "x = 1063", "x = 1103"],
-  ["Overall, head front to drive rear", ["1,451 (MS18 + adapter)", "warn"], "1,319", "1,321", "≈ 1,278", "≈ 1,278", "≈ 1,278", "≈ 1,303", "≈ 1,343"],
-  ["Drive model", "MS18 + adapter + jaw coupling", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "HMB100 Ø502", "HMB100 Ø502"],
-  ["Pipes vs drive", ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["614 cm³ overlap", "fail"], ["319 cm³ overlap", "fail"]],
+  ["Cartridge length", "615", "615", "615", "440", "560", "560", "233", "396", "469"],
+  ["Bulkhead face from shield front", "128", "128", "128", "345", "215", "393", "393", "205", "290"],
+  ["Drive rear face", ["x = 1225 (MS18)", "warn"], ["x = 1225 (MS18)", "warn"], "x = 1093", "x = 918", "x = 1038", "x = 1038", "x = 1038", "x = 1063", "x = 1103"],
+  ["Overall, head front to drive rear", ["1,451 (MS18 + adapter)", "warn"], ["1,451 (MS18 + adapter)", "warn"], "1,319", "1,321", "≈ 1,278", "≈ 1,278", "≈ 1,278", "≈ 1,303", "≈ 1,343"],
+  ["Drive model", "MS18 + adapter + ROTEX 160, guards", "MS18 + adapter + jaw coupling", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "Ø400 envelope", "HMB100 Ø502", "HMB100 Ø502"],
+  ["Pipes vs drive", ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["clear", "pass"], ["614 cm³ overlap", "fail"], ["319 cm³ overlap", "fail"]],
+  ["sec", "Review (Rev I)"],
+  ["Load basis", "LC1-LC4 from F = 4 p A + side force", "590 kN + 62 kNm; 800 kN", "590 kN + 62 kNm; 800 kN", "590 kN + 62 kNm; 800 kN", "590 kN + 62 kNm; 800 kN", "590 kN + 62 kNm; 800 kN", "590 kN + 62 kNm; 800 kN", "590 kN + 62 kNm; 800 kN", "590 kN + 62 kNm; 800 kN"],
+  ["Ring 1 checked by", ["3D FEA (gmsh + scikit-fem)", "pass"], "stepped annular plate", "annular plate", "annular plate", "annular plate", "annular plate", "annular plate", "annular plate", "—"],
+  ["Thrust ring", ["Rev B: notches + register", "pass"], ["Rev A: covers pipe bores", "fail"], "—", "—", "—", "—", "—", "—", "—"],
+  ["Lifting points", ["4 bosses, HR-125M M20", "pass"], ["none", "fail"], "—", "—", "—", "—", "—", "—", "—"],
 ];
 
 // ---------- renderer ----------
@@ -483,7 +626,7 @@ function setKeys(keys) {
 
 function renderCompare() {
   document.getElementById("cmpBody").innerHTML = CMP.map(row => {
-    if (row[0] === "sec") return `<tr class="sec"><td colspan="9">${row[1]}</td></tr>`;
+    if (row[0] === "sec") return `<tr class="sec"><td colspan="10">${row[1]}</td></tr>`;
     const cells = row.slice(1).map(c => Array.isArray(c) ? `<td class="${c[1] ? "v-" + c[1] : ""}">${c[0]}</td>` : `<td>${c}</td>`).join("");
     return `<tr><td>${row[0]}</td>${cells}</tr>`;
   }).join("");
@@ -580,9 +723,10 @@ function caption(k) {
   document.getElementById("stepRange").value = k;
   const s = k > 0 ? A.steps[k - 1] : null;
   document.getElementById("stepPhase").textContent = s ? s.phase : "Assembly sequence";
-  document.getElementById("stepTitle").textContent = s ? `${k}. ${s.title}` : "Rev H, built in the shop orientation";
+  const phases = [...new Set(A.steps.map(st => st.phase.replace(/^\d+\s*·\s*/, "")))].map(t => t[0].toLowerCase() + t.slice(1));
+  document.getElementById("stepTitle").textContent = s ? `${k}. ${s.title}` : `Rev ${current}, built in the shop orientation`;
   document.getElementById("stepText").textContent = s ? s.text
-    : `${N} steps in 6 phases: shell weldment, cutterhead weldment, bearing module on the bench, module into the shell, cutterhead, drive. Press play or pick a step.`;
+    : `${N} steps in ${phases.length} phases: ${phases.join(", ")}. Press play or pick a step.`;
   document.querySelectorAll("#stepList .stepbtn").forEach(b => b.setAttribute("aria-current", +b.dataset.k === k ? "step" : "false"));
   const cur = document.querySelector(`#stepList .stepbtn[data-k="${k}"]`);
   if (cur) cur.scrollIntoView({ block: "nearest" });
@@ -728,16 +872,37 @@ function resize() {
 new ResizeObserver(resize).observe(canvas.parentElement);
 
 let current = null;
+const NOTE_CMP = "Rev I, rev H, rev G, rev F, spherical-dry and rev E share the bearings; rev B–D are earlier revisions. * rev C bending value ignores the pipe holes. † rev H and rev G ring 1 values use the stepped-plate model with the load at the seat contact centroid; rev G was previously reported as 1.73 with the load at R200. ‡ Rev I: FEA membrane + bending stress in the wall between the counterbore and the pipe holes at LC3, on yield (Fy 290); required 1.5.";
+const NOTE_FEA = "Rev I FEA: 3D finite-element models of ring 1 (with its front weld and the shell) and of thrust ring Rev B (with its saddle blocks), solved at LC2-LC4. LC2 613.1 kN is the 121 bar thrust cap, LC3 800.6 kN the 158 bar interlock (structural design case), LC4 901.4 kN the 2,580 psi pump relief. Mesh: gmsh, quadratic tetrahedra; solver: scikit-fem. Scripts src/fea_ring1.py and src/fea_thrust_ring.py; manual chapters 02 and 06.";
+
+// ---------- FEA page ----------
+const feaSel = { r1: "LC3", trc: "LC3", trs: "casing", seat: "uniformseat" };
+const feaImg = {
+  r1: side => `fea/ring1_${feaSel.r1}_facewelded_R245_cb384x30_p76.2x63.5_${side}.png`,
+  tr: side => `fea/tring_${feaSel.trc}_reg_${feaSel.trs}_${side}.png`,
+  sm: side => `fea/tring_LC3_none_casing${feaSel.seat === "uniformseat" ? "_uniformseat" : ""}_${side}.png`,
+};
+function feaDraw() {
+  const set = (id, src) => { const im = document.getElementById(id); if (im.getAttribute("src") !== src) im.src = src; };
+  set("r1front", feaImg.r1("front")); set("r1rear", feaImg.r1("rear"));
+  set("trfront", feaImg.tr("front")); set("trrear", feaImg.tr("rear"));
+  set("smfront", feaImg.sm("front")); set("smrear", feaImg.sm("rear"));
+  Object.keys(feaSel).forEach(k => document.querySelectorAll(`[data-${k}]`).forEach(b => b.setAttribute("aria-pressed", b.dataset[k] === feaSel[k])));
+}
+Object.keys(feaSel).forEach(k => document.querySelectorAll(`[data-${k}]`).forEach(b => b.addEventListener("click", () => { feaSel[k] = b.dataset[k]; feaDraw(); })));
+
+let view3d = true;
 function show(page) {
-  if (!PAGES[page] && page !== "compare") page = "revi";
+  if (!PAGES[page] && page !== "compare" && page !== "fea") page = "revi";
   document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.page === page ? "page" : "false"));
-  const isCmp = page === "compare";
-  document.getElementById("viewer").style.display = isCmp ? "none" : "";
+  const isCmp = page === "compare", isFea = page === "fea", is3d = !isCmp && !isFea;
+  view3d = is3d;
+  document.getElementById("viewer").style.display = is3d ? "" : "none";
   document.getElementById("compare").style.display = isCmp ? "block" : "none";
-  document.getElementById("summary").textContent = isCmp
-    ? "Rev H, rev G, rev F, spherical-dry and rev E share the bearings; rev B–D are earlier revisions. * rev C bending value ignores the pipe holes. † rev H and rev G ring 1 values use the stepped-plate model with the load at the seat contact centroid; rev G was previously reported as 1.73 with the load at R200."
-    : PAGES[page].summary;
-  if (!isCmp) {
+  document.getElementById("fea").style.display = isFea ? "grid" : "none";
+  document.getElementById("summary").textContent = isCmp ? NOTE_CMP : isFea ? NOTE_FEA : PAGES[page].summary;
+  if (isFea) { asm.playing = false; updPlay(); feaDraw(); }
+  if (is3d) {
     setKeys(PAGES[page].keys);
     const newMode = PAGES[page].mode || "model";
     const same = current === PAGES[page].data;
@@ -755,5 +920,6 @@ document.querySelectorAll("#tabs a").forEach(a => a.addEventListener("click", e 
 window.addEventListener("hashchange", () => show(location.hash.slice(1)));
 show(location.hash.slice(1) || "revi");
 resize();
-(function loop(now) { tickAsm(now || performance.now()); controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
+// the 3D view is not drawn while the Compare or FEA page covers it
+(function loop(now) { if (view3d) { tickAsm(now || performance.now()); controls.update(); renderer.render(scene, camera); } requestAnimationFrame(loop); })();
 </script>

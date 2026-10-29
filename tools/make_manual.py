@@ -962,7 +962,7 @@ Seat load model, Rev A ring at LC3 on the casing:
 
 {table(["Seat pressure", "Ring away (MPa)", "Block zone peak (MPa)", "Ring max (MPa)"], seat_cmp)}
 
-The uniform half-groove pressure ends abruptly at the groove edges and puts a false peak there (about 300 MPa at LC3); the cross tube in a slightly larger seat touches over a narrow arc around the seat bottom (Hertz half-width 5.8 mm at LC3, about ±10°), so the Hertz-like model is the realistic one.
+The uniform half-groove pressure ends abruptly at the groove edges and puts a false peak there (about 300 MPa at LC3); the cross tube in a slightly larger seat touches over a narrow arc around the seat bottom (Hertz half-width 5.6 mm at LC3 from row TR-6, about ±10°), so the Hertz-like model is the realistic one.
 
 Cross-check with the Rev A curved-grid hand model (`docs/thrust-ring.md`): 112.7 MPa at 800 kN on the casing (k = 3,800 N/mm per mm); FEA ring away from the saddles on the casing at LC3 ≈ {n(_tr3['vm_ring_away_from_block_and_pass'], 0) if _tr3 else '–'} MPa. The grid model is the more conservative of the two.
 

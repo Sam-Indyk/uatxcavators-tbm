@@ -1,5 +1,15 @@
 {
- "mechanical-priorities": "f75d0e69378e7393",
- "spindle-mount": "11038793e68d8ab9",
- "thrust-ring": "d4859013574771f8"
+ "manual-00-overview": "a7b6c5d1e8b72db6",
+ "manual-01-loads-criteria": "5368c99551794fb0",
+ "manual-02-shell-weldment": "bd15f0b279d35d1e",
+ "manual-03-bearing-module": "bf6a77ba37fb296e",
+ "manual-04-cutterhead": "14c4cda656de3352",
+ "manual-05-drive": "2ed7f82ed748557c",
+ "manual-06-thrust-ring": "5c16b217a039a407",
+ "manual-07-assembly-lifting": "1342e1cd86ac1c90",
+ "manual-08-review-open-items": "5af0a901759915c9",
+ "manual-09-bom": "3d60635326de8a54",
+ "mechanical-priorities": "b7d0bea4650622b3",
+ "spindle-mount": "8175446beeab3240",
+ "thrust-ring": "ca19874ad9d863e1"
 }

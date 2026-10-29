@@ -316,11 +316,14 @@ class Sync:
             self.apply_pending = False
             self.log(f"no manifest at {MANIFEST}")
             return
+        if not manual and _sha_file(man_path) == self.state.get("failed_manifest_sha"):
+            self.apply_pending = False                   # failed before on this manifest: wait for a new one or Sync now
+            return
         self.busy = True
         self.apply_pending = False
         prev = _app.activeDocument
         doc = None
-        opened = created = False
+        opened = created = failed = False
         bar = _ui.progressBar
         try:
             with open(man_path, encoding="utf-8") as f:
@@ -381,14 +384,20 @@ class Sync:
                 self.log(f"saved new version (save {'ok' if ok else 'FAILED'})")
             self.state.update(applied_manifest_sha=man_sha, last_apply=_now(), last_apply_commit=commit,
                               last_apply_summary=f"{len(todo)} imported, {len(gone)} removed, {np_} parameters")
+            self.state.pop("failed_manifest_sha", None)
             self._save_state()
             msg = f"applied manifest {commit}: {len(todo)} parts imported, {len(gone)} removed, {np_} parameters changed"
             self.log(msg)
             if manual:
                 _ui.messageBox("UATXSync\n\n" + msg)
         except Exception:
+            failed = True
             tb = traceback.format_exc()
             self.state["last_error"] = f"{_now()} {tb.strip().splitlines()[-1]}"
+            try:
+                self.state["failed_manifest_sha"] = _sha_file(man_path)
+            except OSError:
+                pass
             self._save_state()
             self.log("apply failed:\n" + tb)
             if manual:
@@ -397,7 +406,9 @@ class Sync:
             bar.hide()
             self.busy = False
             try:
-                if doc and opened and not created and not doc.isModified:
+                if doc and created and failed:
+                    doc.close(False)                     # discard a half-built new reference design
+                elif doc and opened and not created and not doc.isModified:
                     doc.close(False)
                 if prev and prev.isValid:
                     prev.activate()
@@ -411,7 +422,7 @@ class Sync:
             opts.isViewFit = False
         except Exception:
             pass
-        before = {o.entityToken for o in _items(target.occurrences)}
+        before = {o.name for o in _items(target.occurrences)}           # names are unique within a component
         res = None
         try:
             res = im.importToTarget2(opts, target)
@@ -419,7 +430,7 @@ class Sync:
             im.importToTarget(opts, target)
         if res is not None and res.count:
             return adsk.fusion.Occurrence.cast(res.item(0))
-        new = [o for o in _items(target.occurrences) if o.entityToken not in before]
+        new = [o for o in _items(target.occurrences) if o.name not in before]
         if not new:
             raise RuntimeError(f"STEP import produced no occurrence: {path}")
         return new[0]
